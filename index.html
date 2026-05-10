@@ -1,1251 +1,377 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="it" id="html-root">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TelavendeLele — Consulente Dedicato</title>
-<meta name="description" content="TelavendeLele — Trasformiamo il tuo usato in un vero affare. Consulente dedicato, solo su appuntamento. Professionalità, trasparenza e prezzi onesti.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<meta name="description" content="TelavendeLele — Il primo salone virtuale sul Lago di Como. Auto, moto e barche di qualità. Gabriele Agliati, consulente dedicato.">
+<title id="page-title">TelavendeLele — Non solo Auto | Lago di Como</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --nero: #080808;
-    --nero-card: #111111;
-    --nero-mid: #181818;
-    --oro: #C9A84C;
-    --oro-chiaro: #E2C97E;
-    --oro-scuro: #8B6914;
-    --bianco: #F5F0E8;
-    --grigio: #9A9A9A;
-    --grigio-chiaro: #C8C8C8;
-    --rosso: #B83232;
+    --oro: #B8963E;
+    --oro-chiaro: #d4af5a;
+    --nero: #0D0D0D;
+    --grigio-scuro: #1A1A1A;
+    --grigio-medio: #2C2C2C;
+    --grigio-chiaro: #888;
+    --crema: #F5EDD8;
     --wa: #25D366;
-    --ig: #E1306C;
+    --ig: #e1306c;
     --fb: #1877F2;
-    --radius: 4px;
-    --transition: 0.38s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { background:var(--nero); color:var(--crema); font-family:'Montserrat',sans-serif; font-weight:300; overflow-x:hidden; }
 
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--nero);
-    color: var(--bianco);
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 300;
-    line-height: 1.7;
-    overflow-x: hidden;
-    cursor: default;
-  }
-
-  /* ─── SCROLLBAR ─── */
-  ::-webkit-scrollbar { width: 4px; }
-  ::-webkit-scrollbar-track { background: var(--nero); }
-  ::-webkit-scrollbar-thumb { background: var(--oro-scuro); }
-
-  /* ─── NOISE TEXTURE OVERLAY ─── */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.4;
-  }
-
-  /* ─── TYPOGRAPHY ─── */
-  h1, h2, h3, .serif {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 300;
-    letter-spacing: 0.02em;
-  }
-
-  /* ─── GOLD LINE DIVIDER ─── */
-  .gold-line {
-    display: block;
-    width: 48px;
-    height: 1px;
-    background: var(--oro);
-    margin: 1rem 0;
-  }
-
-  .gold-line.center { margin: 1rem auto; }
-
-  /* ─── NAV ─── */
+  /* ── NAV ─────────────────────────────────────────────────── */
   nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 100;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1.2rem 3rem;
-    background: rgba(8,8,8,0.92);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(201,168,76,0.12);
-    transition: padding var(--transition);
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    display:flex; align-items:center; justify-content:space-between; gap:1rem;
+    padding:0.8rem 2rem;
+    background:rgba(13,13,13,0.96); backdrop-filter:blur(14px);
+    border-bottom:1px solid rgba(184,150,62,0.2); flex-wrap:wrap;
   }
+  .nav-logo img { height:44px; width:auto; object-fit:contain; }
+  nav ul { list-style:none; display:flex; gap:1.8rem; align-items:center; }
+  nav a { text-decoration:none; color:var(--grigio-chiaro); font-size:0.65rem; letter-spacing:0.18em; text-transform:uppercase; transition:color 0.3s; }
+  nav a:hover { color:var(--crema); }
+  .nav-right { display:flex; align-items:center; gap:0.7rem; }
+  .nav-icon { display:flex; align-items:center; justify-content:center; width:30px; height:30px; border-radius:6px; background:var(--grigio-medio); transition:background 0.3s, transform 0.2s; }
+  .nav-icon:hover { transform:translateY(-2px); }
+  .nav-icon svg { width:14px; height:14px; fill:#fff; }
+  .nav-icon.wa:hover { background:var(--wa); }
+  .nav-icon.ig:hover { background:var(--ig); }
+  .nav-icon.fb:hover { background:var(--fb); }
+  .lang-btn {
+    background:transparent; border:1px solid rgba(184,150,62,0.35);
+    color:var(--oro); font-family:'Montserrat',sans-serif; font-size:0.65rem;
+    letter-spacing:0.2em; text-transform:uppercase; padding:0.38rem 0.8rem;
+    cursor:pointer; transition:all 0.3s; border-radius:3px;
+  }
+  .lang-btn:hover { background:rgba(184,150,62,0.1); border-color:var(--oro); }
 
-  .nav-logo {
-    display: flex;
-    align-items: center;
-    gap: 0.7rem;
-    text-decoration: none;
-    color: var(--oro);
-  }
-
-  .nav-logo svg {
-    width: 38px;
-    height: 20px;
-    fill: none;
-    stroke: var(--oro);
-    stroke-width: 1.5;
-  }
-
-  .nav-logo-text {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.15rem;
-    font-weight: 400;
-    letter-spacing: 0.12em;
-    color: var(--oro);
-  }
-
-  .nav-links {
-    display: flex;
-    align-items: center;
-    gap: 2.5rem;
-    list-style: none;
-  }
-
-  .nav-links a {
-    font-size: 0.62rem;
-    font-weight: 500;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--grigio-chiaro);
-    text-decoration: none;
-    transition: color var(--transition);
-    position: relative;
-  }
-
-  .nav-links a::after {
-    content: '';
-    position: absolute;
-    bottom: -4px;
-    left: 0;
-    width: 0;
-    height: 1px;
-    background: var(--oro);
-    transition: width var(--transition);
-  }
-
-  .nav-links a:hover { color: var(--oro); }
-  .nav-links a:hover::after { width: 100%; }
-
-  .nav-icons {
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
-  }
-
-  .nav-icon {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    font-size: 0.75rem;
-    transition: transform var(--transition), box-shadow var(--transition);
-    border: 1px solid rgba(255,255,255,0.1);
-  }
-
-  .nav-icon:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.4); }
-  .nav-icon.wa { background: rgba(37,211,102,0.12); color: var(--wa); border-color: rgba(37,211,102,0.25); }
-  .nav-icon.ig { background: rgba(225,48,108,0.12); color: var(--ig); border-color: rgba(225,48,108,0.25); }
-  .nav-icon.fb { background: rgba(24,119,242,0.12); color: var(--fb); border-color: rgba(24,119,242,0.25); }
-
-  /* ─── HAMBURGER (mobile) ─── */
-  .hamburger {
-    display: none;
-    flex-direction: column;
-    gap: 5px;
-    cursor: pointer;
-    padding: 4px;
-    background: none;
-    border: none;
-  }
-
-  .hamburger span {
-    display: block;
-    width: 22px;
-    height: 1.5px;
-    background: var(--oro);
-    transition: var(--transition);
-  }
-
-  /* ─── AGENT BUTTON ─── */
-  .btn-agent {
-    background: transparent;
-    color: var(--oro);
-    border: 1px solid rgba(201,168,76,0.5);
-  }
-  .btn-agent:hover {
-    background: rgba(201,168,76,0.08);
-    border-color: var(--oro);
-    color: var(--oro-chiaro);
-  }
-  .agent-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    font-size: 0.56rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--oro);
-    border: 1px solid rgba(201,168,76,0.25);
-    padding: 0.25rem 0.65rem;
-    border-radius: 20px;
-    margin-bottom: 0.8rem;
-    animation: fadeUp 0.9s 0.1s both;
-  }
-  .agent-badge::before {
-    content: '';
-    width: 5px; height: 5px;
-    border-radius: 50%;
-    background: var(--oro);
-    animation: blink-oro 2s infinite;
-  }
-  @keyframes blink-oro { 0%,100%{opacity:1} 50%{opacity:.2} }
-
-  /* ─── FLOATING WA BUTTON ─── */
+  /* ── FLOATING WA ─────────────────────────────────────────── */
   .wa-float {
-    position: fixed;
-    bottom: 1.8rem;
-    right: 1.8rem;
-    z-index: 99;
-    width: 52px;
-    height: 52px;
-    border-radius: 50%;
-    background: var(--wa);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 8px 32px rgba(37,211,102,0.4);
-    text-decoration: none;
-    animation: pulse-wa 2.5s infinite;
-    transition: transform var(--transition);
+    position:fixed; bottom:2rem; right:2rem; z-index:200;
+    width:58px; height:58px; border-radius:50%;
+    background:var(--wa); display:flex; align-items:center; justify-content:center;
+    text-decoration:none; animation:waPulse 2.8s infinite; transition:transform 0.25s;
+  }
+  .wa-float:hover { transform:scale(1.1); }
+  .wa-float svg { width:29px; height:29px; fill:#fff; }
+  @keyframes waPulse {
+    0%,100%{ box-shadow:0 4px 20px rgba(37,211,102,0.4); }
+    50%     { box-shadow:0 4px 32px rgba(37,211,102,0.75); }
   }
 
-  .wa-float:hover { transform: scale(1.08); }
-  .wa-float svg { width: 26px; height: 26px; fill: white; }
-
-  @keyframes pulse-wa {
-    0%, 100% { box-shadow: 0 8px 32px rgba(37,211,102,0.4); }
-    50% { box-shadow: 0 8px 48px rgba(37,211,102,0.7); }
+  /* ── HERO ────────────────────────────────────────────────── */
+  #hero {
+    min-height:100vh; display:flex; flex-direction:column;
+    align-items:center; justify-content:center; text-align:center;
+    padding:8rem 2rem 5rem; position:relative; overflow:hidden;
   }
-
-  /* ─── HERO ─── */
-  #home {
-    position: relative;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 8rem 2rem 4rem;
-    overflow: hidden;
-  }
-
   .hero-bg {
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(ellipse 80% 60% at 50% 40%, rgba(201,168,76,0.07) 0%, transparent 65%),
-      radial-gradient(ellipse 40% 30% at 20% 80%, rgba(201,168,76,0.04) 0%, transparent 60%);
+    position:absolute; inset:0;
+    background-image: url('https://www.telavendelele.it/wp-content/uploads/2024/10/dfc383c849005836d62107e4918c3d2ee94d1878.jpg');
+    background-size:cover; background-position:center;
+    filter:brightness(0.3);
   }
-
-  .hero-grid-lines {
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px);
-    background-size: 80px 80px;
-    mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 30%, transparent 80%);
+  .hero-bg::after {
+    content:''; position:absolute; inset:0;
+    background:radial-gradient(ellipse 70% 55% at 50% 40%, rgba(184,150,62,0.12), transparent 70%);
   }
+  .hero-content { position:relative; z-index:2; max-width:900px; }
+  .hero-logo-img { height:80px; width:auto; margin-bottom:2rem; opacity:0; animation:fadeDown 1s ease 0.3s forwards; }
+  .hero-pre { font-size:0.6rem; letter-spacing:0.45em; text-transform:uppercase; color:var(--oro); margin-bottom:1.2rem; opacity:0; animation:fadeUp 0.8s ease 0.6s forwards; }
+  .hero-h1 { font-family:'Cormorant Garamond',serif; font-size:clamp(2.8rem,7vw,6.5rem); font-weight:300; line-height:1.05; color:var(--crema); opacity:0; animation:fadeUp 0.9s ease 0.8s forwards; }
+  .hero-h1 em { font-style:italic; color:var(--oro); }
+  .hero-sub { font-size:0.85rem; color:rgba(245,237,216,0.75); margin-top:1.5rem; max-width:580px; margin-left:auto; margin-right:auto; line-height:1.9; opacity:0; animation:fadeUp 0.9s ease 1s forwards; }
+  .hero-cta { margin-top:2.8rem; display:flex; gap:1rem; flex-wrap:wrap; justify-content:center; opacity:0; animation:fadeUp 0.9s ease 1.2s forwards; }
+  .hero-badge { margin-top:2rem; font-size:0.6rem; letter-spacing:0.25em; text-transform:uppercase; color:rgba(184,150,62,0.7); opacity:0; animation:fadeUp 0.9s ease 1.4s forwards; }
 
-  .hero-content {
-    position: relative;
-    z-index: 2;
-    max-width: 820px;
+  /* ── BUTTONS ─────────────────────────────────────────────── */
+  .btn-oro {
+    display:inline-flex; align-items:center; gap:0.45rem;
+    padding:0.9rem 2.2rem; background:var(--oro); color:#0D0D0D;
+    text-decoration:none; font-size:0.66rem; letter-spacing:0.18em;
+    text-transform:uppercase; font-weight:600; border:none; cursor:pointer;
+    transition:background 0.3s, transform 0.2s;
   }
-
-  .hero-eyebrow {
-    font-size: 0.58rem;
-    letter-spacing: 0.35em;
-    text-transform: uppercase;
-    color: var(--oro);
-    opacity: 0;
-    animation: fadeUp 0.9s 0.2s forwards;
+  .btn-oro:hover { background:var(--oro-chiaro); transform:translateY(-2px); }
+  .btn-wa-btn {
+    display:inline-flex; align-items:center; gap:0.45rem;
+    padding:0.9rem 2.2rem; background:var(--wa); color:#fff;
+    text-decoration:none; font-size:0.66rem; letter-spacing:0.18em;
+    text-transform:uppercase; font-weight:600; border:none; cursor:pointer;
+    transition:background 0.3s, transform 0.2s;
   }
-
-  .hero-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(3.2rem, 8vw, 7rem);
-    font-weight: 300;
-    line-height: 1.02;
-    color: var(--bianco);
-    margin: 1rem 0 0.5rem;
-    opacity: 0;
-    animation: fadeUp 0.9s 0.4s forwards;
-  }
-
-  .hero-title em {
-    font-style: italic;
-    color: var(--oro);
-  }
-
-  .hero-sub {
-    font-size: clamp(0.6rem, 1.5vw, 0.72rem);
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--grigio);
-    margin: 1.5rem 0 0;
-    opacity: 0;
-    animation: fadeUp 0.9s 0.6s forwards;
-  }
-
-  .hero-tagline {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(1.1rem, 3vw, 1.7rem);
-    font-weight: 300;
-    font-style: italic;
-    color: var(--grigio-chiaro);
-    margin: 2rem 0 2.5rem;
-    opacity: 0;
-    animation: fadeUp 0.9s 0.8s forwards;
-  }
-
-  .hero-buttons {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    flex-wrap: wrap;
-    opacity: 0;
-    animation: fadeUp 0.9s 1s forwards;
-  }
-
-  .hero-car-line {
-    position: absolute;
-    bottom: 3rem;
-    left: 50%;
-    transform: translateX(-50%);
-    opacity: 0;
-    animation: fadeUp 1s 1.4s forwards;
-  }
-
-  .hero-car-line svg {
-    width: 120px;
-    opacity: 0.18;
-    fill: none;
-    stroke: var(--oro);
-    stroke-width: 1;
-  }
-
-  /* ─── BUTTONS ─── */
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.85rem 2rem;
-    font-size: 0.6rem;
-    font-weight: 600;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    text-decoration: none;
-    border-radius: var(--radius);
-    cursor: pointer;
-    transition: all var(--transition);
-    border: none;
-  }
-
-  .btn-gold {
-    background: var(--oro);
-    color: var(--nero);
-  }
-
-  .btn-gold:hover {
-    background: var(--oro-chiaro);
-    box-shadow: 0 8px 32px rgba(201,168,76,0.35);
-    transform: translateY(-2px);
-  }
-
+  .btn-wa-btn:hover { background:#1ebe57; transform:translateY(-2px); }
+  .btn-wa-btn svg, .btn-oro svg { width:14px; height:14px; fill:currentColor; }
   .btn-outline {
-    background: transparent;
-    color: var(--oro);
-    border: 1px solid rgba(201,168,76,0.4);
-  }
-
-  .btn-outline:hover {
-    background: rgba(201,168,76,0.08);
-    border-color: var(--oro);
-    transform: translateY(-2px);
-  }
-
-  .btn-wa {
-    background: rgba(37,211,102,0.12);
-    color: var(--wa);
-    border: 1px solid rgba(37,211,102,0.3);
-  }
-
-  .btn-wa:hover {
-    background: rgba(37,211,102,0.2);
-    box-shadow: 0 6px 24px rgba(37,211,102,0.2);
-    transform: translateY(-2px);
-  }
-
-  .btn-wa-solid {
-    background: var(--wa);
-    color: white;
-  }
-
-  .btn-wa-solid:hover {
-    background: #20bd5a;
-    box-shadow: 0 8px 32px rgba(37,211,102,0.4);
-    transform: translateY(-2px);
-  }
-
-  /* ─── SECTIONS ─── */
-  section {
-    position: relative;
-    z-index: 1;
-  }
-
-  .section-inner {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 6rem 2rem;
-  }
-
-  .section-label {
-    font-size: 0.56rem;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--oro);
-    margin-bottom: 0.6rem;
-  }
-
-  .section-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(2.2rem, 5vw, 3.8rem);
-    font-weight: 300;
-    line-height: 1.1;
-    margin-bottom: 1rem;
-  }
-
-  .section-desc {
-    font-size: 0.78rem;
-    color: var(--grigio-chiaro);
-    max-width: 560px;
-    line-height: 1.9;
-  }
-
-  /* ─── CHI SIAMO ─── */
-  #chi-siamo { background: var(--nero-mid); }
-
-  .chi-layout {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 5rem;
-    align-items: center;
-  }
-
-  .chi-quote {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(1.3rem, 2.5vw, 1.9rem);
-    font-style: italic;
-    font-weight: 300;
-    color: var(--oro);
-    line-height: 1.5;
-    border-left: 1px solid var(--oro);
-    padding-left: 1.8rem;
-    margin: 2rem 0;
-  }
-
-  .stats-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
-    margin-top: 3rem;
-  }
-
-  .stat-box {
-    background: var(--nero-card);
-    border: 1px solid rgba(201,168,76,0.12);
-    padding: 1.5rem;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-    transition: border-color var(--transition);
-  }
-
-  .stat-box::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--oro), transparent);
-    opacity: 0;
-    transition: opacity var(--transition);
-  }
-
-  .stat-box:hover { border-color: rgba(201,168,76,0.4); }
-  .stat-box:hover::before { opacity: 1; }
-
-  .stat-num {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 2.8rem;
-    font-weight: 300;
-    color: var(--oro);
-    line-height: 1;
-  }
-
-  .stat-label {
-    font-size: 0.6rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--grigio);
-    margin-top: 0.4rem;
-  }
-
-  .chi-right {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-
-  .feature-item {
-    display: flex;
-    gap: 1.2rem;
-    align-items: flex-start;
-  }
-
-  .feature-icon {
-    width: 40px;
-    height: 40px;
-    min-width: 40px;
-    background: rgba(201,168,76,0.08);
-    border: 1px solid rgba(201,168,76,0.2);
-    border-radius: 2px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1rem;
-  }
-
-  .feature-text h4 {
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--bianco);
-    margin-bottom: 0.3rem;
-  }
-
-  .feature-text p {
-    font-size: 0.72rem;
-    color: var(--grigio);
-    line-height: 1.7;
-  }
-
-  /* ─── VETRINA ─── */
-  #vetrina { background: var(--nero); }
-
-  .vetrina-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    margin-bottom: 3rem;
-    flex-wrap: wrap;
-    gap: 1.5rem;
-  }
-
-  .cars-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-  }
-
-  .car-card {
-    background: var(--nero-card);
-    border: 1px solid rgba(201,168,76,0.1);
-    border-radius: var(--radius);
-    overflow: hidden;
-    transition: all var(--transition);
-    position: relative;
-  }
-
-  .car-card:hover {
-    border-color: rgba(201,168,76,0.35);
-    transform: translateY(-6px);
-    box-shadow: 0 20px 60px rgba(0,0,0,0.6);
-  }
-
-  .car-badge {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    z-index: 2;
-    font-size: 0.52rem;
-    font-weight: 600;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    padding: 0.35rem 0.8rem;
-    border-radius: 2px;
-  }
-
-  .badge-green { background: rgba(37,211,102,0.15); color: var(--wa); border: 1px solid rgba(37,211,102,0.3); }
-  .badge-red { background: rgba(184,50,50,0.15); color: #E05252; border: 1px solid rgba(184,50,50,0.3); }
-  .badge-gold { background: rgba(201,168,76,0.15); color: var(--oro); border: 1px solid rgba(201,168,76,0.3); }
-
-  .car-img {
-    height: 180px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, rgba(201,168,76,0.05) 0%, rgba(8,8,8,0) 60%);
-    border-bottom: 1px solid rgba(201,168,76,0.08);
-    font-size: 4rem;
-    color: var(--grigio);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .car-img::after {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    height: 40px;
-    background: linear-gradient(transparent, var(--nero-card));
-  }
-
-  .car-body { padding: 1.5rem; }
-
-  .car-brand {
-    font-size: 0.56rem;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--oro);
-    font-weight: 500;
-  }
-
-  .car-name {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.5rem;
-    font-weight: 300;
-    color: var(--bianco);
-    line-height: 1.2;
-    margin: 0.3rem 0 0.8rem;
-  }
-
-  .car-specs {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-bottom: 1rem;
-  }
-
-  .car-spec {
-    font-size: 0.58rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--grigio);
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.07);
-    padding: 0.3rem 0.6rem;
-    border-radius: 2px;
-  }
-
-  .car-price-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 1.2rem;
-    padding-top: 1rem;
-    border-top: 1px solid rgba(201,168,76,0.1);
-  }
-
-  .car-price-old {
-    font-size: 0.75rem;
-    color: var(--grigio);
-    text-decoration: line-through;
-    margin-bottom: 0.1rem;
-  }
-
-  .car-price-new {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.8rem;
-    font-weight: 300;
-    color: var(--oro);
-  }
-
-  .car-cta {
-    display: flex;
-    gap: 0.6rem;
-    margin-top: 1rem;
-  }
-
-  .car-cta a {
-    flex: 1;
-    text-align: center;
-    padding: 0.7rem 0.5rem;
-    font-size: 0.56rem;
-    letter-spacing: 0.12em;
-    font-weight: 600;
-    text-transform: uppercase;
-    text-decoration: none;
-    border-radius: var(--radius);
-    transition: all var(--transition);
-  }
-
-  .cta-wa {
-    background: rgba(37,211,102,0.12);
-    color: var(--wa);
-    border: 1px solid rgba(37,211,102,0.25);
-  }
-
-  .cta-wa:hover { background: rgba(37,211,102,0.22); box-shadow: 0 4px 16px rgba(37,211,102,0.2); }
-
-  /* ─── RICHIEDI VEICOLO ─── */
-  #richiedi { background: var(--nero-mid); }
-
-  .richiedi-layout {
-    display: grid;
-    grid-template-columns: 1fr 1.6fr;
-    gap: 5rem;
-    align-items: start;
-  }
-
-  .contact-info { display: flex; flex-direction: column; gap: 1.2rem; margin-top: 2rem; }
-
-  .contact-item {
-    display: flex;
-    gap: 1rem;
-    align-items: flex-start;
-  }
-
-  .contact-icon {
-    width: 36px;
-    height: 36px;
-    min-width: 36px;
-    background: rgba(201,168,76,0.08);
-    border: 1px solid rgba(201,168,76,0.18);
-    border-radius: 2px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.9rem;
-  }
-
-  .contact-text { display: flex; flex-direction: column; }
-  .contact-label { font-size: 0.56rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--grigio); margin-bottom: 0.2rem; }
-  .contact-value { font-size: 0.8rem; color: var(--bianco); }
-  .contact-value a { color: var(--oro); text-decoration: none; }
-  .contact-value a:hover { text-decoration: underline; }
-
-  .social-pills {
-    display: flex;
-    gap: 0.8rem;
-    flex-wrap: wrap;
-    margin-top: 2rem;
-  }
-
-  .social-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.6rem 1.2rem;
-    font-size: 0.6rem;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    text-decoration: none;
-    border-radius: 2px;
-    transition: all var(--transition);
-  }
-
-  .pill-wa { background: rgba(37,211,102,0.1); color: var(--wa); border: 1px solid rgba(37,211,102,0.2); }
-  .pill-wa:hover { background: rgba(37,211,102,0.2); }
-  .pill-ig { background: rgba(225,48,108,0.1); color: var(--ig); border: 1px solid rgba(225,48,108,0.2); }
-  .pill-ig:hover { background: rgba(225,48,108,0.2); }
-  .pill-fb { background: rgba(24,119,242,0.1); color: var(--fb); border: 1px solid rgba(24,119,242,0.2); }
-  .pill-fb:hover { background: rgba(24,119,242,0.2); }
-
-  /* ─── FORM ─── */
-  .form-card {
-    background: var(--nero-card);
-    border: 1px solid rgba(201,168,76,0.12);
-    border-radius: var(--radius);
-    padding: 2.5rem;
-  }
-
-  .form-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.4rem;
-    font-weight: 300;
-    color: var(--bianco);
-    margin-bottom: 1.5rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid rgba(201,168,76,0.12);
-  }
-
-  .form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-  }
-
-  .form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-    margin-bottom: 1rem;
-  }
-
-  .form-group.full { grid-column: 1 / -1; }
-
-  label {
-    font-size: 0.6rem;
-    font-weight: 500;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--grigio);
-  }
-
-  input, select, textarea {
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(201,168,76,0.15);
-    border-radius: var(--radius);
-    padding: 0.75rem 1rem;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 0.78rem;
-    font-weight: 300;
-    color: var(--bianco);
-    outline: none;
-    transition: border-color var(--transition), box-shadow var(--transition);
-    width: 100%;
-    appearance: none;
-    -webkit-appearance: none;
-  }
-
-  select {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23C9A84C' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 1rem center;
-    padding-right: 2.5rem;
-    cursor: pointer;
-  }
-
-  select option { background: #1a1a1a; color: var(--bianco); }
-
-  input:focus, select:focus, textarea:focus {
-    border-color: rgba(201,168,76,0.5);
-    box-shadow: 0 0 0 3px rgba(201,168,76,0.06);
-  }
-
-  input::placeholder, textarea::placeholder { color: rgba(255,255,255,0.2); font-size: 0.73rem; }
-
-  textarea { resize: vertical; min-height: 100px; line-height: 1.6; }
-
-  .gdpr-row {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.75rem;
-    margin: 1rem 0;
-  }
-
-  .gdpr-row input[type="checkbox"] {
-    width: 16px;
-    height: 16px;
-    min-width: 16px;
-    margin-top: 2px;
-    cursor: pointer;
-    accent-color: var(--oro);
-  }
-
-  .gdpr-row label {
-    font-size: 0.6rem;
-    letter-spacing: 0.08em;
-    text-transform: none;
-    color: var(--grigio);
-    cursor: pointer;
-    line-height: 1.6;
-  }
-
-  .btn-submit {
-    width: 100%;
-    background: var(--oro);
-    color: var(--nero);
-    padding: 1rem;
-    font-size: 0.62rem;
-    font-weight: 700;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    border: none;
-    border-radius: var(--radius);
-    cursor: pointer;
-    transition: all var(--transition);
-    font-family: 'Montserrat', sans-serif;
-  }
-
-  .btn-submit:hover {
-    background: var(--oro-chiaro);
-    box-shadow: 0 8px 32px rgba(201,168,76,0.3);
-    transform: translateY(-1px);
-  }
-
-  .btn-submit.wa-btn {
-    background: var(--wa);
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.6rem;
-  }
-
-  .btn-submit.wa-btn:hover {
-    background: #20bd5a;
-    box-shadow: 0 8px 32px rgba(37,211,102,0.35);
-  }
-
-  .form-or {
-    text-align: center;
-    font-size: 0.58rem;
-    letter-spacing: 0.15em;
-    color: var(--grigio);
-    text-transform: uppercase;
-    margin: 0.8rem 0;
-    position: relative;
-  }
-
-  .form-or::before, .form-or::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    width: calc(50% - 1.5rem);
-    height: 1px;
-    background: rgba(201,168,76,0.12);
-  }
-
-  .form-or::before { left: 0; }
-  .form-or::after { right: 0; }
-
-  /* ─── VENDI ─── */
-  #vendi { background: var(--nero); }
-
-  /* ─── FOOTER ─── */
-  footer {
-    background: var(--nero-card);
-    border-top: 1px solid rgba(201,168,76,0.1);
-    padding: 3rem 2rem 2rem;
-    text-align: center;
-    position: relative;
-    z-index: 1;
-  }
-
-  .footer-logo {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.6rem;
-    font-weight: 300;
-    color: var(--oro);
-    letter-spacing: 0.08em;
-    margin-bottom: 0.3rem;
-  }
-
-  .footer-sub {
-    font-size: 0.56rem;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--grigio);
-    margin-bottom: 2rem;
-  }
-
-  .footer-links {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    flex-wrap: wrap;
-    margin-bottom: 2rem;
-  }
-
-  .footer-links a {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.6rem 1.4rem;
-    font-size: 0.6rem;
-    letter-spacing: 0.12em;
-    font-weight: 500;
-    text-transform: uppercase;
-    text-decoration: none;
-    border-radius: 2px;
-    transition: all var(--transition);
-    border: 1px solid;
-  }
-
-  .footer-links .fwa { color: var(--wa); border-color: rgba(37,211,102,0.2); background: rgba(37,211,102,0.05); }
-  .footer-links .fig { color: var(--ig); border-color: rgba(225,48,108,0.2); background: rgba(225,48,108,0.05); }
-  .footer-links .ffb { color: var(--fb); border-color: rgba(24,119,242,0.2); background: rgba(24,119,242,0.05); }
-  .footer-links a:hover { transform: translateY(-2px); }
-
-  .footer-copy {
-    font-size: 0.62rem;
-    color: var(--grigio);
-    line-height: 2;
-  }
-
-  .footer-copy a { color: var(--oro); text-decoration: none; }
-
-  /* ─── REVEAL ANIMATION ─── */
-  .reveal {
-    opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
-  }
-
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  @keyframes fadeUp {
-    to { opacity: 1; transform: translateY(0); }
-    from { opacity: 0; transform: translateY(28px); }
-  }
-
-  /* ─── MOBILE ─── */
-  @media (max-width: 900px) {
-    nav { padding: 1rem 1.5rem; }
-    .nav-links { display: none; }
-    .hamburger { display: flex; }
-
-    .chi-layout,
-    .richiedi-layout { grid-template-columns: 1fr; gap: 3rem; }
-
-    .cars-grid { grid-template-columns: 1fr; }
-
-    .form-row { grid-template-columns: 1fr; }
-
-    .stats-grid { grid-template-columns: 1fr 1fr; }
-
-    .section-inner { padding: 4rem 1.5rem; }
-  }
-
-  @media (max-width: 600px) {
-    .hero-buttons { flex-direction: column; align-items: center; }
-    .stats-grid { grid-template-columns: 1fr 1fr; }
-    .vetrina-header { flex-direction: column; align-items: flex-start; }
-    .footer-links { flex-direction: column; align-items: center; }
-    .social-pills { justify-content: center; }
+    display:inline-flex; align-items:center; gap:0.45rem;
+    padding:0.9rem 2.2rem; background:transparent; color:var(--crema);
+    text-decoration:none; font-size:0.66rem; letter-spacing:0.18em;
+    text-transform:uppercase; border:1px solid rgba(245,237,216,0.3); cursor:pointer;
+    transition:border-color 0.3s, transform 0.2s;
+  }
+  .btn-outline:hover { border-color:var(--crema); transform:translateY(-2px); }
+
+  /* ── SECTIONS ────────────────────────────────────────────── */
+  section { padding:6rem 2rem; }
+  .container { max-width:1200px; margin:0 auto; }
+  .sec-label { font-size:0.57rem; letter-spacing:0.4em; text-transform:uppercase; color:var(--oro); margin-bottom:0.8rem; }
+  .sec-title { font-family:'Cormorant Garamond',serif; font-size:clamp(2rem,4vw,3.2rem); font-weight:300; color:var(--crema); margin-bottom:1rem; }
+  .sec-desc { color:var(--grigio-chiaro); font-size:0.82rem; line-height:1.9; }
+
+  /* ── INTRO (Lago di Como) ─────────────────────────────────── */
+  #intro { background:var(--grigio-scuro); border-top:1px solid rgba(184,150,62,0.12); border-bottom:1px solid rgba(184,150,62,0.12); }
+  .intro-grid { display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:center; }
+  .intro-img { width:100%; height:420px; object-fit:cover; display:block; }
+  .intro-tagline { margin-top:1.5rem; padding:1.2rem 1.5rem; border-left:3px solid var(--oro); background:rgba(184,150,62,0.06); font-family:'Cormorant Garamond',serif; font-size:1.1rem; font-style:italic; color:var(--oro-chiaro); line-height:1.6; }
+  .intro-person { display:flex; align-items:center; gap:1rem; margin-top:2rem; }
+  .intro-avatar { width:62px; height:62px; border-radius:50%; object-fit:cover; border:2px solid var(--oro); }
+  .intro-person-name { font-family:'Cormorant Garamond',serif; font-size:1.1rem; color:var(--crema); }
+  .intro-person-role { font-size:0.58rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--oro); margin-top:0.2rem; }
+
+  /* ── VETRINA ─────────────────────────────────────────────── */
+  #vetrina { background:var(--nero); }
+  .vet-header { display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:1.5rem; margin-bottom:3.5rem; }
+  .cat-tabs { display:flex; gap:0.5rem; margin-bottom:2rem; flex-wrap:wrap; }
+  .cat-tab { padding:0.4rem 1.2rem; background:var(--grigio-medio); border:1px solid rgba(184,150,62,0.15); color:var(--grigio-chiaro); font-size:0.62rem; letter-spacing:0.18em; text-transform:uppercase; cursor:pointer; transition:all 0.3s; }
+  .cat-tab.active, .cat-tab:hover { background:var(--oro); color:#0D0D0D; border-color:var(--oro); }
+
+  .cars-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(340px,1fr)); gap:2px; }
+  .car-card { background:var(--grigio-scuro); overflow:hidden; position:relative; transition:transform 0.3s; }
+  .car-card:hover { transform:translateY(-5px); }
+  .car-card:hover .car-overlay { opacity:1; }
+  .car-img-wrap { width:100%; height:220px; position:relative; overflow:hidden; background:linear-gradient(135deg,#1c1c1c,#2a2a2a); display:flex; align-items:center; justify-content:center; }
+  .car-img-wrap img { width:100%; height:100%; object-fit:cover; }
+  .car-img-icon { font-size:5rem; }
+  .car-badge { position:absolute; top:1rem; left:1rem; font-size:0.57rem; letter-spacing:0.14em; text-transform:uppercase; padding:0.28rem 0.7rem; font-weight:600; }
+  .badge-ok    { background:var(--oro); color:#0D0D0D; }
+  .badge-red   { background:#C0002A; color:#fff; }
+  .badge-green { background:#2a7a4f; color:#fff; }
+  .car-overlay { position:absolute; inset:0; background:rgba(37,211,102,0.1); opacity:0; transition:opacity 0.3s; display:flex; align-items:center; justify-content:center; }
+  .car-overlay a { display:inline-flex; align-items:center; gap:0.4rem; background:var(--wa); color:#fff; text-decoration:none; font-size:0.62rem; letter-spacing:0.14em; text-transform:uppercase; font-weight:600; padding:0.75rem 1.5rem; }
+  .car-overlay a svg { width:13px; height:13px; fill:currentColor; }
+  .car-info { padding:1.5rem; border-top:1px solid rgba(255,255,255,0.04); }
+  .car-brand { font-size:0.56rem; letter-spacing:0.3em; text-transform:uppercase; color:var(--oro); margin-bottom:0.3rem; }
+  .car-name { font-family:'Cormorant Garamond',serif; font-size:1.35rem; color:var(--crema); margin-bottom:0.5rem; }
+  .car-specs { display:flex; gap:0.9rem; flex-wrap:wrap; margin-bottom:0.5rem; }
+  .car-spec { font-size:0.6rem; color:var(--grigio-chiaro); display:flex; align-items:center; gap:0.3rem; }
+  .car-spec::before { content:''; width:3px; height:3px; background:var(--oro); border-radius:50%; flex-shrink:0; }
+  .car-foot { display:flex; justify-content:space-between; align-items:flex-end; margin-top:1rem; padding-top:1rem; border-top:1px solid rgba(255,255,255,0.06); }
+  .car-price-old { font-size:0.68rem; color:var(--grigio-chiaro); text-decoration:line-through; display:block; }
+  .car-price { font-family:'Cormorant Garamond',serif; font-size:1.55rem; color:var(--crema); }
+  .car-price.saldo { color:var(--oro-chiaro); }
+  .car-wa-link { display:inline-flex; align-items:center; gap:0.4rem; padding:0.48rem 1rem; background:var(--wa); color:#fff; text-decoration:none; font-size:0.58rem; letter-spacing:0.12em; text-transform:uppercase; font-weight:600; transition:background 0.2s; }
+  .car-wa-link:hover { background:#1ebe57; }
+  .car-wa-link svg { width:12px; height:12px; fill:currentColor; }
+
+  /* ── GABRIELE / CHI SIAMO ────────────────────────────────── */
+  #chisiamo { background:var(--grigio-scuro); border-top:1px solid rgba(184,150,62,0.12); }
+  .chi-grid { display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:center; }
+  .chi-photo { width:100%; height:460px; object-fit:cover; object-position:top; display:block; }
+  .chi-stats { display:grid; grid-template-columns:1fr 1fr; gap:2rem; margin-top:2.5rem; }
+  .stat { border-left:2px solid var(--oro); padding-left:1.2rem; }
+  .stat-num { font-family:'Cormorant Garamond',serif; font-size:2.5rem; font-weight:300; color:var(--crema); line-height:1; }
+  .stat-lbl { font-size:0.6rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--grigio-chiaro); margin-top:0.4rem; }
+
+  /* ── PRENOTA ────────────────────────────────────────────── */
+  #prenota {
+    background:var(--nero);
+    background-image:url('https://www.telavendelele.it/wp-content/uploads/2024/10/753fbaa5294a5f323c8c38c12f28c34a6c6544a5.jpg');
+    background-size:cover; background-position:center; background-attachment:fixed;
+    position:relative;
+  }
+  #prenota::before { content:''; position:absolute; inset:0; background:rgba(13,13,13,0.88); }
+  #prenota .container { position:relative; z-index:2; text-align:center; }
+  #prenota .sec-title { font-size:clamp(2rem,5vw,3.8rem); }
+  #prenota .sec-desc { max-width:560px; margin:0 auto 2.5rem; }
+
+  /* ── FORM ────────────────────────────────────────────────── */
+  #ordine { background:var(--grigio-scuro); border-top:1px solid rgba(184,150,62,0.12); }
+  .form-wrap { display:grid; grid-template-columns:1fr 1.6fr; gap:5rem; align-items:start; }
+  .form-ci { margin-top:2rem; display:flex; flex-direction:column; gap:1.2rem; }
+  .ci-lbl { font-size:0.54rem; letter-spacing:0.3em; text-transform:uppercase; color:var(--oro); }
+  .ci-val { font-size:0.82rem; color:var(--crema); }
+  .ci-val a { color:var(--crema); text-decoration:none; }
+  .ci-val a:hover { color:var(--oro); }
+  .social-row { margin-top:2rem; display:flex; gap:0.7rem; flex-wrap:wrap; }
+  .spill { display:inline-flex; align-items:center; gap:0.4rem; padding:0.5rem 1rem; background:var(--grigio-medio); border:1px solid rgba(184,150,62,0.12); color:var(--grigio-chiaro); text-decoration:none; font-size:0.58rem; letter-spacing:0.12em; text-transform:uppercase; transition:all 0.3s; }
+  .spill svg { width:12px; height:12px; fill:currentColor; }
+  .spill.wa:hover { color:var(--wa); border-color:var(--wa); }
+  .spill.ig:hover { color:var(--ig); border-color:var(--ig); }
+  .spill.fb:hover { color:var(--fb); border-color:var(--fb); }
+  .fgrid { display:grid; grid-template-columns:1fr 1fr; gap:1px; background:rgba(255,255,255,0.04); }
+  .fg { background:var(--grigio-scuro); position:relative; }
+  .fg.full { grid-column:1/-1; }
+  .fg label { display:block; font-size:0.54rem; letter-spacing:0.25em; text-transform:uppercase; color:var(--oro); padding:1rem 1.2rem 0.3rem; }
+  .fg input, .fg select, .fg textarea { width:100%; background:transparent; border:none; color:var(--crema); font-family:'Montserrat',sans-serif; font-size:0.82rem; font-weight:300; padding:0.3rem 1.2rem 0.9rem; outline:none; resize:none; -webkit-appearance:none; appearance:none; }
+  .fg select { cursor:pointer; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' stroke-width='1.5' fill='none'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 1rem center; padding-right:2.5rem; }
+  .fg select option { background:var(--grigio-scuro); }
+  .fg textarea { min-height:110px; }
+  .fg::after { content:''; position:absolute; bottom:0; left:0; right:0; height:1px; background:rgba(255,255,255,0.05); transition:background 0.3s; }
+  .fg:focus-within::after { background:var(--oro); }
+  .fbot { margin-top:1px; background:rgba(255,255,255,0.03); padding:1.5rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; }
+  .fbot-note { font-size:0.62rem; color:var(--grigio-chiaro); line-height:1.6; max-width:360px; }
+  .fbot-note a { color:var(--wa); text-decoration:none; }
+  #form-ok { display:none; margin-top:1.5rem; padding:1rem 1.5rem; background:rgba(37,211,102,0.08); border-left:3px solid var(--wa); font-size:0.78rem; color:#aff0c8; }
+
+  /* ── FOOTER ──────────────────────────────────────────────── */
+  footer { background:#080808; border-top:1px solid rgba(184,150,62,0.15); padding:3rem 2rem; }
+  .foot { max-width:1200px; margin:0 auto; display:grid; grid-template-columns:auto 1fr auto; gap:2.5rem; align-items:center; }
+  .foot-logo img { height:40px; width:auto; }
+  .foot-links { display:flex; gap:0.7rem; flex-wrap:wrap; justify-content:center; }
+  .flink { display:inline-flex; align-items:center; gap:0.45rem; padding:0.5rem 1rem; background:var(--grigio-scuro); border:1px solid rgba(184,150,62,0.12); color:var(--grigio-chiaro); text-decoration:none; font-size:0.58rem; letter-spacing:0.12em; text-transform:uppercase; transition:all 0.3s; }
+  .flink svg { width:12px; height:12px; fill:currentColor; }
+  .flink.wa:hover { color:var(--wa); border-color:var(--wa); background:rgba(37,211,102,0.05); }
+  .flink.ig:hover { color:var(--ig); border-color:var(--ig); }
+  .flink.fb:hover { color:var(--fb); border-color:var(--fb); }
+  .foot-copy { font-size:0.6rem; color:var(--grigio-chiaro); text-align:right; line-height:1.8; }
+  .foot-copy a { color:var(--oro); text-decoration:none; }
+
+  /* ── ANIMATIONS ──────────────────────────────────────────── */
+  @keyframes fadeUp   { from{opacity:0;transform:translateY(22px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes fadeDown { from{opacity:0;transform:translateY(-16px)} to{opacity:1;transform:translateY(0)} }
+  .reveal { opacity:0; transform:translateY(22px); transition:opacity 0.65s ease, transform 0.65s ease; }
+  .reveal.visible { opacity:1; transform:translateY(0); }
+
+  /* ── RESPONSIVE ──────────────────────────────────────────── */
+  @media(max-width:900px){
+    nav { padding:0.8rem 1rem; }
+    nav ul { display:none; }
+    .intro-grid, .chi-grid, .form-wrap { grid-template-columns:1fr; gap:2.5rem; }
+    .fgrid { grid-template-columns:1fr; }
+    .fg.full { grid-column:1; }
+    .cars-grid { grid-template-columns:1fr; }
+    .hero-cta { flex-direction:column; align-items:center; }
+    .foot { grid-template-columns:1fr; text-align:center; }
+    .foot-copy { text-align:center; }
+    .foot-links { justify-content:center; }
+    .intro-img, .chi-photo { height:260px; }
   }
 </style>
 </head>
 <body>
 
-<!-- FLOATING WHATSAPP -->
-<a href="https://wa.me/393661178347" target="_blank" class="wa-float" title="Scrivici su WhatsApp">
-  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.134.558 4.133 1.533 5.866L.057 23.998l6.304-1.453A11.953 11.953 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.013-1.378l-.36-.213-3.735.861.895-3.638-.234-.374A9.797 9.797 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>
+<!-- SVG ICONS DEFS -->
+<svg style="display:none">
+  <symbol id="ico-wa" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></symbol>
+  <symbol id="ico-ig" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></symbol>
+  <symbol id="ico-fb" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></symbol>
+</svg>
+
+<!-- ════ FLOATING WA ════ -->
+<a href="https://wa.me/393661178347" target="_blank" class="wa-float" title="WhatsApp">
+  <svg><use href="#ico-wa"/></svg>
 </a>
 
-<!-- NAVIGATION -->
+<!-- ════ NAV ════ -->
 <nav>
-  <a href="#home" class="nav-logo">
-    <svg viewBox="0 0 60 28">
-      <ellipse cx="30" cy="18" rx="28" ry="8" stroke-width="1.5"/>
-      <path d="M6 18 Q14 6 30 6 Q46 6 54 18"/>
-      <circle cx="12" cy="20" r="4"/>
-      <circle cx="48" cy="20" r="4"/>
-    </svg>
-    <span class="nav-logo-text">TelavendeLele</span>
+  <a href="#hero" class="nav-logo">
+    <img src="https://www.telavendelele.it/wp-content/uploads/2024/10/logo-telavendelele-senza-faccia.jpg"
+         alt="TelavendeLele logo" onerror="this.style.display='none'">
   </a>
-
-  <ul class="nav-links">
-    <li><a href="#chi-siamo">Chi siamo</a></li>
-    <li><a href="#vetrina">Vetrina</a></li>
-    <li><a href="#richiedi">Richiedi auto</a></li>
-    <li><a href="#vendi">Vendi auto</a></li>
-    <li><a href="fahrzeug-agent.html" style="color:var(--oro);">🔍 Agente</a></li>
+  <ul>
+    <li><a href="#intro"    data-i18n="nav_intro">Chi siamo</a></li>
+    <li><a href="#vetrina"  data-i18n="nav_vet">Vetrina</a></li>
+    <li><a href="#chisiamo" data-i18n="nav_chi">Gabriele</a></li>
+    <li><a href="#ordine"   data-i18n="nav_ord">Richiedi</a></li>
   </ul>
-
-  <div class="nav-icons">
-    <a href="https://wa.me/393661178347" target="_blank" class="nav-icon wa" title="WhatsApp">📱</a>
-    <a href="https://www.instagram.com/telavendelelenonsoloauto" target="_blank" class="nav-icon ig" title="Instagram">📷</a>
-    <a href="https://www.facebook.com/Telavendelelelenonsoloauto" target="_blank" class="nav-icon fb" title="Facebook">f</a>
+  <div class="nav-right">
+    <a href="https://wa.me/393661178347"                                   target="_blank" class="nav-icon wa"><svg><use href="#ico-wa"/></svg></a>
+    <a href="https://www.instagram.com/telavendelelenonsoloauto"           target="_blank" class="nav-icon ig"><svg><use href="#ico-ig"/></svg></a>
+    <a href="https://www.facebook.com/Telavendelelelenonsoloauto"          target="_blank" class="nav-icon fb"><svg><use href="#ico-fb"/></svg></a>
+    <button class="lang-btn" id="lang-btn" onclick="toggleLang()">🇩🇪 DE</button>
   </div>
-
-  <button class="hamburger" aria-label="Menu" onclick="toggleMenu()">
-    <span></span><span></span><span></span>
-  </button>
 </nav>
 
-<!-- HERO -->
-<section id="home">
+<!-- ════ HERO ════ -->
+<section id="hero">
   <div class="hero-bg"></div>
-  <div class="hero-grid-lines"></div>
-
   <div class="hero-content">
-    <div class="agent-badge">🔍 Nuovo · Agente Ricerca Veicoli Attivo</div>
-    <p class="hero-eyebrow">Consulente Dedicato — Solo su Appuntamento</p>
-    <h1 class="hero-title">Tela<em>vende</em>Lele</h1>
-    <p class="hero-sub">Autoservice · Professionalità · Trasparenza · Prezzi Onesti</p>
-    <p class="hero-tagline">Trasformiamo il tuo usato in un vero affare 🚀</p>
-
-    <div class="hero-buttons">
-      <a href="#vetrina" class="btn btn-gold">Scopri i veicoli →</a>
-      <a href="https://wa.me/393661178347" target="_blank" class="btn btn-wa">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 0C5.373 0 0 5.373 0 12c0 2.134.558 4.133 1.533 5.866L.057 23.998l6.304-1.453A11.953 11.953 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>
-        Scrivici su WhatsApp
+    <img class="hero-logo-img"
+         src="https://www.telavendelele.it/wp-content/uploads/2024/10/logo-telavendelele-senza-faccia.jpg"
+         alt="TelavendeLele" onerror="this.style.display='none'">
+    <p class="hero-pre" data-i18n="hero_pre">Lago di Como — Auto · Moto · Barche</p>
+    <h1 class="hero-h1" data-i18n-html="hero_h1">Veicoli di<br><em>qualità ed eleganza</em></h1>
+    <p class="hero-sub" data-i18n="hero_sub">Benvenuto nel primo salone virtuale sul Lago di Como. Sfoglia le nostre proposte o contattaci per una consulenza personalizzata.</p>
+    <div class="hero-cta">
+      <a href="#vetrina" class="btn-oro" data-i18n="hero_btn1">Scopri i veicoli</a>
+      <a href="https://wa.me/393661178347" target="_blank" class="btn-wa-btn">
+        <svg><use href="#ico-wa"/></svg>
+        <span data-i18n="hero_btn2">Scrivici su WhatsApp</span>
       </a>
-      <a href="#vendi" class="btn btn-outline">Vendi la tua auto →</a>
-      <a href="fahrzeug-agent.html" class="btn btn-agent">🔍 Agente Ricerca →</a>
+      <a href="#ordine" class="btn-outline" data-i18n="hero_btn3">Richiedi un veicolo →</a>
     </div>
-  </div>
-
-  <div class="hero-car-line">
-    <svg viewBox="0 0 200 80">
-      <ellipse cx="100" cy="56" rx="90" ry="20"/>
-      <path d="M20 56 Q40 20 100 20 Q160 20 180 56"/>
-      <circle cx="40" cy="60" r="12"/>
-      <circle cx="160" cy="60" r="12"/>
-      <rect x="60" y="24" width="80" height="28" rx="6"/>
-    </svg>
+    <p class="hero-badge" data-i18n="hero_badge">Consulente dedicato — Gabriele Agliati</p>
   </div>
 </section>
 
-<!-- CHI SIAMO -->
-<section id="chi-siamo">
-  <div class="section-inner">
-    <div class="chi-layout">
-      <div>
-        <p class="section-label reveal">Chi siamo</p>
-        <h2 class="section-title reveal">Il tuo consulente<br>di fiducia.</h2>
-        <span class="gold-line reveal"></span>
-        <p class="section-desc reveal">
-          TelavendeLele è il servizio dedicato a chi vuole vendere o comprare un'auto in modo semplice,
-          sicuro e vantaggioso. Ogni veicolo viene seguito personalmente — dalla valutazione alla consegna.
-        </p>
-
-        <blockquote class="chi-quote reveal">
-          "Trasformiamo il tuo usato in un vero affare" 🚀
-        </blockquote>
-
-        <a href="https://wa.me/393661178347" target="_blank" class="btn btn-wa reveal" style="margin-top:0.5rem;">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 0C5.373 0 0 5.373 0 12c0 2.134.558 4.133 1.533 5.866L.057 23.998l6.304-1.453A11.953 11.953 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>
-          +39 366 117 8347
-        </a>
-
-        <div class="stats-grid" style="margin-top:2rem;">
-          <div class="stat-box reveal">
-            <div class="stat-num">1.8k</div>
-            <div class="stat-label">Follower Instagram</div>
-          </div>
-          <div class="stat-box reveal">
-            <div class="stat-num">100%</div>
-            <div class="stat-label">Veicoli verificati</div>
-          </div>
-          <div class="stat-box reveal">
-            <div class="stat-num">24h</div>
-            <div class="stat-label">Risposta WhatsApp</div>
-          </div>
-          <div class="stat-box reveal">
-            <div class="stat-num">3</div>
-            <div class="stat-label">Auto in vetrina</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="chi-right">
-        <div class="feature-item reveal">
-          <div class="feature-icon">🤝</div>
-          <div class="feature-text">
-            <h4>Consulente Dedicato</h4>
-            <p>Ogni cliente ha un referente personale. Nessuna burocrazia, nessuna sorpresa.</p>
-          </div>
-        </div>
-        <div class="feature-item reveal">
-          <div class="feature-icon">🔍</div>
-          <div class="feature-text">
-            <h4>Veicoli Verificati</h4>
-            <p>Ogni auto viene controllata nei minimi dettagli prima di essere proposta.</p>
-          </div>
-        </div>
-        <div class="feature-item reveal">
-          <div class="feature-icon">💰</div>
-          <div class="feature-text">
-            <h4>Prezzi Onesti</h4>
-            <p>Valutazioni trasparenti sia per chi vende che per chi acquista.</p>
-          </div>
-        </div>
-        <div class="feature-item reveal">
-          <div class="feature-icon">📅</div>
-          <div class="feature-text">
-            <h4>Solo su Appuntamento</h4>
-            <p>Attenzione totale, nessuna fila, nessuna attesa. Il tuo tempo vale.</p>
-          </div>
-        </div>
-        <div class="feature-item reveal">
-          <div class="feature-icon">🔄</div>
-          <div class="feature-text">
-            <h4>Permuta Possibile</h4>
-            <p>Hai un'auto da dare in permuta? Valutiamo insieme la soluzione migliore per te.</p>
-          </div>
+<!-- ════ INTRO ════ -->
+<section id="intro">
+  <div class="intro-grid container">
+    <div class="reveal">
+      <img class="intro-img"
+           src="https://www.telavendelele.it/wp-content/uploads/2024/10/96f511de6a8c5a2cb26af3b4833318dc636a4c15.jpg"
+           alt="TelavendeLele veicoli" loading="lazy">
+    </div>
+    <div class="reveal">
+      <p class="sec-label" data-i18n="intro_label">Il salone virtuale</p>
+      <h2 class="sec-title" data-i18n-html="intro_title">Primo salone virtuale<br>sul Lago di Como.</h2>
+      <p class="sec-desc" data-i18n="intro_desc">Offriamo una selezione unica di auto, barche e moto con un servizio clienti eccellente e una consulenza personalizzata per massimizzare il valore della tua vendita. Che tu voglia vendere o acquistare, TelavendeLele è il posto giusto per te.</p>
+      <div class="intro-tagline" data-i18n="intro_tagline">"Trasformiamo il tuo usato in un vero affare!" 🚀</div>
+      <div class="intro-person">
+        <img class="intro-avatar"
+             src="https://www.telavendelele.it/wp-content/uploads/2024/10/d647330431a0cde0d4c7d6b2289373803559aae6.jpg"
+             alt="Gabriele Agliati" loading="lazy">
+        <div>
+          <div class="intro-person-name">Gabriele Agliati</div>
+          <div class="intro-person-role" data-i18n="intro_role">Consulente</div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- VETRINA -->
+<!-- ════ VETRINA ════ -->
 <section id="vetrina">
-  <div class="section-inner">
-    <div class="vetrina-header">
+  <div class="container">
+    <div class="vet-header reveal">
       <div>
-        <p class="section-label reveal">Vetrina veicoli</p>
-        <h2 class="section-title reveal">In vendita ora.</h2>
+        <p class="sec-label" data-i18n="vet_label">Vetrina veicoli</p>
+        <h2 class="sec-title" data-i18n="vet_title">In vendita ora.</h2>
       </div>
-      <a href="https://www.autoscout24.it" target="_blank" class="btn btn-outline reveal">Tutti i veicoli su AutoScout24 →</a>
+      <a href="https://www.autoscout24.it" target="_blank" class="btn-outline" data-i18n="vet_as24">Tutti i veicoli su AutoScout24 →</a>
     </div>
 
     <div class="cars-grid">
-
       <!-- ALFA ROMEO STELVIO -->
       <div class="car-card reveal">
-        <span class="car-badge badge-green">🚙 Disponibile</span>
-        <div class="car-img">🏎️</div>
-        <div class="car-body">
+        <div class="car-img-wrap">
+          <img src="https://www.telavendelele.it/wp-content/uploads/2024/10/dfc383c849005836d62107e4918c3d2ee94d1878.jpg"
+               alt="Alfa Stelvio" loading="lazy" onerror="this.style.display='none'">
+          <div class="car-badge badge-ok" data-i18n="badge_ok">Disponibile</div>
+          <div class="car-overlay">
+            <a href="https://wa.me/393661178347?text=Ciao%20Lele!%20Sono%20interessato%20all'Alfa%20Stelvio%20Executive%202.2%20Q4%20%E2%82%AC19.000." target="_blank">
+              <svg><use href="#ico-wa"/></svg>
+              <span data-i18n="overlay_wa">Chiedi su WhatsApp</span>
+            </a>
+          </div>
+        </div>
+        <div class="car-info">
           <div class="car-brand">Alfa Romeo</div>
-          <h3 class="car-name">Stelvio Executive</h3>
+          <div class="car-name">Stelvio Executive</div>
           <div class="car-specs">
             <span class="car-spec">2.2 Diesel</span>
-            <span class="car-spec">210 CV</span>
+            <span class="car-spec" data-i18n="spec_cv1">210 CV</span>
             <span class="car-spec">Q4 AWD</span>
           </div>
-          <div class="car-price-row">
-            <div>
-              <div class="car-price-new">€ 19.000</div>
-            </div>
-          </div>
-          <div class="car-cta">
-            <a href="https://wa.me/393661178347?text=Ciao%20TelavendeLele!%20Vorrei%20informazioni%20sull'Alfa%20Romeo%20Stelvio%20Executive%202.2%20210cv%20Q4%20a%20%E2%82%AC19.000." target="_blank" class="cta-wa">
-              📱 Info su WhatsApp
+          <div class="car-foot">
+            <div><div class="car-price">€ 19.000</div></div>
+            <a href="https://wa.me/393661178347?text=Ciao%20Lele!%20Sono%20interessato%20all'Alfa%20Stelvio%20Executive%202.2%20Q4%20%E2%82%AC19.000." target="_blank" class="car-wa-link">
+              <svg><use href="#ico-wa"/></svg>Info
             </a>
           </div>
         </div>
@@ -1253,25 +379,31 @@
 
       <!-- MINI COOPER S -->
       <div class="car-card reveal">
-        <span class="car-badge badge-red">🚗 Prezzo ridotto</span>
-        <div class="car-img">🚙</div>
-        <div class="car-body">
+        <div class="car-img-wrap">
+          <div class="car-img-icon">🚗</div>
+          <div class="car-badge badge-red" data-i18n="badge_red">Prezzo ridotto</div>
+          <div class="car-overlay">
+            <a href="https://wa.me/393661178347?text=Ciao%20Lele!%20Sono%20interessato%20alla%20Mini%20Cooper%20S%20Countryman%20ALL4%20%E2%82%AC21.500." target="_blank">
+              <svg><use href="#ico-wa"/></svg>
+              <span data-i18n="overlay_wa">Chiedi su WhatsApp</span>
+            </a>
+          </div>
+        </div>
+        <div class="car-info">
           <div class="car-brand">Mini</div>
-          <h3 class="car-name">Cooper S Countryman ALL4</h3>
+          <div class="car-name">Cooper S Countryman ALL4</div>
           <div class="car-specs">
-            <span class="car-spec">192 CV</span>
+            <span class="car-spec" data-i18n="spec_cv2">192 CV</span>
             <span class="car-spec">Countryman</span>
             <span class="car-spec">ALL4 AWD</span>
           </div>
-          <div class="car-price-row">
+          <div class="car-foot">
             <div>
-              <div class="car-price-old">€ 24.000</div>
-              <div class="car-price-new">€ 21.500</div>
+              <span class="car-price-old">€ 24.000</span>
+              <div class="car-price saldo">€ 21.500</div>
             </div>
-          </div>
-          <div class="car-cta">
-            <a href="https://wa.me/393661178347?text=Ciao%20TelavendeLele!%20Vorrei%20informazioni%20sulla%20Mini%20Cooper%20S%20Countryman%20ALL4%20192cv%20a%20%E2%82%AC21.500." target="_blank" class="cta-wa">
-              📱 Info su WhatsApp
+            <a href="https://wa.me/393661178347?text=Ciao%20Lele!%20Sono%20interessato%20alla%20Mini%20Cooper%20S%20Countryman%20ALL4%20%E2%82%AC21.500." target="_blank" class="car-wa-link">
+              <svg><use href="#ico-wa"/></svg>Info
             </a>
           </div>
         </div>
@@ -1279,406 +411,468 @@
 
       <!-- ISUZU BB+ -->
       <div class="car-card reveal">
-        <span class="car-badge badge-gold">🚛 Offerta Maggio</span>
-        <div class="car-img">🛻</div>
-        <div class="car-body">
+        <div class="car-img-wrap">
+          <div class="car-img-icon">🚛</div>
+          <div class="car-badge badge-green" data-i18n="badge_may">Offerta Maggio</div>
+          <div class="car-overlay">
+            <a href="https://wa.me/393661178347?text=Ciao%20Lele!%20Sono%20interessato%20all'Isuzu%20BB%2B%20%E2%82%AC33.000%20(Offerta%20Maggio)." target="_blank">
+              <svg><use href="#ico-wa"/></svg>
+              <span data-i18n="overlay_wa">Chiedi su WhatsApp</span>
+            </a>
+          </div>
+        </div>
+        <div class="car-info">
           <div class="car-brand">Isuzu</div>
-          <h3 class="car-name">BB+ Pick-up</h3>
+          <div class="car-name">BB+ Pick-up</div>
           <div class="car-specs">
-            <span class="car-spec">Pick-up 4x4</span>
-            <span class="car-spec">Offerta Maggio</span>
+            <span class="car-spec" data-i18n="spec_pickup">Pick-up 4x4</span>
+            <span class="car-spec" data-i18n="badge_may">Offerta Maggio</span>
           </div>
-          <div class="car-price-row">
+          <div class="car-foot">
             <div>
-              <div class="car-price-old">€ 36.000</div>
-              <div class="car-price-new">€ 33.000</div>
+              <span class="car-price-old">€ 36.000</span>
+              <div class="car-price saldo">€ 33.000</div>
             </div>
-          </div>
-          <div class="car-cta">
-            <a href="https://wa.me/393661178347?text=Ciao%20TelavendeLele!%20Vorrei%20informazioni%20sull'Isuzu%20BB%2B%20Pick-up%204x4%20a%20%E2%82%AC33.000%20(Offerta%20Maggio)." target="_blank" class="cta-wa">
-              📱 Info su WhatsApp
+            <a href="https://wa.me/393661178347?text=Ciao%20Lele!%20Sono%20interessato%20all'Isuzu%20BB%2B%20%E2%82%AC33.000%20(Offerta%20Maggio)." target="_blank" class="car-wa-link">
+              <svg><use href="#ico-wa"/></svg>Info
             </a>
           </div>
         </div>
       </div>
-
     </div>
   </div>
 </section>
 
-<!-- RICHIEDI VEICOLO -->
-<section id="richiedi">
-  <div class="section-inner">
-    <div class="richiedi-layout">
-      <div>
-        <p class="section-label reveal">Richiesta veicolo</p>
-        <h2 class="section-title reveal">Non trovi<br>quello che cerchi?</h2>
-        <span class="gold-line reveal"></span>
-        <p class="section-desc reveal">
-          Compila il modulo oppure scrivici direttamente su WhatsApp —
-          troviamo noi il veicolo giusto grazie alla nostra rete di contatti.
-        </p>
+<!-- ════ CHI SIAMO — GABRIELE ════ -->
+<section id="chisiamo">
+  <div class="chi-grid container">
+    <div class="reveal">
+      <p class="sec-label" data-i18n="chi_label">Il consulente</p>
+      <h2 class="sec-title" data-i18n-html="chi_title">Gabriele Agliati —<br>Lele.</h2>
+      <p class="sec-desc" data-i18n="chi_desc">TelavendeLele Non solo Auto è il primo salone virtuale sul Lago di Como. Gabriele offre una selezione unica di auto, barche e moto con un servizio clienti eccellente e una consulenza di marketing per massimizzare il valore della tua vendita.</p>
+      <div class="chi-stats reveal">
+        <div class="stat"><div class="stat-num">1.847</div><div class="stat-lbl" data-i18n="stat1">Follower Instagram</div></div>
+        <div class="stat"><div class="stat-num">100%</div><div class="stat-lbl" data-i18n="stat2">Veicoli verificati</div></div>
+        <div class="stat"><div class="stat-num">24h</div><div class="stat-lbl" data-i18n="stat3">Risposta WhatsApp</div></div>
+        <div class="stat"><div class="stat-num">3+</div><div class="stat-lbl" data-i18n="stat4">Auto in vetrina</div></div>
+      </div>
+    </div>
+    <div class="reveal">
+      <img class="chi-photo"
+           src="https://www.telavendelele.it/wp-content/uploads/2024/10/2bb8210afcadfa6aadb0dc8f968705ea020a7ef1.jpg"
+           alt="Gabriele Agliati - TelavendeLele" loading="lazy">
+    </div>
+  </div>
+</section>
 
-        <div class="contact-info">
-          <div class="contact-item reveal">
-            <div class="contact-icon">📱</div>
-            <div class="contact-text">
-              <span class="contact-label">WhatsApp / Telefono</span>
-              <span class="contact-value"><a href="https://wa.me/393661178347">+39 366 117 8347</a></span>
-            </div>
-          </div>
-          <div class="contact-item reveal">
-            <div class="contact-icon">✉️</div>
-            <div class="contact-text">
-              <span class="contact-label">Email</span>
-              <span class="contact-value"><a href="mailto:leleagliati@gmail.com">leleagliati@gmail.com</a></span>
-            </div>
-          </div>
-          <div class="contact-item reveal">
-            <div class="contact-icon">📅</div>
-            <div class="contact-text">
-              <span class="contact-label">Disponibilità</span>
-              <span class="contact-value">Solo su appuntamento</span>
-            </div>
-          </div>
-          <div class="contact-item reveal">
-            <div class="contact-icon">🌐</div>
-            <div class="contact-text">
-              <span class="contact-label">Sito ufficiale</span>
-              <span class="contact-value"><a href="https://www.telavendelele.it" target="_blank">www.telavendelele.it</a></span>
-            </div>
-          </div>
+<!-- ════ PRENOTA ════ -->
+<section id="prenota">
+  <div class="container reveal">
+    <p class="sec-label" data-i18n="pren_label">Appuntamento</p>
+    <h2 class="sec-title" data-i18n-html="pren_title">Prenota per esplorare<br>il tuo prossimo veicolo.</h2>
+    <p class="sec-desc" data-i18n="pren_desc">Lele ti guiderà nella scelta perfetta — auto, moto o barca. Solo su appuntamento.</p>
+    <div style="margin-top:2.5rem; display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
+      <a href="https://wa.me/393661178347?text=Ciao%20Lele!%20Vorrei%20prenotare%20un%20appuntamento." target="_blank" class="btn-wa-btn">
+        <svg><use href="#ico-wa"/></svg>
+        <span data-i18n="pren_btn1">Prenota via WhatsApp</span>
+      </a>
+      <a href="mailto:telavendelele@gmail.com" class="btn-outline" data-i18n="pren_btn2">Scrivici una email →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ════ FORM ════ -->
+<section id="ordine">
+  <div class="form-wrap container">
+    <div class="reveal">
+      <p class="sec-label" data-i18n="form_label">Richiesta veicolo</p>
+      <h2 class="sec-title" data-i18n-html="form_title">Non trovi<br>quello che cerchi?</h2>
+      <p class="sec-desc" data-i18n="form_desc">Compila il modulo — troveremo insieme il veicolo giusto grazie alla nostra rete di contatti sul Lago di Como e in tutta Italia.</p>
+      <div class="form-ci">
+        <div><span class="ci-lbl" data-i18n="ci1">WhatsApp / Telefono</span><div class="ci-val"><a href="https://wa.me/393661178347">+39 366 117 8347</a></div></div>
+        <div><span class="ci-lbl">Email</span><div class="ci-val"><a href="mailto:telavendelele@gmail.com">telavendelele@gmail.com</a></div></div>
+        <div><span class="ci-lbl" data-i18n="ci3">Disponibilità</span><div class="ci-val" data-i18n="ci3v">Solo su appuntamento</div></div>
+        <div><span class="ci-lbl" data-i18n="ci4">Sito ufficiale</span><div class="ci-val"><a href="https://www.telavendelele.it" target="_blank">www.telavendelele.it</a></div></div>
+      </div>
+      <div class="social-row">
+        <a href="https://wa.me/393661178347" target="_blank" class="spill wa"><svg><use href="#ico-wa"/></svg>WhatsApp</a>
+        <a href="https://www.instagram.com/telavendelelenonsoloauto" target="_blank" class="spill ig"><svg><use href="#ico-ig"/></svg>Instagram</a>
+        <a href="https://www.facebook.com/Telavendelelelenonsoloauto" target="_blank" class="spill fb"><svg><use href="#ico-fb"/></svg>Facebook</a>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <div class="fgrid">
+        <div class="fg"><label data-i18n="f_nome">Nome</label><input type="text" id="f-nome" data-i18n-ph="ph_nome" placeholder="Mario"></div>
+        <div class="fg"><label data-i18n="f_cog">Cognome</label><input type="text" id="f-cog" data-i18n-ph="ph_cog" placeholder="Rossi"></div>
+        <div class="fg"><label data-i18n="f_mail">Email</label><input type="email" id="f-mail" placeholder="mario@email.it"></div>
+        <div class="fg"><label data-i18n="f_tel">Telefono / WhatsApp</label><input type="tel" id="f-tel" placeholder="+39 333 1234567"></div>
+        <div class="fg">
+          <label data-i18n="f_tipo">Tipo di veicolo</label>
+          <select id="f-tipo" data-i18n-opts="opt_tipo"></select>
         </div>
-
-        <div class="social-pills">
-          <a href="https://wa.me/393661178347" target="_blank" class="social-pill pill-wa">📱 WhatsApp</a>
-          <a href="https://www.instagram.com/telavendelelenonsoloauto" target="_blank" class="social-pill pill-ig">📷 Instagram</a>
-          <a href="https://www.facebook.com/Telavendelelelenonsoloauto" target="_blank" class="social-pill pill-fb">f Facebook</a>
+        <div class="fg">
+          <label data-i18n="f_marca">Marca desiderata</label>
+          <select id="f-marca" data-i18n-opts="opt_marca"></select>
+        </div>
+        <div class="fg"><label data-i18n="f_mod">Modello / Versione</label><input type="text" id="f-mod" data-i18n-ph="ph_mod" placeholder="es. Stelvio, Countryman…"></div>
+        <div class="fg">
+          <label data-i18n="f_bud">Budget massimo (€)</label>
+          <select id="f-bud" data-i18n-opts="opt_bud"></select>
+        </div>
+        <div class="fg">
+          <label data-i18n="f_alim">Alimentazione</label>
+          <select id="f-alim" data-i18n-opts="opt_alim"></select>
+        </div>
+        <div class="fg">
+          <label data-i18n="f_anno">Anno immatricolazione (da)</label>
+          <select id="f-anno" data-i18n-opts="opt_anno"></select>
+        </div>
+        <div class="fg">
+          <label data-i18n="f_km">Chilometraggio massimo</label>
+          <select id="f-km" data-i18n-opts="opt_km"></select>
+        </div>
+        <div class="fg">
+          <label data-i18n="f_perm">Permuta — Vuoi dare la tua auto in cambio?</label>
+          <select id="f-perm" data-i18n-opts="opt_perm"></select>
+        </div>
+        <div class="fg full">
+          <label data-i18n="f_note">Note / Requisiti speciali</label>
+          <textarea id="f-note" data-i18n-ph="ph_note" placeholder="Colore preferito, optional, altre richieste…"></textarea>
         </div>
       </div>
-
-      <!-- FORM RICHIESTA -->
-      <div class="form-card reveal">
-        <div class="form-title">Richiedi un veicolo</div>
-        <form action="https://formspree.io/f/mqengebe" method="POST" id="form-richiesta">
-          <div class="form-row">
-            <div class="form-group">
-              <label for="nome">Nome *</label>
-              <input type="text" id="nome" name="nome" placeholder="Mario" required>
-            </div>
-            <div class="form-group">
-              <label for="cognome">Cognome *</label>
-              <input type="text" id="cognome" name="cognome" placeholder="Rossi" required>
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label for="email">Email *</label>
-              <input type="email" id="email" name="email" placeholder="mario@email.it" required>
-            </div>
-            <div class="form-group">
-              <label for="telefono">Telefono / WhatsApp</label>
-              <input type="tel" id="telefono" name="telefono" placeholder="+39 333 1234567">
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label for="marca">Marca desiderata</label>
-              <select id="marca" name="marca">
-                <option value="">Seleziona marca…</option>
-                <option>Alfa Romeo</option><option>Audi</option><option>BMW</option>
-                <option>Fiat</option><option>Ford</option><option>Honda</option>
-                <option>Hyundai</option><option>Kia</option><option>Lancia</option>
-                <option>Land Rover</option><option>Mazda</option><option>Mercedes-Benz</option>
-                <option>Mini</option><option>Nissan</option><option>Opel</option>
-                <option>Peugeot</option><option>Renault</option><option>Seat</option>
-                <option>Skoda</option><option>Tesla</option><option>Toyota</option>
-                <option>Volkswagen</option><option>Volvo</option><option>Altro</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="modello">Modello / Versione</label>
-              <input type="text" id="modello" name="modello" placeholder="es. Stelvio, Countryman…">
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label for="budget">Budget massimo (€)</label>
-              <select id="budget" name="budget">
-                <option value="">Seleziona budget…</option>
-                <option>Fino a 5.000 €</option>
-                <option>5.000 – 10.000 €</option>
-                <option>10.000 – 15.000 €</option>
-                <option>15.000 – 20.000 €</option>
-                <option>20.000 – 30.000 €</option>
-                <option>30.000 – 50.000 €</option>
-                <option>Oltre 50.000 €</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="alimentazione">Alimentazione</label>
-              <select id="alimentazione" name="alimentazione">
-                <option value="">Qualsiasi</option>
-                <option>Benzina</option><option>Diesel</option>
-                <option>Ibrido (HEV)</option><option>Ibrido Plug-in (PHEV)</option>
-                <option>Elettrico</option><option>GPL</option><option>Metano</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label for="anno">Anno da</label>
-              <select id="anno" name="anno">
-                <option value="">Qualsiasi</option>
-                <option>2024</option><option>2023</option><option>2022</option>
-                <option>2021</option><option>2020</option><option>2019</option>
-                <option>2018</option><option>2017</option><option>2016</option>
-                <option>Prima del 2016</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="km">Km massimi</label>
-              <select id="km" name="km">
-                <option value="">Qualsiasi</option>
-                <option>Fino a 10.000 km</option>
-                <option>Fino a 30.000 km</option>
-                <option>Fino a 50.000 km</option>
-                <option>Fino a 80.000 km</option>
-                <option>Fino a 120.000 km</option>
-                <option>Oltre 120.000 km</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="permuta">Permuta</label>
-            <select id="permuta" name="permuta">
-              <option value="">Seleziona…</option>
-              <option>Sì, ho un'auto da dare in permuta</option>
-              <option>No, acquisto senza permuta</option>
-              <option>Forse, da valutare</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="note">Note / Requisiti speciali</label>
-            <textarea id="note" name="note" placeholder="Colore, optional, km massimi, permuta del tuo usato…"></textarea>
-          </div>
-          <div class="gdpr-row">
-            <input type="checkbox" id="gdpr1" name="gdpr" required>
-            <label for="gdpr1">Acconsento al trattamento dei dati personali ai sensi del GDPR *</label>
-          </div>
-
-          <button type="button" class="btn-submit wa-btn" onclick="inviaWA()">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 0C5.373 0 0 5.373 0 12c0 2.134.558 4.133 1.533 5.866L.057 23.998l6.304-1.453A11.953 11.953 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>
-            Invia su WhatsApp →
-          </button>
-
-          <div class="form-or">oppure</div>
-
-          <button type="submit" class="btn-submit" style="background:rgba(201,168,76,0.12);color:var(--oro);border:1px solid rgba(201,168,76,0.3);">
-            Invia richiesta via Email →
-          </button>
-        </form>
+      <div class="fbot">
+        <p class="fbot-note" data-i18n="form_gdpr">Cliccando il pulsante verrai reindirizzato su WhatsApp con i tuoi dati. Nessun dato viene memorizzato sul sito (GDPR).</p>
+        <button class="btn-wa-btn" onclick="inviaWA()" style="border:none;">
+          <svg><use href="#ico-wa"/></svg>
+          <span data-i18n="form_submit">Invia richiesta su WhatsApp →</span>
+        </button>
       </div>
+      <div id="form-ok" data-i18n-html="form_ok">✓ &nbsp;Apertura WhatsApp… se non si apre, <a href="https://wa.me/393661178347" style="color:var(--wa)">clicca qui</a>.</div>
     </div>
   </div>
 </section>
 
-<!-- VENDI LA TUA AUTO -->
-<section id="vendi">
-  <div class="section-inner">
-    <div style="max-width:760px; margin:0 auto;">
-      <p class="section-label reveal" style="text-align:center;">Vendi la tua auto</p>
-      <h2 class="section-title reveal" style="text-align:center;">Dai valore<br>al tuo usato.</h2>
-      <span class="gold-line center reveal"></span>
-      <p class="section-desc reveal" style="margin:0 auto 3rem; text-align:center;">
-        Compila i dettagli e carica foto e documenti. Riceverai una valutazione personalizzata.
-        <br><br>
-        <small style="color:var(--grigio);">Documenti utili: foto del veicolo, libretto, certificato di proprietà, ultima revisione.</small>
-      </p>
-
-      <div class="form-card reveal">
-        <div class="form-title">Proponi il tuo veicolo</div>
-        <form action="https://formspree.io/f/xbdwpdyv" method="POST" enctype="multipart/form-data">
-          <div class="form-row">
-            <div class="form-group">
-              <label>Nome *</label>
-              <input type="text" name="nome" required>
-            </div>
-            <div class="form-group">
-              <label>Cognome *</label>
-              <input type="text" name="cognome" required>
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label>Email *</label>
-              <input type="email" name="email" required>
-            </div>
-            <div class="form-group">
-              <label>Telefono</label>
-              <input type="tel" name="telefono">
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label>Marca *</label>
-              <input type="text" name="marca" required placeholder="es. BMW">
-            </div>
-            <div class="form-group">
-              <label>Modello *</label>
-              <input type="text" name="modello" required placeholder="es. Serie 3">
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label>Targa</label>
-              <input type="text" name="targa" placeholder="XX000XX">
-            </div>
-            <div class="form-group">
-              <label>Anno immatricolazione</label>
-              <input type="number" name="anno" placeholder="2019" min="1990" max="2026">
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label>Km percorsi</label>
-              <input type="text" name="km" placeholder="85.000">
-            </div>
-            <div class="form-group">
-              <label>Alimentazione</label>
-              <select name="alimentazione">
-                <option value="">Seleziona</option>
-                <option>Benzina</option><option>Diesel</option>
-                <option>Ibrido</option><option>Elettrico</option>
-                <option>GPL</option><option>Metano</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-group">
-            <label>Descrizione condizioni</label>
-            <textarea name="descrizione" placeholder="Stato carrozzeria, interni, tagliandi, difetti noti…"></textarea>
-          </div>
-          <div class="form-group">
-            <label>Foto del veicolo (max 10, fino a 5 MB ciascuna)</label>
-            <input type="file" name="foto" accept="image/*" multiple style="padding:0.8rem 1rem; cursor:pointer;">
-            <small style="color:var(--grigio); font-size:0.6rem; margin-top:0.3rem;">Puoi selezionare più file</small>
-          </div>
-          <div class="form-group">
-            <label>Documenti (libretto, certificato, revisione – PDF/JPG)</label>
-            <input type="file" name="documenti" accept=".pdf,.jpg,.jpeg,.png" multiple style="padding:0.8rem 1rem; cursor:pointer;">
-            <small style="color:var(--grigio); font-size:0.6rem; margin-top:0.3rem;">Massimo 10 MB per file</small>
-          </div>
-          <div class="gdpr-row">
-            <input type="checkbox" id="gdpr2" required>
-            <label for="gdpr2">Accetto il trattamento dei dati personali (GDPR) *</label>
-          </div>
-          <button type="submit" class="btn-submit">Invia proposta di vendita →</button>
-        </form>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
+<!-- ════ FOOTER ════ -->
 <footer>
-  <div class="footer-logo">TelavendeLele</div>
-  <div class="footer-sub">Non solo auto · Consulente Dedicato · Solo su Appuntamento</div>
-
-  <div class="footer-links">
-    <a href="https://wa.me/393661178347" target="_blank" class="fwa">📱 WhatsApp +39 366 117 8347</a>
-    <a href="https://www.instagram.com/telavendelelenonsoloauto" target="_blank" class="fig">📷 @telavendelelenonsoloauto</a>
-    <a href="https://www.facebook.com/Telavendelelelenonsoloauto" target="_blank" class="ffb">f Telavendelelelenonsoloauto</a>
+  <div class="foot">
+    <div class="foot-logo">
+      <img src="https://www.telavendelele.it/wp-content/uploads/2024/10/logo-telavendelele-senza-faccia.jpg"
+           alt="TelavendeLele" onerror="this.style.display='none'">
+    </div>
+    <div class="foot-links">
+      <a href="https://wa.me/393661178347"                                  target="_blank" class="flink wa"><svg><use href="#ico-wa"/></svg>+39 366 117 8347</a>
+      <a href="https://www.instagram.com/telavendelelenonsoloauto"          target="_blank" class="flink ig"><svg><use href="#ico-ig"/></svg>@telavendelelenonsoloauto</a>
+      <a href="https://www.facebook.com/Telavendelelelenonsoloauto"         target="_blank" class="flink fb"><svg><use href="#ico-fb"/></svg>Facebook</a>
+    </div>
+    <div class="foot-copy">
+      © 2025 TelavendeLele<br>
+      Gabriele Agliati — Lago di Como<br>
+      <a href="mailto:telavendelele@gmail.com">telavendelele@gmail.com</a><br>
+      <a href="https://www.telavendelele.it" target="_blank">www.telavendelele.it</a>
+    </div>
   </div>
-
-  <p class="footer-copy">
-    © 2025 TelavendeLele &nbsp;·&nbsp;
-    <a href="mailto:leleagliati@gmail.com">leleagliati@gmail.com</a> &nbsp;·&nbsp;
-    <a href="https://www.telavendelele.it" target="_blank">www.telavendelele.it</a>
-  </p>
 </footer>
 
 <script>
-  // Reveal on scroll
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-        observer.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+/* ══════════════════════════════════════════════════════
+   TRADUZIONI — doppio controllo IT + DE
+   ══════════════════════════════════════════════════════ */
+const T = {
+  it: {
+    /* Titolo pagina */
+    page_title: "TelavendeLele — Non solo Auto | Lago di Como",
 
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    /* Nav */
+    nav_intro: "Chi siamo",
+    nav_vet:   "Vetrina",
+    nav_chi:   "Gabriele",
+    nav_ord:   "Richiedi",
 
-  // WhatsApp form send
-  function inviaWA() {
-    const gdpr = document.getElementById('gdpr1');
-    if (!gdpr.checked) {
-      alert('Per favore accetta il trattamento dei dati prima di procedere.');
-      return;
-    }
+    /* Hero */
+    hero_pre:   "Lago di Como — Auto · Moto · Barche",
+    hero_h1:    "Veicoli di<br><em>qualità ed eleganza</em>",
+    hero_sub:   "Benvenuto nel primo salone virtuale sul Lago di Como. Sfoglia le nostre proposte o contattaci per una consulenza personalizzata.",
+    hero_btn1:  "Scopri i veicoli",
+    hero_btn2:  "Scrivici su WhatsApp",
+    hero_btn3:  "Richiedi un veicolo →",
+    hero_badge: "Consulente dedicato — Gabriele Agliati",
 
-    const get = id => document.getElementById(id)?.value?.trim() || '';
-    const nome = get('nome');
-    const cognome = get('cognome');
-    const email = get('email');
-    const tel = get('telefono');
-    const marca = get('marca');
-    const modello = get('modello');
-    const budget = get('budget');
-    const alim = get('alimentazione');
-    const anno = get('anno');
-    const km = get('km');
-    const permuta = get('permuta');
-    const note = get('note');
+    /* Intro */
+    intro_label:  "Il salone virtuale",
+    intro_title:  "Primo salone virtuale<br>sul Lago di Como.",
+    intro_desc:   "Offriamo una selezione unica di auto, barche e moto con un servizio clienti eccellente e una consulenza personalizzata per massimizzare il valore della tua vendita. Che tu voglia vendere o acquistare, TelavendeLele è il posto giusto per te.",
+    intro_tagline: "\u201cTrasformiamo il tuo usato in un vero affare!\u201d 🚀",
+    intro_role:   "Consulente",
 
-    if (!nome || !email) {
-      alert('Per favore inserisci almeno nome ed email.');
-      return;
-    }
+    /* Vetrina */
+    vet_label:  "Vetrina veicoli",
+    vet_title:  "In vendita ora.",
+    vet_as24:   "Tutti i veicoli su AutoScout24 →",
+    badge_ok:   "Disponibile",
+    badge_red:  "Prezzo ridotto",
+    badge_may:  "Offerta Maggio",
+    overlay_wa: "Chiedi su WhatsApp",
+    spec_cv1:   "210 CV",
+    spec_cv2:   "192 CV",
+    spec_pickup:"Pick-up 4x4",
 
-    let msg = `Ciao TelavendeLele! 👋 Vorrei richiedere un veicolo.\n\n`;
-    msg += `👤 Nome: ${nome} ${cognome}\n`;
-    if (email) msg += `📧 Email: ${email}\n`;
-    if (tel) msg += `📱 Telefono: ${tel}\n`;
-    msg += `\n🚗 Veicolo cercato:\n`;
-    if (marca) msg += `• Marca: ${marca}\n`;
-    if (modello) msg += `• Modello: ${modello}\n`;
-    if (alim) msg += `• Alimentazione: ${alim}\n`;
-    if (anno) msg += `• Anno da: ${anno}\n`;
-    if (km) msg += `• Km max: ${km}\n`;
-    if (budget) msg += `• Budget: ${budget}\n`;
-    if (permuta) msg += `\n🔄 Permuta: ${permuta}\n`;
-    if (note) msg += `\n📝 Note: ${note}`;
+    /* Chi siamo */
+    chi_label: "Il consulente",
+    chi_title: "Gabriele Agliati —<br>Lele.",
+    chi_desc:  "TelavendeLele Non solo Auto è il primo salone virtuale sul Lago di Como. Gabriele offre una selezione unica di auto, barche e moto con un servizio clienti eccellente e una consulenza di marketing per massimizzare il valore della tua vendita.",
+    stat1: "Follower Instagram",
+    stat2: "Veicoli verificati",
+    stat3: "Risposta WhatsApp",
+    stat4: "Auto in vetrina",
 
-    const url = `https://wa.me/393661178347?text=${encodeURIComponent(msg)}`;
-    window.open(url, '_blank');
+    /* Prenota */
+    pren_label: "Appuntamento",
+    pren_title: "Prenota per esplorare<br>il tuo prossimo veicolo.",
+    pren_desc:  "Lele ti guiderà nella scelta perfetta — auto, moto o barca. Solo su appuntamento.",
+    pren_btn1:  "Prenota via WhatsApp",
+    pren_btn2:  "Scrivici una email →",
+
+    /* Form */
+    form_label:   "Richiesta veicolo",
+    form_title:   "Non trovi<br>quello che cerchi?",
+    form_desc:    "Compila il modulo — troveremo insieme il veicolo giusto grazie alla nostra rete di contatti sul Lago di Como e in tutta Italia.",
+    ci1:  "WhatsApp / Telefono",
+    ci3:  "Disponibilità",
+    ci3v: "Solo su appuntamento",
+    ci4:  "Sito ufficiale",
+    f_nome: "Nome",
+    f_cog:  "Cognome",
+    f_mail: "Email",
+    f_tel:  "Telefono / WhatsApp",
+    f_tipo: "Tipo di veicolo",
+    f_marca:"Marca desiderata",
+    f_mod:  "Modello / Versione",
+    f_bud:  "Budget massimo (€)",
+    f_alim: "Alimentazione",
+    f_anno: "Anno immatricolazione (da)",
+    f_km:   "Chilometraggio massimo",
+    f_perm: "Permuta — Vuoi dare la tua auto in cambio?",
+    f_note: "Note / Requisiti speciali",
+    ph_nome:"Mario",
+    ph_cog: "Rossi",
+    ph_mod: "es. Stelvio, Countryman, barca…",
+    ph_note:"Colore preferito, optional, altre richieste specifiche…",
+    form_gdpr:   "Cliccando il pulsante verrai reindirizzato su WhatsApp con i tuoi dati. Nessun dato viene memorizzato sul sito (GDPR).",
+    form_submit: "Invia richiesta su WhatsApp →",
+    form_ok:     "✓ &nbsp;Apertura WhatsApp… se non si apre, <a href='https://wa.me/393661178347' style='color:var(--wa)'>clicca qui</a>.",
+
+    /* Select options */
+    opt_tipo:  ["Tipo di veicolo…","Automobile","Moto / Scooter","Barca","Camper / Furgone","Altro"],
+    opt_marca: ["Seleziona marca…","Alfa Romeo","Audi","BMW","Fiat","Ford","Isuzu","Jeep","Kia","Land Rover","Mercedes-Benz","Mini","Opel","Peugeot","Renault","Tesla","Toyota","Volkswagen","Volvo","Altra marca"],
+    opt_bud:   ["Seleziona budget…","Fino a € 5.000","€ 5.000 – 10.000","€ 10.000 – 15.000","€ 15.000 – 20.000","€ 20.000 – 30.000","€ 30.000 – 50.000","Oltre € 50.000"],
+    opt_alim:  ["Qualsiasi","Benzina","Diesel","Ibrido","Elettrico","GPL / Metano"],
+    opt_anno:  ["Qualsiasi anno","2024","2023","2022","2021","2020","2019","2018","2017","2016","Prima del 2016"],
+    opt_km:    ["Qualsiasi","Fino a 10.000 km","Fino a 30.000 km","Fino a 50.000 km","Fino a 80.000 km","Fino a 120.000 km","Oltre 120.000 km"],
+    opt_perm:  ["Seleziona…","Sì, ho un veicolo da dare in permuta","No, acquisto senza permuta","Forse, valuto in seguito"],
+  },
+
+  de: {
+    /* Seitentitel */
+    page_title: "TelavendeLele — Nicht nur Autos | Lago di Como",
+
+    /* Nav */
+    nav_intro: "Über uns",
+    nav_vet:   "Angebote",
+    nav_chi:   "Gabriele",
+    nav_ord:   "Anfragen",
+
+    /* Hero */
+    hero_pre:   "Lago di Como — Autos · Motorräder · Boote",
+    hero_h1:    "Fahrzeuge mit<br><em>Qualität und Eleganz</em>",
+    hero_sub:   "Willkommen im ersten virtuellen Showroom am Lago di Como. Stöbere durch unser Angebot oder kontaktiere uns für eine persönliche Beratung.",
+    hero_btn1:  "Fahrzeuge entdecken",
+    hero_btn2:  "WhatsApp schreiben",
+    hero_btn3:  "Fahrzeug anfragen →",
+    hero_badge: "Persönlicher Berater — Gabriele Agliati",
+
+    /* Intro */
+    intro_label:  "Der virtuelle Showroom",
+    intro_title:  "Erster virtueller Showroom<br>am Lago di Como.",
+    intro_desc:   "Wir bieten eine einzigartige Auswahl an Autos, Booten und Motorrädern mit exzellentem Kundenservice und persönlicher Beratung, um den Wert deines Fahrzeugs zu maximieren. Egal ob du verkaufen oder kaufen möchtest — TelavendeLele ist die richtige Adresse für dich.",
+    intro_tagline: "\u201eWir verwandeln deinen Gebrauchtwagen in ein echtes Schnäppchen!\u201c 🚀",
+    intro_role:   "Berater",
+
+    /* Vetrina */
+    vet_label:  "Fahrzeugangebote",
+    vet_title:  "Jetzt verfügbar.",
+    vet_as24:   "Alle Fahrzeuge auf AutoScout24 →",
+    badge_ok:   "Verfügbar",
+    badge_red:  "Reduzierter Preis",
+    badge_may:  "Mai-Angebot",
+    overlay_wa: "Per WhatsApp anfragen",
+    spec_cv1:   "210 PS",
+    spec_cv2:   "192 PS",
+    spec_pickup:"Pickup 4x4",
+
+    /* Chi siamo */
+    chi_label: "Der Berater",
+    chi_title: "Gabriele Agliati —<br>Lele.",
+    chi_desc:  "TelavendeLele Nicht nur Autos ist der erste virtuelle Showroom am Lago di Como. Gabriele bietet eine einzigartige Auswahl an Autos, Booten und Motorrädern mit exzellentem Kundenservice und Marketing-Beratung, um den Wert deines Fahrzeugs zu maximieren.",
+    stat1: "Instagram-Follower",
+    stat2: "Geprüfte Fahrzeuge",
+    stat3: "WhatsApp-Antwortzeit",
+    stat4: "Fahrzeuge im Angebot",
+
+    /* Prenota */
+    pren_label: "Termin vereinbaren",
+    pren_title: "Buche einen Termin<br>für dein Wunschfahrzeug.",
+    pren_desc:  "Gabriele berät dich persönlich — Auto, Motorrad oder Boot. Nur nach Vereinbarung.",
+    pren_btn1:  "Termin per WhatsApp",
+    pren_btn2:  "E-Mail schreiben →",
+
+    /* Form */
+    form_label:   "Fahrzeuganfrage",
+    form_title:   "Nicht das Richtige<br>gefunden?",
+    form_desc:    "Fülle das Formular aus — wir finden gemeinsam das richtige Fahrzeug dank unseres Netzwerks am Lago di Como und in ganz Italien.",
+    ci1:  "WhatsApp / Telefon",
+    ci3:  "Verfügbarkeit",
+    ci3v: "Nur nach Vereinbarung",
+    ci4:  "Offizielle Website",
+    f_nome: "Vorname",
+    f_cog:  "Nachname",
+    f_mail: "E-Mail",
+    f_tel:  "Telefon / WhatsApp",
+    f_tipo: "Fahrzeugtyp",
+    f_marca:"Gewünschte Marke",
+    f_mod:  "Modell / Version",
+    f_bud:  "Maximales Budget (€)",
+    f_alim: "Kraftstoffart",
+    f_anno: "Erstzulassung (ab)",
+    f_km:   "Maximale Laufleistung",
+    f_perm: "Inzahlungnahme — Möchtest du dein Fahrzeug abgeben?",
+    f_note: "Anmerkungen / Besondere Wünsche",
+    ph_nome:"Max",
+    ph_cog: "Mustermann",
+    ph_mod: "z.B. Stelvio, Countryman, Boot…",
+    ph_note:"Wunschfarbe, gewünschte Ausstattung, sonstige Anforderungen…",
+    form_gdpr:   "Durch Klicken wirst du zu WhatsApp weitergeleitet — mit deinen eingegebenen Daten. Es werden keine Daten gespeichert (DSGVO).",
+    form_submit: "Anfrage über WhatsApp senden →",
+    form_ok:     "✓ &nbsp;WhatsApp wird geöffnet… Falls nicht automatisch, <a href='https://wa.me/393661178347' style='color:var(--wa)'>hier klicken</a>.",
+
+    /* Select-Optionen */
+    opt_tipo:  ["Fahrzeugtyp…","Auto","Motorrad / Roller","Boot","Wohnmobil / Transporter","Sonstiges"],
+    opt_marca: ["Marke auswählen…","Alfa Romeo","Audi","BMW","Fiat","Ford","Isuzu","Jeep","Kia","Land Rover","Mercedes-Benz","Mini","Opel","Peugeot","Renault","Tesla","Toyota","Volkswagen","Volvo","Andere Marke"],
+    opt_bud:   ["Budget auswählen…","Bis € 5.000","€ 5.000 – 10.000","€ 10.000 – 15.000","€ 15.000 – 20.000","€ 20.000 – 30.000","€ 30.000 – 50.000","Über € 50.000"],
+    opt_alim:  ["Beliebig","Benzin","Diesel","Hybrid","Elektro","Flüssiggas / Erdgas"],
+    opt_anno:  ["Beliebiges Baujahr","2024","2023","2022","2021","2020","2019","2018","2017","2016","Vor 2016"],
+    opt_km:    ["Beliebig","Bis 10.000 km","Bis 30.000 km","Bis 50.000 km","Bis 80.000 km","Bis 120.000 km","Über 120.000 km"],
+    opt_perm:  ["Auswählen…","Ja, ich möchte mein Fahrzeug in Zahlung geben","Nein, kein Inzahlunggeben","Vielleicht, ich überlege noch"],
   }
+};
 
-  // Hamburger menu (mobile)
-  function toggleMenu() {
-    const links = document.querySelector('.nav-links');
-    const isOpen = links.style.display === 'flex';
-    links.style.display = isOpen ? 'none' : 'flex';
-    links.style.position = 'fixed';
-    links.style.top = '64px';
-    links.style.left = '0';
-    links.style.right = '0';
-    links.style.background = 'rgba(8,8,8,0.98)';
-    links.style.flexDirection = 'column';
-    links.style.padding = '2rem';
-    links.style.gap = '1.5rem';
-    links.style.borderBottom = '1px solid rgba(201,168,76,0.15)';
-    links.style.zIndex = '99';
-  }
+/* ══════════════════════════════════════════════════════
+   i18n ENGINE
+   ══════════════════════════════════════════════════════ */
+let lang = 'it';
 
-  // Close mobile menu on link click
-  document.querySelectorAll('.nav-links a').forEach(a => {
-    a.addEventListener('click', () => {
-      document.querySelector('.nav-links').style.display = 'none';
-    });
+function setLang(l) {
+  lang = l;
+  document.getElementById('html-root').lang = l;
+  document.getElementById('page-title').textContent = T[l].page_title;
+  document.title = T[l].page_title;
+
+  /* Texte */
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const k = el.dataset.i18n;
+    if (T[l][k] !== undefined) el.textContent = T[l][k];
   });
-</script>
 
+  /* HTML-Texte (mit Tags) */
+  document.querySelectorAll('[data-i18n-html]').forEach(el => {
+    const k = el.dataset.i18nHtml;
+    if (T[l][k] !== undefined) el.innerHTML = T[l][k];
+  });
+
+  /* Placeholders */
+  document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+    const k = el.dataset.i18nPh;
+    if (T[l][k] !== undefined) el.placeholder = T[l][k];
+  });
+
+  /* Select-Optionen */
+  document.querySelectorAll('[data-i18n-opts]').forEach(sel => {
+    const k = sel.dataset.i18nOpts;
+    const opts = T[l][k];
+    if (!opts) return;
+    sel.innerHTML = opts.map((o, i) =>
+      `<option value="${i === 0 ? '' : o}" style="background:var(--grigio-scuro)">${o}</option>`
+    ).join('');
+  });
+
+  /* Sprach-Button */
+  document.getElementById('lang-btn').innerHTML =
+    l === 'it' ? '🇩🇪&nbsp;DE' : '🇮🇹&nbsp;IT';
+}
+
+function toggleLang() { setLang(lang === 'it' ? 'de' : 'it'); }
+
+/* ══════════════════════════════════════════════════════
+   WHATSAPP FORM
+   ══════════════════════════════════════════════════════ */
+function inviaWA() {
+  const nome  = document.getElementById('f-nome').value.trim();
+  const cog   = document.getElementById('f-cog').value.trim();
+  const mail  = document.getElementById('f-mail').value.trim();
+  const tel   = document.getElementById('f-tel').value.trim();
+  const tipo  = document.getElementById('f-tipo').value;
+  const marca = document.getElementById('f-marca').value;
+  const mod   = document.getElementById('f-mod').value.trim();
+  const bud   = document.getElementById('f-bud').value;
+  const alim  = document.getElementById('f-alim').value;
+  const anno  = document.getElementById('f-anno').value;
+  const km    = document.getElementById('f-km').value;
+  const perm  = document.getElementById('f-perm').value;
+  const note  = document.getElementById('f-note').value.trim();
+
+  if (!nome || !mail) {
+    alert(lang === 'it'
+      ? 'Inserisci almeno nome ed email.'
+      : 'Bitte Vorname und E-Mail eingeben.');
+    return;
+  }
+
+  let msg = 'Ciao Lele! 👋 Vorrei richiedere un veicolo.\n\n';
+  msg += `👤 Nome: ${nome} ${cog}\n`;
+  if (mail)  msg += `📧 Email: ${mail}\n`;
+  if (tel)   msg += `📱 Tel: ${tel}\n`;
+  msg += '\n🚗 Veicolo cercato:\n';
+  if (tipo)  msg += `  • Tipo: ${tipo}\n`;
+  if (marca) msg += `  • Marca: ${marca}\n`;
+  if (mod)   msg += `  • Modello: ${mod}\n`;
+  if (alim)  msg += `  • Alimentazione: ${alim}\n`;
+  if (anno)  msg += `  • Anno da: ${anno}\n`;
+  if (km)    msg += `  • Km max: ${km}\n`;
+  if (bud)   msg += `  • Budget: ${bud}\n`;
+  if (perm)  msg += `\n🔄 Permuta: ${perm}\n`;
+  if (note)  msg += `\n📝 Note: ${note}\n`;
+
+  const ok = document.getElementById('form-ok');
+  ok.style.display = 'block';
+  ok.scrollIntoView({ behavior:'smooth', block:'nearest' });
+  window.open('https://wa.me/393661178347?text=' + encodeURIComponent(msg), '_blank');
+}
+
+/* ══════════════════════════════════════════════════════
+   SCROLL REVEAL
+   ══════════════════════════════════════════════════════ */
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 70);
+      obs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+/* Init */
+setLang('it');
+</script>
 </body>
 </html>

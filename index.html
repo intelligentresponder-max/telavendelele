@@ -191,6 +191,40 @@
     transition: var(--transition);
   }
 
+  /* ─── AGENT BUTTON ─── */
+  .btn-agent {
+    background: transparent;
+    color: var(--oro);
+    border: 1px solid rgba(201,168,76,0.5);
+  }
+  .btn-agent:hover {
+    background: rgba(201,168,76,0.08);
+    border-color: var(--oro);
+    color: var(--oro-chiaro);
+  }
+  .agent-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.56rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--oro);
+    border: 1px solid rgba(201,168,76,0.25);
+    padding: 0.25rem 0.65rem;
+    border-radius: 20px;
+    margin-bottom: 0.8rem;
+    animation: fadeUp 0.9s 0.1s both;
+  }
+  .agent-badge::before {
+    content: '';
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--oro);
+    animation: blink-oro 2s infinite;
+  }
+  @keyframes blink-oro { 0%,100%{opacity:1} 50%{opacity:.2} }
+
   /* ─── FLOATING WA BUTTON ─── */
   .wa-float {
     position: fixed;
@@ -1048,6 +1082,7 @@
     <li><a href="#vetrina">Vetrina</a></li>
     <li><a href="#richiedi">Richiedi auto</a></li>
     <li><a href="#vendi">Vendi auto</a></li>
+    <li><a href="fahrzeug-agent.html" style="color:var(--oro);">🔍 Agente</a></li>
   </ul>
 
   <div class="nav-icons">
@@ -1067,6 +1102,7 @@
   <div class="hero-grid-lines"></div>
 
   <div class="hero-content">
+    <div class="agent-badge">🔍 Nuovo · Agente Ricerca Veicoli Attivo</div>
     <p class="hero-eyebrow">Consulente Dedicato — Solo su Appuntamento</p>
     <h1 class="hero-title">Tela<em>vende</em>Lele</h1>
     <p class="hero-sub">Autoservice · Professionalità · Trasparenza · Prezzi Onesti</p>
@@ -1079,6 +1115,7 @@
         Scrivici su WhatsApp
       </a>
       <a href="#vendi" class="btn btn-outline">Vendi la tua auto →</a>
+      <a href="fahrzeug-agent.html" class="btn btn-agent">🔍 Agente Ricerca →</a>
     </div>
   </div>
 

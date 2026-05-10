@@ -1,0 +1,34 @@
+region:
+  plz: "60313"
+  umkreis_km: 200
+
+suchprofile:
+  - id: suzuki_ignis_allgrip
+    bezeichnung: "Suzuki Ignis Allgrip"
+    marke: Suzuki
+    modell: Ignis
+    stichwort: Allgrip
+    max_preis: 13000
+    nur_haendler: true
+    mobile_make_id: "25200"
+    mobile_model_id: "19900"
+
+  - id: fiat_panda_budget
+    bezeichnung: "Fiat Panda Budget"
+    marke: Fiat
+    modell: Panda
+    max_preis: 9000
+    min_baujahr: 2019
+    nur_haendler: false
+    mobile_make_id: "9900"
+    mobile_model_id: "16200"
+
+  - id: audi_q5_sline
+    bezeichnung: "Audi Q5 S-Line"
+    marke: Audi
+    modell: Q5
+    stichwort: "S-Line"
+    max_preis: 50000
+    nur_haendler: true
+    mobile_make_id: "1900"
+    mobile_model_id: "73200"

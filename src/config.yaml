@@ -1,0 +1,84 @@
+# ============================================================
+# Fahrzeug-Suchagent – Konfiguration
+# ============================================================
+
+region:
+  plz: "60313"         # Frankfurt Zentrum
+  umkreis_km: 200
+
+haendler_kontakte:
+  - name: ACD Auto Center Darmstadt GmbH
+    adresse: Schottener Weg 10, 64289 Darmstadt
+    telefon: "06151 66 96 596"
+    email: info@acd-team.de
+    web: www.acd-team.de
+    marken: [Fiat]
+
+  - name: auto:mobil GmbH
+    adresse: Fasanerie-Arkaden 1, 63512 Hainburg
+    telefon: "06182 7862-0"
+    email: info@automobilgmbh.de
+    web: www.automobil-gmbh.de
+    marken: [Fiat]
+
+  - name: Klaus Schreier GmbH
+    adresse: Am Taubenbaum 18, 61231 Bad Nauheim
+    telefon: "06032 9688 0"
+    web: www.autopark-schreier.de
+    marken: [Fiat]
+
+  - name: AVEMO Audi Zentrum Hanau
+    adresse: Luise-Kiesselbach-Straße 17, 63452 Hanau
+    telefon: "+49 06108 60029302"
+    email: info@audi-zentrum-hanau.de
+    ansprechpartner: Luca Raponi
+    ansprechpartner_email: luca.raponi@avemo-group.de
+    marken: [Audi]
+
+  - name: Autohaus M.A.X. GmbH
+    adresse: Waldstraße 218-220, 63071 Offenbach
+    telefon: "069 840089-0"
+    email: info@autohaus-max.de
+    web: www.autohaus-max.de
+    marken: [Audi]
+
+  - name: Thomas Dietz Kfz Handel & Service
+    adresse: August Winter Str. 3, 61381 Friedrichsdorf
+    telefon: "06175 7982382"
+    marken: [Fiat, Suzuki]
+
+suchprofile:
+  - id: suzuki_ignis_allgrip
+    bezeichnung: "Suzuki Ignis Allgrip (4x4)"
+    marke: Suzuki
+    modell: Ignis
+    stichwort: Allgrip
+    max_preis: 13000
+    nur_haendler: true
+    mobile_make_id: "25200"
+    mobile_model_id: "19900"
+
+  - id: fiat_panda_budget
+    bezeichnung: "Fiat Panda (günstig)"
+    marke: Fiat
+    modell: Panda
+    max_preis: 9000
+    min_baujahr: 2019
+    nur_haendler: false
+    mobile_make_id: "9900"
+    mobile_model_id: "16200"
+
+  - id: audi_q5_sline
+    bezeichnung: "Audi Q5 S-Line (Neuzulassung)"
+    marke: Audi
+    modell: Q5
+    stichwort: "S-Line"
+    min_ez: "2025-09-01"
+    max_preis: 50000
+    nur_haendler: true
+    mobile_make_id: "1900"
+    mobile_model_id: "73200"
+
+benachrichtigung:
+  sprache: deutsch
+  whatsapp_vorlage: src/templates/whatsapp_nachricht.txt

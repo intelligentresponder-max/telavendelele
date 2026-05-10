@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5">
+<meta name="description" content="Energieberater-Tool für Deutschland – Partnerfirmen, Energielieferanten und Kostenersparnis pro Postleitzahl finden.">
+<title>ENERGIEBERATER · PLZ-Partner-Finder</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏠</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:     #06080a;
+  --bg2:    #0c0f14;
+  --bg3:    #13171e;
+  --border: #1c2230;
+  --green:  #00e676;
+  --green-glow: rgba(0,230,118,0.08);
+  --yellow: #ffd600;
+  --red:    #ff3d57;
+  --blue:   #2979ff;
+  --orange: #ff9800;
+  --text:   #dce4ef;
+  --muted:  #4a5568;
+  --mono:   'JetBrains Mono', monospace;
+  --sans:   'Outfit', system-ui, sans-serif;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;min-height:100vh;overflow-x:hidden}
+
+/* ── HERO ── */
+.hero {
+  position: relative;
+  padding: 60px 20px 50px;
+  text-align: center;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -120px; left: 50%; transform: translateX(-50%);
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(0,230,118,0.07) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-badge {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 3px;
+  color: var(--green);
+  background: var(--green-glow);
+  border: 1px solid rgba(0,230,118,0.2);
+  padding: 5px 14px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+.hero h1 {
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 800;
+  letter-spacing: -1px;
+  line-height: 1.15;
+  margin-bottom: 14px;
+}
+.hero h1 span { color: var(--green); }
+.hero p {
+  font-size: 1.05rem;
+  color: var(--muted);
+  max-width: 520px;
+  margin: 0 auto 30px;
+  line-height: 1.6;
+  font-weight: 300;
+}
+
+/* ── NAV ── */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(6,8,10,0.92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 20px;
+}
+.nav-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  height: 52px;
+}
+.logo {
+  font-family: var(--mono);
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--green);
+  letter-spacing: 2px;
+  white-space: nowrap;
+}
+.logo span { color: var(--muted); }
+.tabs { display: flex; gap: 4px; flex-wrap: wrap; }
+.tab {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  padding: 5px 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: all .18s;
+}
+.tab.active, .tab:hover {
+  background: var(--green-glow);
+  border-color: var(--green);
+  color: var(--green);
+}
+
+/* ── MAIN ── */
+.main { max-width: 960px; margin: 0 auto; padding: 20px; }
+
+/* ── SEARCH BAR ── */
+.search-panel {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 22px;
+  margin-bottom: 22px;
+}
+.search-row {
+  display: flex;
+  gap: 10px;
+  align-items: stretch;
+  flex-wrap: wrap;
+}
+.plz-input {
+  flex: 1;
+  min-width: 140px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  color: var(--green);
+  font-family: var(--mono);
+  font-size: 1.4rem;
+  font-weight: 700;
+  padding: 12px 16px;
+  border-radius: 8px;
+  outline: none;
+  letter-spacing: 6px;
+  text-align: center;
+  transition: border-color .18s;
+}
+.plz-input::placeholder { color: #2a3040; letter-spacing: 2px; font-size: 1rem; }
+.plz-input:focus { border-color: var(--green); }
+.meta-col { display: flex; flex-direction: column; gap: 6px; }
+.meta-select, .meta-input {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  padding: 7px 10px;
+  border-radius: 6px;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+}
+.meta-select:focus, .meta-input:focus { border-color: var(--green); }
+.search-btn {
+  background: var(--green);
+  color: #000;
+  font-family: var(--mono);
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 2px;
+  padding: 12px 28px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: opacity .15s, transform .1s;
+  white-space: nowrap;
+}
+.search-btn:hover { opacity: .88; }
+.search-btn:active { transform: scale(0.97); }
+.region-label {
+  margin-top: 10px;
+  font-family: var(--mono);
+  font-size: 0.73rem;
+  color: var(--muted);
+}
+.region-label b { color: var(--text); font-weight: 600; }
+
+/* ── SECTION TITLE ── */
+.sec-title {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 3px;
+  color: var(--muted);
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+
+/* ── PARTNER CARD (HAUPT) ── */
+.partner-main {
+  background: var(--bg2);
+  border: 1px solid var(--green);
+  border-radius: 12px;
+  padding: 22px;
+  margin-bottom: 22px;
+  box-shadow: 0 0 30px rgba(0,230,118,0.04);
+  transition: box-shadow .3s;
+}
+.partner-main:hover { box-shadow: 0 0 40px rgba(0,230,118,0.08); }
+.partner-name { font-size: 1.2rem; font-weight: 700; color: var(--green); margin-bottom: 4px; }
+.partner-tel { font-family: var(--mono); font-size: 0.82rem; margin-bottom: 2px; }
+.partner-email { font-family: var(--mono); font-size: 0.82rem; color: var(--muted); margin-bottom: 12px; }
+.partner-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+.tag {
+  font-family: var(--mono);
+  font-size: 0.67rem;
+  padding: 3px 9px;
+  border-radius: 4px;
+  background: rgba(0,230,118,0.08);
+  color: var(--green);
+  border: 1px solid rgba(0,230,118,0.18);
+}
+.stars { color: var(--yellow); font-size: 1rem; }
+.badge-cert {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  padding: 2px 8px;
+  border-radius: 3px;
+  background: rgba(0,230,118,0.12);
+  color: var(--green);
+  border: 1px solid rgba(0,230,118,0.2);
+  margin-top: 4px;
+}
+
+/* ── GRID CARDS ── */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(275px, 1fr));
+  gap: 10px;
+  margin-bottom: 22px;
+}
+.card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px;
+  transition: border-color .18s, transform .15s;
+  cursor: default;
+  position: relative;
+}
+.card:hover { border-color: var(--blue); transform: translateY(-1px); }
+.card-name { font-weight: 600; font-size: 0.92rem; margin-bottom: 4px; }
+.card-sub { font-family: var(--mono); font-size: 0.73rem; color: var(--muted); margin-bottom: 4px; }
+.card-accent { font-family: var(--mono); font-size: 0.72rem; color: var(--blue); margin-bottom: 4px; }
+.card-stars { font-family: var(--mono); font-size: 0.72rem; color: var(--yellow); }
+
+/* ── BADGE ── */
+.badge-placeholder {
+  position: absolute;
+  top: 8px; right: 8px;
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  padding: 2px 7px;
+  border-radius: 3px;
+  background: rgba(255,214,0,0.1);
+  color: var(--yellow);
+  border: 1px solid rgba(255,214,0,0.18);
+  letter-spacing: 1px;
+}
+
+/* ── LIEFERANTEN ── */
+.tarif-placeholder {
+  margin-top: 12px;
+  padding: 10px;
+  border-radius: 6px;
+  background: var(--bg3);
+  border: 1px dashed var(--border);
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  color: var(--muted);
+  text-align: center;
+  line-height: 1.6;
+}
+
+/* ── VERBRAUCH ── */
+.verbrauch-panel {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 22px;
+  margin-bottom: 22px;
+}
+.verbrauch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 12px;
+}
+.v-label {
+  display: block;
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  color: var(--muted);
+  letter-spacing: 1px;
+  margin-bottom: 5px;
+}
+.v-input {
+  width: 100%;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  color: var(--green);
+  font-family: var(--mono);
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 9px 12px;
+  border-radius: 6px;
+  outline: none;
+  text-align: right;
+  transition: border-color .18s;
+}
+.v-input:focus { border-color: var(--green); }
+
+/* ── MASSNAHMEN ── */
+.mass-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px;
+  cursor: pointer;
+  transition: all .18s;
+  position: relative;
+  user-select: none;
+}
+.mass-card:hover { border-color: rgba(0,230,118,0.4); }
+.mass-card.sel {
+  background: rgba(0,230,118,0.03);
+  border-color: var(--green);
+  box-shadow: 0 0 12px rgba(0,230,118,0.06);
+}
+.mass-check {
+  position: absolute;
+  top: 10px; right: 10px;
+  width: 22px; height: 22px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.72rem;
+  transition: all .18s;
+  color: transparent;
+}
+.mass-card.sel .mass-check {
+  background: var(--green);
+  border-color: var(--green);
+  color: #000;
+}
+.mass-icon { font-size: 1.4rem; margin-bottom: 8px; }
+.mass-name { font-weight: 600; font-size: 0.92rem; margin-bottom: 6px; padding-right: 30px; }
+.mass-detail { font-family: var(--mono); font-size: 0.7rem; color: var(--muted); margin-bottom: 2px; }
+.mass-detail b { font-weight: 600; }
+.mass-detail .g { color: var(--green); }
+.mass-detail .y { color: var(--yellow); }
+.mass-detail .b { color: var(--blue); }
+
+/* ── ERGEBNIS ── */
+.result-panel {
+  background: var(--bg2);
+  border: 1px solid var(--green);
+  border-radius: 12px;
+  padding: 22px;
+  box-shadow: 0 0 30px rgba(0,230,118,0.04);
+  margin-top: 22px;
+}
+.result-hero {
+  text-align: center;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 18px;
+}
+.result-label {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  color: var(--muted);
+  letter-spacing: 2px;
+  margin-bottom: 6px;
+}
+.result-big {
+  font-family: var(--mono);
+  font-size: clamp(2rem, 6vw, 2.8rem);
+  font-weight: 700;
+  color: var(--green);
+  line-height: 1;
+}
+.result-sub {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin-top: 6px;
+}
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 10px;
+}
+.stat-box {
+  text-align: center;
+  padding: 12px 8px;
+  background: var(--bg3);
+  border-radius: 8px;
+}
+.stat-val {
+  font-family: var(--mono);
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+.stat-label {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  color: var(--muted);
+  letter-spacing: 1px;
+  margin-top: 4px;
+}
+
+/* ── WARN BOX ── */
+.warn-box {
+  margin-top: 16px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  background: rgba(255,214,0,0.04);
+  border: 1px solid rgba(255,214,0,0.12);
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--yellow);
+  text-align: center;
+  line-height: 1.7;
+}
+
+/* ── EMPTY STATE ── */
+.empty {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--muted);
+}
+.empty-icon { font-size: 3.5rem; margin-bottom: 16px; opacity: .25; }
+.empty-text { font-size: 0.88rem; margin-bottom: 6px; }
+.empty-sub  { font-family: var(--mono); font-size: 0.72rem; }
+
+/* ── FOOTER ── */
+.footer {
+  margin-top: 40px;
+  padding: 18px;
+  border-radius: 10px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  color: var(--muted);
+  text-align: center;
+  line-height: 2;
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.anim-in { animation: fadeUp .4s ease both; }
+.anim-d1 { animation-delay: .05s; }
+.anim-d2 { animation-delay: .10s; }
+.anim-d3 { animation-delay: .15s; }
+.anim-d4 { animation-delay: .20s; }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════ HERO ═══════════════════════ -->
+<div class="hero">
+  <div class="hero-badge">Für Energieberater in Deutschland</div>
+  <h1>Partnerfirmen &amp; Sparrechner<br><span>pro Postleitzahl</span></h1>
+  <p>Finden Sie Telefon-Partnerfirmen, regionale Energielieferanten und berechnen Sie die Kostenersparnis für Ihre Kunden – alles nach PLZ.</p>
+</div>
+
+<!-- ═══════════════════════ NAV ═══════════════════════ -->
+<div class="nav">
+  <div class="nav-inner">
+    <div class="logo">ENERGIE<span>BERATER</span></div>
+    <div class="tabs">
+      <button class="tab active" data-tab="partner" onclick="switchTab('partner')">Partnerfirmen</button>
+      <button class="tab" data-tab="lieferanten" onclick="switchTab('lieferanten')">Energielieferanten</button>
+      <button class="tab" data-tab="rechner" onclick="switchTab('rechner')">Kostenrechner</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════ MAIN ═══════════════════════ -->
+<div class="main">
+
+  <!-- SUCHE -->
+  <div class="search-panel">
+    <div class="sec-title" style="margin-bottom:14px">⚡ Postleitzahl eingeben</div>
+    <div class="search-row">
+      <input class="plz-input" id="plz" type="text" maxlength="5" placeholder="PLZ" oninput="this.value=this.value.replace(/\D/g,'')" onkeydown="if(event.key==='Enter')doSearch()">
+      <div class="meta-col">
+        <select class="meta-select" id="gebaeudetyp">
+          <option value="efh">Einfamilienhaus</option>
+          <option value="dhh">Doppelhaushälfte</option>
+          <option value="rh">Reihenhaus</option>
+          <option value="mfh">Mehrfamilienhaus</option>
+          <option value="etw">Eigentumswohnung</option>
+        </select>
+        <input class="meta-input" id="baujahr" type="text" placeholder="Baujahr z.B. 1980" value="1980">
+      </div>
+      <button class="search-btn" onclick="doSearch()">SUCHEN</button>
+    </div>
+    <div class="region-label" id="region-label" style="display:none"></div>
+  </div>
+
+  <!-- CONTENT -->
+  <div id="content"></div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    ENERGIEBERATER · PLZ-Partner-Finder v1.0<br>
+    Partnerfirmen (Telefon) · Energielieferanten · Kostenersparnis-Rechner<br>
+    Daten werden laufend ergänzt · Stand: März 2026
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════════════════════════════
+// DATENBANK
+// ══════════════════════════════════════════════════════════════
+
+const DB = {
+  "0": {
+    region: "Sachsen / Thüringen / Brandenburg",
+    haupt: { name:"EnergieSachsen GmbH", tel:"+49 351 8800-100", email:"beratung@energiesachsen.de",
+      leistungen:["Energieausweis","Heizungstausch","Photovoltaik","Wärmepumpe"], bew:4.7, zert:true },
+    alt: [
+      { name:"SolarDresden24", tel:"+49 351 2120-55", fokus:"Photovoltaik & Speicher", bew:4.5 },
+      { name:"Wärmetechnik Ost GmbH", tel:"+49 361 7340-80", fokus:"Wärmepumpen & Heizung", bew:4.3 },
+      { name:"GreenBuild Leipzig", tel:"+49 341 5580-20", fokus:"Gebäudedämmung & BAFA", bew:4.6 },
+    ],
+    liefer: [
+      { name:"enviaM", typ:"Strom & Gas", reg:"Ostdeutschland" },
+      { name:"DREWAG", typ:"Strom", reg:"Dresden" },
+      { name:"Stadtwerke Leipzig", typ:"Strom & Gas", reg:"Leipzig" },
+    ]
+  },
+  "1": {
+    region: "Berlin / Brandenburg",
+    haupt: { name:"Berliner Energieberatung AG", tel:"+49 30 5500-200", email:"info@berliner-energieberatung.de",
+      leistungen:["iSFP","Energieausweis","KfW-Förderung","Heizungsoptimierung"], bew:4.8, zert:true },
+    alt: [
+      { name:"SolarBerlin Pro", tel:"+49 30 2230-40", fokus:"Photovoltaik & Balkonkraftwerke", bew:4.4 },
+      { name:"Wärmewende Brandenburg", tel:"+49 331 8870-15", fokus:"Wärmepumpen & GEG-Beratung", bew:4.6 },
+      { name:"Dämmprofi Berlin", tel:"+49 30 6690-88", fokus:"Fassade & Dach Dämmung", bew:4.2 },
+    ],
+    liefer: [
+      { name:"Vattenfall", typ:"Strom & Wärme", reg:"Berlin" },
+      { name:"GASAG", typ:"Gas & Wärme", reg:"Berlin" },
+      { name:"E.ON Energie", typ:"Strom & Gas", reg:"Bundesweit" },
+    ]
+  },
+  "2": {
+    region: "Hamburg / Schleswig-Holstein / Niedersachsen Nord",
+    haupt: { name:"NordEnergie Beratung GmbH", tel:"+49 40 7200-300", email:"kontakt@nordenergie-beratung.de",
+      leistungen:["Energieausweis","Heizungstausch","PV-Anlagen","Fördermittelberatung"], bew:4.6, zert:true },
+    alt: [
+      { name:"HanseSolar GmbH", tel:"+49 40 3310-60", fokus:"Solar & Speichersysteme", bew:4.7 },
+      { name:"Wärmetechnik Nord", tel:"+49 431 5540-25", fokus:"Wärmepumpe & Fernwärme", bew:4.3 },
+      { name:"EcoHaus Lüneburg", tel:"+49 4131 7720-10", fokus:"Altbausanierung & Dämmung", bew:4.5 },
+    ],
+    liefer: [
+      { name:"Hamburg Energie", typ:"Ökostrom & Gas", reg:"Hamburg" },
+      { name:"E.ON Energie", typ:"Strom & Gas", reg:"Bundesweit" },
+      { name:"SH Netz", typ:"Netz", reg:"Schleswig-Holstein" },
+    ]
+  },
+  "3": {
+    region: "Hannover / Niedersachsen / Sachsen-Anhalt",
+    haupt: { name:"Energiehaus Niedersachsen", tel:"+49 511 8800-150", email:"info@energiehaus-nds.de",
+      leistungen:["iSFP","GEG-Beratung","Heizungstausch","Fördermittel"], bew:4.5, zert:true },
+    alt: [
+      { name:"SolarPower Hannover", tel:"+49 511 3340-70", fokus:"PV & E-Mobilität", bew:4.4 },
+      { name:"Klimaschutz Braunschweig", tel:"+49 531 2210-90", fokus:"Wärmepumpe & Geothermie", bew:4.3 },
+      { name:"DämmExperte Magdeburg", tel:"+49 391 5560-30", fokus:"KfW-Sanierung & Dämmung", bew:4.6 },
+    ],
+    liefer: [
+      { name:"enercity", typ:"Strom & Gas", reg:"Hannover" },
+      { name:"Avacon", typ:"Strom & Gas", reg:"Niedersachsen / SA" },
+      { name:"SWM Magdeburg", typ:"Strom & Gas", reg:"Magdeburg" },
+    ]
+  },
+  "4": {
+    region: "Düsseldorf / NRW West / Ruhrgebiet",
+    haupt: { name:"EnergieWende NRW GmbH", tel:"+49 211 9900-400", email:"beratung@energiewende-nrw.de",
+      leistungen:["Energieausweis","BEG-Förderung","Heizungstausch","PV-Anlagen"], bew:4.9, zert:true },
+    alt: [
+      { name:"RheinSolar GmbH", tel:"+49 211 4450-20", fokus:"Photovoltaik & Speicher", bew:4.7 },
+      { name:"Wärmeprofi Essen", tel:"+49 201 8870-55", fokus:"Wärmepumpe & Fußbodenheizung", bew:4.4 },
+      { name:"GreenHome Münster", tel:"+49 251 3320-15", fokus:"Passivhaus & Neubau-Beratung", bew:4.8 },
+    ],
+    liefer: [
+      { name:"Stadtwerke Düsseldorf", typ:"Strom & Gas", reg:"Düsseldorf" },
+      { name:"RWE / innogy", typ:"Strom & Gas", reg:"NRW" },
+      { name:"Naturstrom AG", typ:"Ökostrom", reg:"Bundesweit" },
+    ]
+  },
+  "5": {
+    region: "Köln / Bonn / NRW Süd",
+    haupt: { name:"RheinEnergie Beratung", tel:"+49 221 7700-500", email:"energieberatung@rheinenergie-beratung.de",
+      leistungen:["Energieausweis","Heizungstausch","PV","iSFP","BAFA-Förderung"], bew:4.7, zert:true },
+    alt: [
+      { name:"SolarRheinland", tel:"+49 221 8810-30", fokus:"PV-Großanlagen & Gewerbe", bew:4.5 },
+      { name:"KlimaHaus Bonn", tel:"+49 228 5530-40", fokus:"Altbausanierung & GEG", bew:4.6 },
+      { name:"WärmePunkt Siegen", tel:"+49 271 2240-60", fokus:"Wärmepumpe & Pellets", bew:4.3 },
+    ],
+    liefer: [
+      { name:"RheinEnergie", typ:"Strom & Gas", reg:"Köln" },
+      { name:"SWB Bonn", typ:"Strom & Gas", reg:"Bonn" },
+      { name:"Lichtblick", typ:"Ökostrom & Gas", reg:"Bundesweit" },
+    ]
+  },
+  "6": {
+    region: "Frankfurt / Hessen / Rheinland-Pfalz",
+    haupt: { name:"MainEnergie Consulting", tel:"+49 69 8800-600", email:"info@mainenergie-consulting.de",
+      leistungen:["Energieausweis","Sanierungsfahrplan","PV","Wärmepumpe","KfW"], bew:4.6, zert:true },
+    alt: [
+      { name:"SolarHessen GmbH", tel:"+49 69 4460-15", fokus:"PV & Mieterstrom", bew:4.5 },
+      { name:"Wärmelösung Mainz", tel:"+49 6131 7730-20", fokus:"Heizungsmodernisierung", bew:4.4 },
+      { name:"GreenBau Darmstadt", tel:"+49 6151 8850-30", fokus:"Neubau & Passivhaus", bew:4.7 },
+    ],
+    liefer: [
+      { name:"Mainova", typ:"Strom & Gas", reg:"Frankfurt" },
+      { name:"ENTEGA", typ:"Ökostrom & Gas", reg:"Südhessen" },
+      { name:"EWR", typ:"Strom & Gas", reg:"Rheinhessen" },
+    ]
+  },
+  "7": {
+    region: "Stuttgart / Baden-Württemberg",
+    haupt: { name:"EnergieZentrum BaWü", tel:"+49 711 9900-700", email:"beratung@energiezentrum-bawue.de",
+      leistungen:["iSFP","Energieausweis","Heizungstausch","PV","E-Mobilität"], bew:4.8, zert:true },
+    alt: [
+      { name:"SchwarzwaldSolar", tel:"+49 761 5540-20", fokus:"PV & Batteriespeicher", bew:4.6 },
+      { name:"Wärmetechnik Stuttgart", tel:"+49 711 3370-45", fokus:"Wärmepumpe & Hybridheizung", bew:4.5 },
+      { name:"EcoBau Karlsruhe", tel:"+49 721 8820-10", fokus:"Gebäudehülle & Fenster", bew:4.4 },
+    ],
+    liefer: [
+      { name:"EnBW", typ:"Strom & Gas", reg:"Baden-Württemberg" },
+      { name:"Stadtwerke Stuttgart", typ:"Strom & Gas", reg:"Stuttgart" },
+      { name:"badenova", typ:"Ökostrom & Gas", reg:"Südbaden" },
+    ]
+  },
+  "8": {
+    region: "München / Bayern Süd",
+    haupt: { name:"BayernEnergie Beratung AG", tel:"+49 89 5500-800", email:"info@bayernenergie-beratung.de",
+      leistungen:["Energieausweis","iSFP","Heizungstausch","PV","BAFA/KfW"], bew:4.9, zert:true },
+    alt: [
+      { name:"AlpenSolar München", tel:"+49 89 2230-55", fokus:"PV & Wallbox", bew:4.8 },
+      { name:"Wärmewende Bayern", tel:"+49 89 7750-30", fokus:"Wärmepumpe & Geothermie", bew:4.6 },
+      { name:"IsarDämm GmbH", tel:"+49 89 4480-20", fokus:"Dachdämmung & Fassade", bew:4.5 },
+    ],
+    liefer: [
+      { name:"SWM München", typ:"Strom & Gas & Fernwärme", reg:"München" },
+      { name:"Bayernwerk", typ:"Strom", reg:"Bayern" },
+      { name:"Polarstern", typ:"Ökostrom & Gas", reg:"Bundesweit" },
+    ]
+  },
+  "9": {
+    region: "Nürnberg / Franken / Bayern Nord",
+    haupt: { name:"FrankenEnergie Beratung", tel:"+49 911 8800-900", email:"kontakt@frankenenergie-beratung.de",
+      leistungen:["Energieausweis","Heizungscheck","PV-Beratung","Fördermittel"], bew:4.5, zert:true },
+    alt: [
+      { name:"SolarFranken GmbH", tel:"+49 911 3350-10", fokus:"PV & Agri-Solar", bew:4.4 },
+      { name:"WärmeWerk Nürnberg", tel:"+49 911 6640-25", fokus:"Pellet & Wärmepumpe", bew:4.3 },
+      { name:"GreenBau Würzburg", tel:"+49 931 7780-40", fokus:"KfW-Effizienzhaus", bew:4.6 },
+    ],
+    liefer: [
+      { name:"N-ERGIE", typ:"Strom & Gas", reg:"Nürnberg" },
+      { name:"Stadtwerke Würzburg", typ:"Strom & Gas", reg:"Würzburg" },
+      { name:"E.ON Energie", typ:"Strom & Gas", reg:"Bundesweit" },
+    ]
+  }
+};
+
+const MASSNAHMEN = [
+  { id:"pv",       icon:"☀️", label:"Photovoltaik-Anlage",   kosten:"8.000 – 18.000 €", spar:1200, foerd:"bis 25% BAFA", amort:"8–12 Jahre" },
+  { id:"wp",       icon:"🌡️", label:"Wärmepumpe",            kosten:"15.000 – 35.000 €", spar:1800, foerd:"bis 40% BEG", amort:"10–15 Jahre" },
+  { id:"daemmung", icon:"🧱", label:"Gebäudedämmung",        kosten:"12.000 – 40.000 €", spar:900,  foerd:"bis 20% KfW", amort:"12–18 Jahre" },
+  { id:"fenster",  icon:"🪟", label:"Fensteraustausch",      kosten:"8.000 – 20.000 €",  spar:600,  foerd:"bis 20% KfW", amort:"15–20 Jahre" },
+  { id:"heizung",  icon:"🔧", label:"Heizungsoptimierung",   kosten:"2.000 – 8.000 €",   spar:400,  foerd:"bis 15% BAFA", amort:"5–8 Jahre" },
+  { id:"smart",    icon:"📱", label:"Smart Home Energie",    kosten:"1.500 – 5.000 €",   spar:300,  foerd:"keine",        amort:"4–7 Jahre" },
+];
+
+// ══════════════════════════════════════════════════════════════
+// STATE
+// ══════════════════════════════════════════════════════════════
+
+let currentTab = "partner";
+let currentData = null;
+let selectedMass = new Set();
+
+// ══════════════════════════════════════════════════════════════
+// LOGIK
+// ══════════════════════════════════════════════════════════════
+
+function stars(n) { return "★".repeat(Math.floor(n)) + (n%1>=0.5?"½":""); }
+function fmt(n) { return n.toLocaleString("de-DE"); }
+
+function switchTab(tab) {
+  currentTab = tab;
+  document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.tab === tab));
+  render();
+}
+
+function doSearch() {
+  const plz = document.getElementById('plz').value;
+  if (plz.length < 1) return;
+  const key = plz.charAt(0);
+  currentData = DB[key] || null;
+  const rl = document.getElementById('region-label');
+  if (currentData) {
+    rl.style.display = 'block';
+    rl.innerHTML = `Region: <b>${currentData.region}</b>`;
+  } else {
+    rl.style.display = 'block';
+    rl.innerHTML = `Keine Daten für PLZ <b>${plz}</b> gefunden.`;
+  }
+  render();
+}
+
+function toggleMass(id) {
+  if (selectedMass.has(id)) selectedMass.delete(id); else selectedMass.add(id);
+  render();
+}
+
+// ══════════════════════════════════════════════════════════════
+// RENDER
+// ══════════════════════════════════════════════════════════════
+
+function render() {
+  const el = document.getElementById('content');
+
+  // PARTNER TAB
+  if (currentTab === 'partner') {
+    if (!currentData) { el.innerHTML = emptyState(); return; }
+    const h = currentData.haupt;
+    let html = `
+      <div class="sec-title anim-in">★ Empfohlener Hauptpartner</div>
+      <div class="partner-main anim-in anim-d1">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px">
+          <div>
+            <div class="partner-name">${h.name}</div>
+            <div class="partner-tel">📞 ${h.tel}</div>
+            <div class="partner-email">✉️ ${h.email}</div>
+            <div class="partner-tags">${h.leistungen.map(l=>`<span class="tag">${l}</span>`).join('')}</div>
+          </div>
+          <div style="text-align:right">
+            <div class="stars">${stars(h.bew)} ${h.bew}</div>
+            ${h.zert ? '<div class="badge-cert">✓ BAFA-zertifiziert</div>' : ''}
+          </div>
+        </div>
+      </div>
+      <div class="sec-title anim-in anim-d2">Alternativen in der Region</div>
+      <div class="card-grid">
+        ${currentData.alt.map((a,i)=>`
+          <div class="card anim-in anim-d${i+2}">
+            <div class="card-name">${a.name}</div>
+            <div class="card-sub">📞 ${a.tel}</div>
+            <div class="card-accent">${a.fokus}</div>
+            <div class="card-stars">${stars(a.bew)} ${a.bew}</div>
+          </div>
+        `).join('')}
+      </div>`;
+    el.innerHTML = html;
+  }
+
+  // LIEFERANTEN TAB
+  else if (currentTab === 'lieferanten') {
+    if (!currentData) { el.innerHTML = emptyState(); return; }
+    let html = `
+      <div class="sec-title anim-in">⚡ Energielieferanten in ${currentData.region}</div>
+      <div class="card-grid">
+        ${currentData.liefer.map((l,i)=>`
+          <div class="card anim-in anim-d${i+1}">
+            <div class="badge-placeholder">DATEN FOLGEN</div>
+            <div class="card-name" style="font-size:1rem">⚡ ${l.name}</div>
+            <div class="card-sub">Typ: <span style="color:var(--text)">${l.typ}</span></div>
+            <div class="card-sub">Region: <span style="color:var(--text)">${l.reg}</span></div>
+            <div class="tarif-placeholder">Tarifvergleich &amp; Preise<br>werden noch ergänzt</div>
+          </div>
+        `).join('')}
+      </div>
+      <div class="verbrauch-panel anim-in anim-d4">
+        <div class="sec-title">Verbrauchsdaten (für künftigen Tarifvergleich)</div>
+        <div class="verbrauch-grid">
+          <div>
+            <label class="v-label">Stromverbrauch kWh/Jahr</label>
+            <input class="v-input" type="number" id="vStrom" value="3500">
+          </div>
+          <div>
+            <label class="v-label">Gasverbrauch kWh/Jahr</label>
+            <input class="v-input" type="number" id="vGas" value="15000">
+          </div>
+          <div>
+            <label class="v-label">Wohnfläche m²</label>
+            <input class="v-input" type="number" id="vFlaeche" value="120">
+          </div>
+        </div>
+      </div>`;
+    el.innerHTML = html;
+  }
+
+  // RECHNER TAB
+  else if (currentTab === 'rechner') {
+    let html = `
+      <div class="sec-title anim-in">🏠 Maßnahmen auswählen</div>
+      <div class="card-grid">
+        ${MASSNAHMEN.map((m,i)=>{
+          const sel = selectedMass.has(m.id);
+          return `
+          <div class="mass-card ${sel?'sel':''} anim-in anim-d${Math.min(i+1,4)}" onclick="toggleMass('${m.id}')">
+            <div class="mass-check">${sel?'✓':''}</div>
+            <div class="mass-icon">${m.icon}</div>
+            <div class="mass-name">${m.label}</div>
+            <div class="mass-detail">Kosten: <b>${m.kosten}</b></div>
+            <div class="mass-detail">Ersparnis/Jahr: <b class="g">~${fmt(m.spar)} €</b></div>
+            <div class="mass-detail">Förderung: <b class="y">${m.foerd}</b></div>
+            <div class="mass-detail">Amortisation: <b class="b">${m.amort}</b></div>
+          </div>`;
+        }).join('')}
+      </div>`;
+
+    if (selectedMass.size > 0) {
+      const total = [...selectedMass].reduce((s,id)=>{
+        const m=MASSNAHMEN.find(x=>x.id===id); return s+(m?m.spar:0);
+      }, 0);
+      const vStrom = parseInt(document.getElementById('vStrom')?.value) || 3500;
+      const vGas   = parseInt(document.getElementById('vGas')?.value)   || 15000;
+      const kostenVorher = Math.round(vStrom * 0.32 + vGas * 0.12);
+      const kostenNachher = Math.max(0, kostenVorher - total);
+
+      html += `
+      <div class="result-panel anim-in">
+        <div class="result-hero">
+          <div class="result-label">GESCHÄTZTE JÄHRLICHE ERSPARNIS</div>
+          <div class="result-big">~${fmt(total)} €</div>
+          <div class="result-sub">pro Jahr bei ${selectedMass.size} Maßnahme${selectedMass.size>1?'n':''}</div>
+        </div>
+        <div class="stat-grid">
+          <div class="stat-box">
+            <div class="stat-val" style="color:var(--green)">~${fmt(total*20)} €</div>
+            <div class="stat-label">IN 20 JAHREN</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-val" style="color:var(--yellow)">~${fmt(Math.round(total/12))} €</div>
+            <div class="stat-label">PRO MONAT</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-val" style="color:var(--blue)">${selectedMass.size}</div>
+            <div class="stat-label">MASSNAHMEN</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-val" style="color:var(--orange)">~${fmt(kostenNachher)} €</div>
+            <div class="stat-label">KOSTEN DANACH/J.</div>
+          </div>
+        </div>
+        <div class="warn-box" style="margin-top:16px">
+          ⚠️ Alle Werte sind Schätzungen auf Basis von Durchschnittswerten.<br>
+          Exakte Berechnung erfolgt durch den Energieberater vor Ort.<br>
+          Daten für individuelle Tarife und Förderquoten werden noch ergänzt.
+        </div>
+      </div>`;
+    }
+    el.innerHTML = html;
+  }
+}
+
+function emptyState() {
+  return `
+    <div class="empty">
+      <div class="empty-icon">🏠</div>
+      <div class="empty-text">Postleitzahl oben eingeben</div>
+      <div class="empty-sub">Partner, Lieferanten und Sparpotenziale für Ihre Region</div>
+    </div>`;
+}
+
+// INIT
+render();
+document.getElementById('plz').focus();
+</script>
+</body>
+</html>

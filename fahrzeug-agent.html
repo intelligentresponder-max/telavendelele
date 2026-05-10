@@ -286,14 +286,20 @@
       <div>
         <div class="logo-text">
           <span class="lang-inline-de">Fahrzeug</span><span class="lang-inline-it">Veicoli</span>
-          <span>·Agent</span>
+          <span class="lang-inline-de">·Agent</span><span class="lang-inline-it">·Agente</span>
         </div>
         <div class="logo-sub">Rhein-Main · Mobile.de</div>
       </div>
     </div>
-    <div class="lang-switch">
+    <div style="display:flex;align-items:center;gap:.75rem;">
+      <a href="index.html" style="font-size:.72rem;letter-spacing:.1em;color:var(--muted);text-decoration:none;border:1px solid var(--border);padding:.3rem .7rem;border-radius:6px;transition:all .2s;" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--muted)'">
+        <span class="lang-inline-de">← Startseite</span>
+        <span class="lang-inline-it">← Sito principale</span>
+      </a>
+      <div class="lang-switch">
       <button class="lang-btn active" onclick="setLang('de')" id="btn-de">DE</button>
       <button class="lang-btn" onclick="setLang('it')" id="btn-it">IT</button>
+    </div>
     </div>
   </div>
 </header>
@@ -315,7 +321,7 @@
   <div class="badge-row">
     <span class="badge ok">✓ <span class="lang-inline-de">Kein API-Key</span><span class="lang-inline-it">Nessuna API Key</span></span>
     <span class="badge ok">✓ <span class="lang-inline-de">Täglich 08:00 Uhr</span><span class="lang-inline-it">Ogni giorno alle 08:00</span></span>
-    <span class="badge ok">✓ <span class="lang-inline-de">Delta-Erkennung</span><span class="lang-inline-it">Rilevamento novità</span></span>
+    <span class="badge ok">✓ <span class="lang-inline-de">Delta-Erkennung</span><span class="lang-inline-it">Solo annunci nuovi</span></span>
     <span class="badge ok">✓ <span class="lang-inline-de">WhatsApp-Vorlage</span><span class="lang-inline-it">Modello WhatsApp</span></span>
     <span class="badge">mobile.de</span>
     <span class="badge">GitHub Actions</span>
@@ -351,7 +357,7 @@
           <div class="stat"><strong>13.000 €</strong></div>
           <div class="stat"><strong>mobile_make_id</strong> 25200</div>
           <div class="stat"><strong>model_id</strong> 19900</div>
-          <div class="stat"><strong>Allgrip</strong> Stichwort</div>
+          <div class="stat"><strong>Allgrip</strong> <span class="lang-inline-de">Stichwort</span><span class="lang-inline-it">Parola chiave</span></div>
         </div>
       </div>
 
@@ -639,7 +645,7 @@ mkdir -p /sdcard/Download/fahrzeug-agent/data</code>
         <div class="step">
           <div class="step-num">3</div>
           <div class="step-body">
-            <div class="step-title">Creare la struttura cartelle</div>
+            <div class="step-title">Creare la struttura delle cartelle</div>
             <div class="step-text">Queste sottocartelle servono all'agente. Eseguire una sola volta:</div>
             <div class="code-block">
               <button class="copy-btn" onclick="copyCode(this)">Copia</button>

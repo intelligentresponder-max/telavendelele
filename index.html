@@ -115,6 +115,25 @@
     transition:border-color 0.3s, transform 0.2s;
   }
   .btn-outline:hover { border-color:var(--crema); transform:translateY(-2px); }
+  .btn-agent {
+    display:inline-flex; align-items:center; gap:0.45rem;
+    padding:0.9rem 2.2rem; background:transparent; color:var(--oro);
+    text-decoration:none; font-size:0.66rem; letter-spacing:0.18em;
+    text-transform:uppercase; border:1px solid rgba(184,150,62,0.5); cursor:pointer;
+    transition:all 0.3s; position:relative; overflow:hidden;
+  }
+  .btn-agent::before {
+    content:''; position:absolute; inset:0;
+    background:rgba(184,150,62,0.08); opacity:0; transition:opacity 0.3s;
+  }
+  .btn-agent:hover { border-color:var(--oro); color:var(--oro-chiaro); transform:translateY(-2px); }
+  .btn-agent:hover::before { opacity:1; }
+  /* pulsing dot inside agent button */
+  .agent-dot {
+    display:inline-block; width:6px; height:6px; border-radius:50%;
+    background:var(--oro); animation:agentPulse 2s infinite; flex-shrink:0;
+  }
+  @keyframes agentPulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(0.7)} }
 
   /* ── SECTIONS ────────────────────────────────────────────── */
   section { padding:6rem 2rem; }
@@ -278,6 +297,7 @@
     <li><a href="#vetrina"  data-i18n="nav_vet">Vetrina</a></li>
     <li><a href="#chisiamo" data-i18n="nav_chi">Gabriele</a></li>
     <li><a href="#ordine"   data-i18n="nav_ord">Richiedi</a></li>
+    <li><a href="fahrzeug-agent.html" data-i18n="nav_agent" style="color:var(--oro);">🔍 Agente</a></li>
   </ul>
   <div class="nav-right">
     <a href="https://wa.me/393661178347"                                   target="_blank" class="nav-icon wa"><svg><use href="#ico-wa"/></svg></a>
@@ -304,6 +324,10 @@
         <span data-i18n="hero_btn2">Scrivici su WhatsApp</span>
       </a>
       <a href="#ordine" class="btn-outline" data-i18n="hero_btn3">Richiedi un veicolo →</a>
+      <a href="fahrzeug-agent.html" class="btn-agent">
+        <span class="agent-dot"></span>
+        <span data-i18n="hero_agent">Agente Ricerca</span>
+      </a>
     </div>
     <p class="hero-badge" data-i18n="hero_badge">Consulente dedicato — Gabriele Agliati</p>
   </div>
@@ -588,6 +612,7 @@ const T = {
     nav_vet:   "Vetrina",
     nav_chi:   "Gabriele",
     nav_ord:   "Richiedi",
+    nav_agent: "🔍 Agente",
 
     /* Hero */
     hero_pre:   "Lago di Como — Auto · Moto · Barche",
@@ -596,6 +621,7 @@ const T = {
     hero_btn1:  "Scopri i veicoli",
     hero_btn2:  "Scrivici su WhatsApp",
     hero_btn3:  "Richiedi un veicolo →",
+    hero_agent: "Agente Ricerca →",
     hero_badge: "Consulente dedicato — Gabriele Agliati",
 
     /* Intro */
@@ -681,6 +707,7 @@ const T = {
     nav_vet:   "Angebote",
     nav_chi:   "Gabriele",
     nav_ord:   "Anfragen",
+    nav_agent: "🔍 Suchagent",
 
     /* Hero */
     hero_pre:   "Lago di Como — Autos · Motorräder · Boote",
@@ -689,6 +716,7 @@ const T = {
     hero_btn1:  "Fahrzeuge entdecken",
     hero_btn2:  "WhatsApp schreiben",
     hero_btn3:  "Fahrzeug anfragen →",
+    hero_agent: "Suchagent →",
     hero_badge: "Persönlicher Berater — Gabriele Agliati",
 
     /* Intro */

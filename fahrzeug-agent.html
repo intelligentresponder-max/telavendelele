@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Fahrzeug-Suchagent | Agente Ricerca Veicoli – Rhein-Main</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg:       #0d0f14;
+    --surface:  #161a23;
+    --card:     #1c2130;
+    --border:   #2a3145;
+    --gold:     #e8b84b;
+    --gold2:    #f5d27a;
+    --blue:     #3b82f6;
+    --text:     #e2e8f0;
+    --muted:    #7a8499;
+    --success:  #34d399;
+    --danger:   #f87171;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Barlow', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── Background grid ── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0; z-index: 0;
+    background-image:
+      linear-gradient(rgba(59,130,246,.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(59,130,246,.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+  }
+
+  /* ── Header ── */
+  header {
+    position: relative; z-index: 10;
+    background: linear-gradient(135deg, #0a0c10 0%, #111827 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 0 clamp(1rem, 5vw, 3rem);
+  }
+  .header-inner {
+    max-width: 1100px; margin: auto;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 1rem; height: 70px;
+  }
+  .logo {
+    display: flex; align-items: center; gap: .75rem;
+  }
+  .logo-icon {
+    width: 40px; height: 40px;
+    background: linear-gradient(135deg, var(--gold), var(--gold2));
+    border-radius: 8px;
+    display: grid; place-items: center;
+    font-size: 1.3rem;
+    box-shadow: 0 0 20px rgba(232,184,75,.25);
+  }
+  .logo-text {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.35rem; font-weight: 700;
+    letter-spacing: .04em;
+    line-height: 1.1;
+  }
+  .logo-text span { color: var(--gold); }
+  .logo-sub { font-size: .7rem; color: var(--muted); letter-spacing: .1em; text-transform: uppercase; }
+
+  /* ── Lang switcher ── */
+  .lang-switch {
+    display: flex; gap: 0; border: 1px solid var(--border); border-radius: 8px; overflow: hidden;
+  }
+  .lang-btn {
+    background: transparent; border: none; cursor: pointer;
+    padding: .45rem .9rem; font-family: 'Barlow Condensed', sans-serif;
+    font-size: .95rem; font-weight: 700; letter-spacing: .08em;
+    color: var(--muted); transition: all .2s;
+  }
+  .lang-btn.active { background: var(--gold); color: #0d0f14; }
+  .lang-btn:hover:not(.active) { background: var(--border); color: var(--text); }
+
+  /* ── Hero ── */
+  .hero {
+    position: relative; z-index: 5;
+    padding: clamp(2.5rem,7vw,5rem) clamp(1rem,5vw,3rem) clamp(2rem,5vw,3.5rem);
+    text-align: center;
+  }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: .5rem;
+    font-size: .72rem; letter-spacing: .18em; text-transform: uppercase;
+    color: var(--gold); border: 1px solid rgba(232,184,75,.3);
+    padding: .3rem .8rem; border-radius: 20px; margin-bottom: 1.5rem;
+  }
+  .hero-eyebrow::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--gold); animation: blink 2s infinite; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.2} }
+
+  .hero h1 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(2.4rem, 7vw, 5rem);
+    font-weight: 800; line-height: .95;
+    text-transform: uppercase; letter-spacing: .02em;
+    margin-bottom: 1.25rem;
+  }
+  .hero h1 em { color: var(--gold); font-style: normal; }
+  .hero p {
+    max-width: 600px; margin: 0 auto 2rem;
+    font-size: 1.05rem; font-weight: 300; color: var(--muted); line-height: 1.7;
+  }
+
+  .badge-row {
+    display: flex; flex-wrap: wrap; justify-content: center; gap: .6rem; margin-top: 1.5rem;
+  }
+  .badge {
+    font-size: .75rem; font-weight: 500; letter-spacing: .06em;
+    padding: .3rem .75rem; border-radius: 4px;
+    border: 1px solid var(--border); color: var(--muted);
+  }
+  .badge.ok { border-color: rgba(52,211,153,.3); color: var(--success); }
+
+  /* ── Main layout ── */
+  main {
+    position: relative; z-index: 5;
+    max-width: 1100px; margin: 0 auto;
+    padding: 0 clamp(1rem,5vw,3rem) 4rem;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;
+  }
+  @media(max-width:760px){ main { grid-template-columns: 1fr; } }
+
+  .full-width { grid-column: 1 / -1; }
+
+  /* ── Section label ── */
+  .section-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: .7rem; letter-spacing: .18em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1rem; display: flex; align-items: center; gap: .6rem;
+  }
+  .section-label::after { content:''; flex:1; height:1px; background: var(--border); }
+
+  /* ── Card ── */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px; padding: 1.5rem;
+    transition: border-color .2s, transform .2s;
+  }
+  .card:hover { border-color: rgba(232,184,75,.35); transform: translateY(-2px); }
+
+  .card-header {
+    display: flex; align-items: flex-start; justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+  .card-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.2rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: .04em; line-height: 1.2;
+  }
+  .card-sub { font-size: .8rem; color: var(--muted); margin-top: .2rem; }
+
+  .tag {
+    font-size: .68rem; font-weight: 600; letter-spacing: .08em;
+    padding: .2rem .55rem; border-radius: 4px;
+    background: rgba(232,184,75,.12); color: var(--gold); border: 1px solid rgba(232,184,75,.25);
+    white-space: nowrap;
+  }
+  .tag.blue { background: rgba(59,130,246,.12); color: #93c5fd; border-color: rgba(59,130,246,.25); }
+  .tag.green { background: rgba(52,211,153,.1); color: var(--success); border-color: rgba(52,211,153,.25); }
+
+  /* ── Profil stats ── */
+  .stat-row { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .9rem; }
+  .stat {
+    font-size: .78rem; color: var(--muted);
+    background: var(--surface); padding: .3rem .65rem; border-radius: 5px;
+  }
+  .stat strong { color: var(--text); }
+
+  /* ── Dealer card ── */
+  .dealer-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px,1fr)); gap: 1rem; }
+  .dealer-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 10px; padding: 1.1rem 1.2rem;
+    transition: border-color .2s;
+  }
+  .dealer-card:hover { border-color: rgba(232,184,75,.3); }
+  .dealer-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1rem; font-weight: 700; letter-spacing: .03em; margin-bottom: .7rem;
+  }
+  .dealer-row { display: flex; gap: .5rem; align-items: flex-start; margin-bottom: .4rem; }
+  .dealer-icon { font-size: .85rem; opacity: .7; margin-top: .05rem; flex-shrink: 0; }
+  .dealer-val { font-size: .82rem; color: var(--muted); line-height: 1.4; }
+  .dealer-val a { color: var(--blue); text-decoration: none; }
+  .dealer-val a:hover { text-decoration: underline; }
+  .dealer-brands { display: flex; gap: .3rem; flex-wrap: wrap; margin-top: .7rem; }
+  .brand-pill {
+    font-size: .65rem; font-weight: 600; letter-spacing: .07em;
+    padding: .15rem .45rem; border-radius: 3px;
+    background: rgba(59,130,246,.1); color: #93c5fd; border: 1px solid rgba(59,130,246,.2);
+  }
+
+  /* ── GitHub instructions ── */
+  .steps { counter-reset: step; display: flex; flex-direction: column; gap: 1.2rem; }
+  .step {
+    display: flex; gap: 1rem; align-items: flex-start;
+    counter-increment: step;
+  }
+  .step-num {
+    flex-shrink: 0;
+    width: 32px; height: 32px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold), var(--gold2));
+    color: #0d0f14; font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800; font-size: .95rem;
+    display: grid; place-items: center;
+    box-shadow: 0 0 14px rgba(232,184,75,.3);
+  }
+  .step-body { flex: 1; }
+  .step-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.05rem; font-weight: 700; letter-spacing: .03em; margin-bottom: .35rem;
+  }
+  .step-text { font-size: .86rem; color: var(--muted); line-height: 1.6; }
+
+  pre, code {
+    font-family: 'Courier New', monospace;
+    font-size: .8rem;
+  }
+  .code-block {
+    background: #0a0c10; border: 1px solid var(--border);
+    border-radius: 8px; padding: 1rem 1.1rem;
+    margin: .6rem 0; overflow-x: auto; position: relative;
+  }
+  .code-block code { color: #a5f3fc; line-height: 1.7; display: block; }
+  .code-block .comment { color: #4a5568; }
+  .copy-btn {
+    position: absolute; top: .5rem; right: .5rem;
+    background: var(--border); border: none; cursor: pointer;
+    color: var(--muted); font-size: .7rem; padding: .25rem .5rem; border-radius: 4px;
+    transition: all .15s;
+  }
+  .copy-btn:hover { background: var(--gold); color: #0d0f14; }
+
+  /* ── Warning box ── */
+  .info-box {
+    border-radius: 8px; padding: .9rem 1.1rem;
+    display: flex; gap: .75rem; align-items: flex-start;
+    font-size: .83rem; line-height: 1.6;
+  }
+  .info-box.warn { background: rgba(232,184,75,.07); border: 1px solid rgba(232,184,75,.2); color: #d4a83a; }
+  .info-box.ok   { background: rgba(52,211,153,.06); border: 1px solid rgba(52,211,153,.2); color: #34d399; }
+  .info-box.info { background: rgba(59,130,246,.07); border: 1px solid rgba(59,130,246,.2); color: #93c5fd; }
+  .info-icon { font-size: 1.1rem; flex-shrink: 0; }
+
+  /* ── Footer ── */
+  footer {
+    position: relative; z-index: 5;
+    text-align: center; padding: 2rem;
+    font-size: .75rem; color: var(--muted); border-top: 1px solid var(--border);
+  }
+
+  /* ── Language hiding ── */
+  [data-lang] { display: none; }
+  html[lang="de"] [data-lang="de"] { display: revert; }
+  html[lang="it"] [data-lang="it"] { display: revert; }
+  html[lang="de"] [data-lang="de"].flex { display: flex; }
+  html[lang="it"] [data-lang="it"].flex { display: flex; }
+
+  .lang-inline-de, .lang-inline-it { display: inline; }
+  html[lang="de"] .lang-inline-it { display: none; }
+  html[lang="it"] .lang-inline-de { display: none; }
+</style>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<header>
+  <div class="header-inner">
+    <div class="logo">
+      <div class="logo-icon">🚗</div>
+      <div>
+        <div class="logo-text">
+          <span class="lang-inline-de">Fahrzeug</span><span class="lang-inline-it">Veicoli</span>
+          <span>·Agent</span>
+        </div>
+        <div class="logo-sub">Rhein-Main · Mobile.de</div>
+      </div>
+    </div>
+    <div class="lang-switch">
+      <button class="lang-btn active" onclick="setLang('de')" id="btn-de">DE</button>
+      <button class="lang-btn" onclick="setLang('it')" id="btn-it">IT</button>
+    </div>
+  </div>
+</header>
+
+<!-- ── HERO ── -->
+<div class="hero">
+  <div class="hero-eyebrow">
+    <span class="lang-inline-de">Automatische Suche · Kein API-Key</span>
+    <span class="lang-inline-it">Ricerca automatica · Nessuna API Key</span>
+  </div>
+  <h1>
+    <span data-lang="de">Dein <em>Fahrzeug-<br/>Suchagent</em></span>
+    <span data-lang="it">Il tuo <em>Agente<br/>Veicoli</em></span>
+  </h1>
+  <p>
+    <span data-lang="de">Täglich automatische Suche auf mobile.de – Suzuki Ignis, Fiat Panda und Audi Q5 im Rhein-Main-Gebiet. Ergebnisse direkt in GitHub, WhatsApp-Vorlage inklusive.</span>
+    <span data-lang="it">Ricerca automatica giornaliera su mobile.de – Suzuki Ignis, Fiat Panda e Audi Q5 nella regione Reno-Meno. Risultati direttamente su GitHub, modello WhatsApp incluso.</span>
+  </p>
+  <div class="badge-row">
+    <span class="badge ok">✓ <span class="lang-inline-de">Kein API-Key</span><span class="lang-inline-it">Nessuna API Key</span></span>
+    <span class="badge ok">✓ <span class="lang-inline-de">Täglich 08:00 Uhr</span><span class="lang-inline-it">Ogni giorno alle 08:00</span></span>
+    <span class="badge ok">✓ <span class="lang-inline-de">Delta-Erkennung</span><span class="lang-inline-it">Rilevamento novità</span></span>
+    <span class="badge ok">✓ <span class="lang-inline-de">WhatsApp-Vorlage</span><span class="lang-inline-it">Modello WhatsApp</span></span>
+    <span class="badge">mobile.de</span>
+    <span class="badge">GitHub Actions</span>
+    <span class="badge">Termux</span>
+  </div>
+</div>
+
+<!-- ── MAIN ── -->
+<main>
+
+  <!-- SUCHPROFILE -->
+  <div class="full-width">
+    <div class="section-label">
+      <span class="lang-inline-de">🔍 Suchprofile</span>
+      <span class="lang-inline-it">🔍 Profili di ricerca</span>
+    </div>
+    <div style="display:grid; grid-template-columns: repeat(auto-fill,minmax(280px,1fr)); gap:1rem;">
+
+      <!-- Suzuki Ignis -->
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Suzuki Ignis Allgrip</div>
+            <div class="card-sub">
+              <span class="lang-inline-de">4×4 · Nur Händler</span>
+              <span class="lang-inline-it">4×4 · Solo concessionari</span>
+            </div>
+          </div>
+          <div class="tag">4×4</div>
+        </div>
+        <div class="stat-row">
+          <div class="stat"><strong data-lang="de">Max. Preis</strong><strong data-lang="it">Prezzo max.</strong></div>
+          <div class="stat"><strong>13.000 €</strong></div>
+          <div class="stat"><strong>mobile_make_id</strong> 25200</div>
+          <div class="stat"><strong>model_id</strong> 19900</div>
+          <div class="stat"><strong>Allgrip</strong> Stichwort</div>
+        </div>
+      </div>
+
+      <!-- Fiat Panda -->
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Fiat Panda</div>
+            <div class="card-sub">
+              <span class="lang-inline-de">Budget · ab 2019</span>
+              <span class="lang-inline-it">Budget · dal 2019</span>
+            </div>
+          </div>
+          <div class="tag" style="background:rgba(52,211,153,.1);color:#34d399;border-color:rgba(52,211,153,.25);">Budget</div>
+        </div>
+        <div class="stat-row">
+          <div class="stat"><strong data-lang="de">Max. Preis</strong><strong data-lang="it">Prezzo max.</strong></div>
+          <div class="stat"><strong>9.000 €</strong></div>
+          <div class="stat"><strong data-lang="de">Min. Baujahr</strong><strong data-lang="it">Anno min.</strong> 2019</div>
+          <div class="stat"><strong>make_id</strong> 9900</div>
+          <div class="stat"><strong>model_id</strong> 16200</div>
+        </div>
+      </div>
+
+      <!-- Audi Q5 -->
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Audi Q5 S-Line</div>
+            <div class="card-sub">
+              <span class="lang-inline-de">Neuzulassung · ab Sept. 2025</span>
+              <span class="lang-inline-it">Immatric. nuova · da sett. 2025</span>
+            </div>
+          </div>
+          <div class="tag blue">Premium</div>
+        </div>
+        <div class="stat-row">
+          <div class="stat"><strong data-lang="de">Max. Preis</strong><strong data-lang="it">Prezzo max.</strong></div>
+          <div class="stat"><strong>50.000 €</strong></div>
+          <div class="stat"><strong data-lang="de">Min. EZ</strong><strong data-lang="it">Immatric. min.</strong> 09/2025</div>
+          <div class="stat"><strong>make_id</strong> 1900</div>
+          <div class="stat"><strong>model_id</strong> 73200</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- HÄNDLER / CONCESSIONARI -->
+  <div class="full-width">
+    <div class="section-label">
+      <span class="lang-inline-de">🏢 Händler im Rhein-Main</span>
+      <span class="lang-inline-it">🏢 Concessionari nel Reno-Meno</span>
+    </div>
+    <div class="dealer-grid">
+
+      <div class="dealer-card">
+        <div class="dealer-name">ACD Auto Center Darmstadt</div>
+        <div class="dealer-row"><span class="dealer-icon">📍</span><span class="dealer-val">Schottener Weg 10, 64289 Darmstadt</span></div>
+        <div class="dealer-row"><span class="dealer-icon">📞</span><span class="dealer-val">06151 66 96 596</span></div>
+        <div class="dealer-row"><span class="dealer-icon">✉️</span><span class="dealer-val"><a href="mailto:info@acd-team.de">info@acd-team.de</a></span></div>
+        <div class="dealer-row"><span class="dealer-icon">🌐</span><span class="dealer-val"><a href="https://www.acd-team.de" target="_blank">acd-team.de</a></span></div>
+        <div class="dealer-brands"><span class="brand-pill">Fiat</span></div>
+      </div>
+
+      <div class="dealer-card">
+        <div class="dealer-name">auto:mobil GmbH</div>
+        <div class="dealer-row"><span class="dealer-icon">📍</span><span class="dealer-val">Fasanerie-Arkaden 1, 63512 Hainburg</span></div>
+        <div class="dealer-row"><span class="dealer-icon">📞</span><span class="dealer-val">06182 7862-0</span></div>
+        <div class="dealer-row"><span class="dealer-icon">✉️</span><span class="dealer-val"><a href="mailto:info@automobilgmbh.de">info@automobilgmbh.de</a></span></div>
+        <div class="dealer-row"><span class="dealer-icon">🌐</span><span class="dealer-val"><a href="https://www.automobil-gmbh.de" target="_blank">automobil-gmbh.de</a></span></div>
+        <div class="dealer-brands"><span class="brand-pill">Fiat</span></div>
+      </div>
+
+      <div class="dealer-card">
+        <div class="dealer-name">Klaus Schreier GmbH</div>
+        <div class="dealer-row"><span class="dealer-icon">📍</span><span class="dealer-val">Am Taubenbaum 18, 61231 Bad Nauheim</span></div>
+        <div class="dealer-row"><span class="dealer-icon">📞</span><span class="dealer-val">06032 9688 0</span></div>
+        <div class="dealer-row"><span class="dealer-icon">🌐</span><span class="dealer-val"><a href="https://www.autopark-schreier.de" target="_blank">autopark-schreier.de</a></span></div>
+        <div class="dealer-brands"><span class="brand-pill">Fiat</span></div>
+      </div>
+
+      <div class="dealer-card">
+        <div class="dealer-name">AVEMO Audi Zentrum Hanau</div>
+        <div class="dealer-row"><span class="dealer-icon">📍</span><span class="dealer-val">Luise-Kiesselbach-Str. 17, 63452 Hanau</span></div>
+        <div class="dealer-row"><span class="dealer-icon">📞</span><span class="dealer-val">06108 60029302</span></div>
+        <div class="dealer-row"><span class="dealer-icon">✉️</span><span class="dealer-val"><a href="mailto:info@audi-zentrum-hanau.de">info@audi-zentrum-hanau.de</a></span></div>
+        <div class="dealer-row"><span class="dealer-icon">👤</span><span class="dealer-val">Luca Raponi · <a href="mailto:luca.raponi@avemo-group.de">luca.raponi@avemo-group.de</a></span></div>
+        <div class="dealer-brands"><span class="brand-pill">Audi</span></div>
+      </div>
+
+      <div class="dealer-card">
+        <div class="dealer-name">Autohaus M.A.X. GmbH</div>
+        <div class="dealer-row"><span class="dealer-icon">📍</span><span class="dealer-val">Waldstraße 218-220, 63071 Offenbach</span></div>
+        <div class="dealer-row"><span class="dealer-icon">📞</span><span class="dealer-val">069 840089-0</span></div>
+        <div class="dealer-row"><span class="dealer-icon">✉️</span><span class="dealer-val"><a href="mailto:info@autohaus-max.de">info@autohaus-max.de</a></span></div>
+        <div class="dealer-row"><span class="dealer-icon">🌐</span><span class="dealer-val"><a href="https://www.autohaus-max.de" target="_blank">autohaus-max.de</a></span></div>
+        <div class="dealer-brands"><span class="brand-pill">Audi</span></div>
+      </div>
+
+      <div class="dealer-card">
+        <div class="dealer-name">Thomas Dietz Kfz</div>
+        <div class="dealer-row"><span class="dealer-icon">📍</span><span class="dealer-val">August Winter Str. 3, 61381 Friedrichsdorf</span></div>
+        <div class="dealer-row"><span class="dealer-icon">📞</span><span class="dealer-val">06175 7982382</span></div>
+        <div class="dealer-brands"><span class="brand-pill">Fiat</span><span class="brand-pill">Suzuki</span></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- GITHUB ANLEITUNG DE -->
+  <div class="full-width" data-lang="de">
+    <div class="section-label">📦 GitHub-Anleitung – Schritt für Schritt</div>
+
+    <div class="info-box info" style="margin-bottom:1.5rem;">
+      <span class="info-icon">ℹ️</span>
+      <span>Du verwendest das bestehende Repo <strong>intelligentresponder-max/telavendelele</strong>. Alle Dateien kommen in denselben Ordner – du erstellst keinen neuen Branch.</span>
+    </div>
+
+    <div class="card full-width">
+      <div class="steps">
+
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-title">Dateien herunterladen (in Claude)</div>
+            <div class="step-text">
+              Lade alle 7 Dateien aus Claude herunter. Sie landen in <code>/sdcard/Download/</code>.
+              Wichtig: Ordner anlegen, damit es nicht chaotisch wird:
+            </div>
+            <div class="code-block">
+              <button class="copy-btn" onclick="copyCode(this)">Kopieren</button>
+              <code><span class="comment"># In Termux – einmalig vorbereiten</span>
+mkdir -p /sdcard/Download/fahrzeug-agent/src/templates
+mkdir -p /sdcard/Download/fahrzeug-agent/.github/workflows
+mkdir -p /sdcard/Download/fahrzeug-agent/data</code>
+            </div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-title">In dein bestehendes Repo wechseln</div>
+            <div class="step-text">Das Repo <strong>telavendelele</strong> liegt bereits lokal bei dir. Öffne Termux und wechsle rein:</div>
+            <div class="code-block">
+              <button class="copy-btn" onclick="copyCode(this)">Kopieren</button>
+              <code>cd ~/telavendelele</code>
+            </div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <div class="step-title">Ordnerstruktur im Repo anlegen</div>
+            <div class="step-text">Diese Unterordner braucht der Agent. Einmalig ausführen:</div>
+            <div class="code-block">
+              <button class="copy-btn" onclick="copyCode(this)">Kopieren</button>
+              <code>mkdir -p src/templates .github/workflows data</code>
+            </div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <div class="step-title">Alle Dateien ins Repo kopieren</div>
+            <div class="step-text">Kopiere die heruntergeladenen Dateien an die richtigen Stellen:</div>
+            <div class="code-block">
+              <button class="copy-btn" onclick="copyCode(this)">Kopieren</button>
+              <code><span class="comment"># Python-Skripte</span>
+cp /sdcard/Download/searcher.py        src/
+cp /sdcard/Download/report_builder.py  src/
+
+<span class="comment"># Konfiguration & Abhängigkeiten</span>
+cp /sdcard/Download/config.yaml        .
+cp /sdcard/Download/requirements.txt   .
+cp /sdcard/Download/README.md          .
+
+<span class="comment"># GitHub Action</span>
+cp /sdcard/Download/daily_search.yml   .github/workflows/
+
+<span class="comment"># Leerer Cache (Pflicht für ersten Lauf)</span>
+echo '{}' > data/last_results.json</code>
+            </div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-body">
+            <div class="step-title">Alles committen und pushen</div>
+            <div class="step-text">Git fügt alle neuen Dateien hinzu und schickt sie zu GitHub. GitHub fragt nach <strong>Username + Token</strong>.</div>
+            <div class="code-block">
+              <button class="copy-btn" onclick="copyCode(this)">Kopieren</button>
+              <code>git add .
+git commit -m "Fahrzeug-Agent hinzugefügt"
+git push</code>
+            </div>
+            <div class="info-box warn" style="margin-top:.7rem;">
+              <span class="info-icon">🔑</span>
+              <span>Kein Passwort – du brauchst einen <strong>Personal Access Token</strong>. Erstellen unter: <a href="https://github.com/settings/tokens" target="_blank" style="color:var(--gold)">github.com/settings/tokens</a> → "Generate new token (classic)" → Haken bei <code>repo</code></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">6</div>
+          <div class="step-body">
+            <div class="step-title">GitHub Action aktivieren</div>
+            <div class="step-text">Die Suche läuft jetzt täglich automatisch. Einmalig manuell testen:</div>
+            <div class="code-block">
+              <code>GitHub → Dein Repo → Reiter "Actions"
+→ "Tägliche Fahrzeugsuche"
+→ "Run workflow" → Klick auf grünen Button</code>
+            </div>
+            <div class="info-box ok" style="margin-top:.7rem;">
+              <span class="info-icon">✅</span>
+              <span>Nach dem Lauf erscheint unter "Artifacts" die Datei <strong>bericht.md</strong> mit allen Inseraten + WhatsApp-Vorlage.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">7</div>
+          <div class="step-body">
+            <div class="step-title">Lokal testen (optional)</div>
+            <div class="step-text">Du kannst die Suche auch direkt in Termux starten:</div>
+            <div class="code-block">
+              <button class="copy-btn" onclick="copyCode(this)">Kopieren</button>
+              <code><span class="comment"># Einmalig Pakete installieren</span>
+pip install -r requirements.txt
+
+<span class="comment"># Suche starten</span>
+cd src
+python searcher.py --config ../config.yaml --output ../bericht.md</code>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- GITHUB ANLEITUNG IT -->
+  <div class="full-width" data-lang="it">
+    <div class="section-label">📦 Guida GitHub – Passo dopo passo</div>
+
+    <div class="info-box info" style="margin-bottom:1.5rem;">
+      <span class="info-icon">ℹ️</span>
+      <span>Usi il repository esistente <strong>intelligentresponder-max/telavendelele</strong>. Tutti i file vanno nella stessa cartella – non devi creare un nuovo branch.</span>
+    </div>
+
+    <div class="card full-width">
+      <div class="steps">
+
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-title">Scaricare i file (da Claude)</div>
+            <div class="step-text">Scarica tutti e 7 i file da Claude. Finiscono in <code>/sdcard/Download/</code>. Prepara le cartelle in Termux:</div>
+            <div class="code-block">
+              <button class="copy-btn" onclick="copyCode(this)">Copia</button>
+              <code><span class="comment"># In Termux – preparazione cartelle</span>
+mkdir -p /sdcard/Download/fahrzeug-agent/src/templates
+mkdir -p /sdcard/Download/fahrzeug-agent/.github/workflows
+mkdir -p /sdcard/Download/fahrzeug-agent/data</code>
+            </div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-title">Entrare nel repo esistente</div>
+            <div class="step-text">Il repo <strong>telavendelele</strong> esiste già. Apri Termux e spostati dentro:</div>
+            <div class="code-block">
+              <button class="copy-btn" onclick="copyCode(this)">Copia</button>
+              <code>cd ~/telavendelele</code>
+            </div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <div class="step-title">Creare la struttura cartelle</div>
+            <div class="step-text">Queste sottocartelle servono all'agente. Eseguire una sola volta:</div>
+            <div class="code-block">
+              <button class="copy-btn" onclick="copyCode(this)">Copia</button>
+              <code>mkdir -p src/templates .github/workflows data</code>
+            </div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <div class="step-title">Copiare tutti i file nel repo</div>
+            <div class="step-text">Copia i file scaricati nelle posizioni giuste:</div>
+            <div class="code-block">
+              <button class="copy-btn" onclick="copyCode(this)">Copia</button>
+              <code><span class="comment"># Script Python</span>
+cp /sdcard/Download/searcher.py        src/
+cp /sdcard/Download/report_builder.py  src/
+
+<span class="comment"># Configurazione e dipendenze</span>
+cp /sdcard/Download/config.yaml        .
+cp /sdcard/Download/requirements.txt   .
+cp /sdcard/Download/README.md          .
+
+<span class="comment"># GitHub Action</span>
+cp /sdcard/Download/daily_search.yml   .github/workflows/
+
+<span class="comment"># Cache vuota (obbligatoria per il primo avvio)</span>
+echo '{}' > data/last_results.json</code>
+            </div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-body">
+            <div class="step-title">Commit e push</div>
+            <div class="step-text">Git aggiunge tutti i nuovi file e li invia a GitHub. GitHub chiede <strong>Username + Token</strong>.</div>
+            <div class="code-block">
+              <button class="copy-btn" onclick="copyCode(this)">Copia</button>
+              <code>git add .
+git commit -m "Agente veicoli aggiunto"
+git push</code>
+            </div>
+            <div class="info-box warn" style="margin-top:.7rem;">
+              <span class="info-icon">🔑</span>
+              <span>Non serve una password – ti serve un <strong>Personal Access Token</strong>. Crearlo su: <a href="https://github.com/settings/tokens" target="_blank" style="color:var(--gold)">github.com/settings/tokens</a> → "Generate new token (classic)" → spunta <code>repo</code></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">6</div>
+          <div class="step-body">
+            <div class="step-title">Attivare la GitHub Action</div>
+            <div class="step-text">La ricerca girerà ogni giorno in automatico. Test manuale:</div>
+            <div class="code-block">
+              <code>GitHub → Il tuo repo → Tab "Actions"
+→ "Tägliche Fahrzeugsuche"
+→ "Run workflow" → Clic sul pulsante verde</code>
+            </div>
+            <div class="info-box ok" style="margin-top:.7rem;">
+              <span class="info-icon">✅</span>
+              <span>Dopo l'esecuzione, nella sezione "Artifacts" trovi <strong>bericht.md</strong> con tutti gli annunci + modello WhatsApp.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">7</div>
+          <div class="step-body">
+            <div class="step-title">Test locale (facoltativo)</div>
+            <div class="step-text">Puoi avviare la ricerca anche direttamente in Termux:</div>
+            <div class="code-block">
+              <button class="copy-btn" onclick="copyCode(this)">Copia</button>
+              <code><span class="comment"># Installazione pacchetti (una tantum)</span>
+pip install -r requirements.txt
+
+<span class="comment"># Avviare la ricerca</span>
+cd src
+python searcher.py --config ../config.yaml --output ../bericht.md</code>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <span class="lang-inline-de">Fahrzeug-Suchagent · Rhein-Main · Automatisch via GitHub Actions · Daten von mobile.de</span>
+  <span class="lang-inline-it">Agente Ricerca Veicoli · Reno-Meno · Automatico via GitHub Actions · Dati da mobile.de</span>
+</footer>
+
+<script>
+// ── Sprache umschalten ──────────────────────────────────────
+function setLang(lang) {
+  document.documentElement.lang = lang;
+  document.getElementById('btn-de').classList.toggle('active', lang === 'de');
+  document.getElementById('btn-it').classList.toggle('active', lang === 'it');
+  localStorage.setItem('lang', lang);
+}
+
+// ── Code kopieren ───────────────────────────────────────────
+function copyCode(btn) {
+  const code = btn.closest('.code-block').querySelector('code').innerText;
+  navigator.clipboard.writeText(code).then(() => {
+    const orig = btn.textContent;
+    btn.textContent = '✓';
+    setTimeout(() => btn.textContent = orig, 1500);
+  });
+}
+
+// ── Beim Laden gespeicherte Sprache ────────────────────────
+const saved = localStorage.getItem('lang');
+if (saved && saved !== 'de') setLang(saved);
+</script>
+</body>
+</html>

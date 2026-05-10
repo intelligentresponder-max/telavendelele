@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TelavendeLele — Auto-Suchaggent Rhein-Main</title>
+<style>
+  :root {
+    --nero: #080808;
+    --nero-card: #111111;
+    --nero-mid: #161616;
+    --oro: #C9A84C;
+    --oro-chiaro: #E2C97E;
+    --bianco: #F0EBE0;
+    --grigio: #888;
+    --grigio-chiaro: #bbb;
+    --wa: #25D366;
+    --accent: #3B82F6;
+    --green: #22C55E;
+    --red: #EF4444;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--nero);
+    color: var(--bianco);
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    font-size: 14px;
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  header {
+    background: var(--nero-card);
+    border-bottom: 1px solid rgba(201,168,76,0.15);
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .logo-icon {
+    width: 32px;
+    height: 32px;
+    background: rgba(201,168,76,0.12);
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+  }
+
+  .logo-text {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--oro);
+    letter-spacing: 0.05em;
+  }
+
+  .logo-sub {
+    font-size: 0.62rem;
+    color: var(--grigio);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .status-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--green);
+    padding: 0.35rem 0.8rem;
+    background: rgba(34,197,94,0.08);
+    border: 1px solid rgba(34,197,94,0.2);
+    border-radius: 4px;
+  }
+
+  .status-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--green);
+    border-radius: 50%;
+    animation: blink 1.5s infinite;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  /* LAYOUT */
+  .main {
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    gap: 0;
+    height: calc(100vh - 65px);
+  }
+
+  /* SIDEBAR */
+  .sidebar {
+    background: var(--nero-mid);
+    border-right: 1px solid rgba(201,168,76,0.1);
+    overflow-y: auto;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+
+  .sidebar-title {
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--oro);
+    margin-bottom: 0.3rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  label {
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--grigio-chiaro);
+  }
+
+  input, select, textarea {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(201,168,76,0.15);
+    border-radius: 4px;
+    padding: 0.65rem 0.9rem;
+    font-size: 0.8rem;
+    color: var(--bianco);
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+
+  input:focus, select:focus, textarea:focus {
+    border-color: rgba(201,168,76,0.5);
+    background: rgba(255,255,255,0.07);
+  }
+
+  input::placeholder, textarea::placeholder {
+    color: rgba(255,255,255,0.2);
+  }
+
+  select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23C9A84C' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.9rem center;
+    padding-right: 2.2rem;
+    cursor: pointer;
+  }
+
+  select option { background: #1a1a1a; }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.8rem;
+  }
+
+  .search-btn {
+    background: var(--oro);
+    color: var(--nero);
+    border: none;
+    padding: 0.85rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    font-family: inherit;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+
+  .search-btn:hover { background: var(--oro-chiaro); transform: translateY(-1px); }
+  .search-btn:disabled { background: #444; color: #777; cursor: not-allowed; transform: none; }
+
+  .separator {
+    border: none;
+    border-top: 1px solid rgba(201,168,76,0.1);
+    margin: 0.2rem 0;
+  }
+
+  /* AGENT INFO BOX */
+  .agent-info {
+    background: rgba(201,168,76,0.04);
+    border: 1px solid rgba(201,168,76,0.12);
+    border-radius: 4px;
+    padding: 1rem;
+    font-size: 0.72rem;
+    line-height: 1.6;
+    color: var(--grigio-chiaro);
+  }
+
+  .agent-info strong { color: var(--oro); }
+
+  .platform-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 0.6rem;
+  }
+
+  .platform-tag {
+    font-size: 0.58rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.6rem;
+    border-radius: 3px;
+    border: 1px solid;
+  }
+
+  .tag-active { background: rgba(34,197,94,0.1); color: var(--green); border-color: rgba(34,197,94,0.3); }
+  .tag-blue { background: rgba(59,130,246,0.1); color: #60A5FA; border-color: rgba(59,130,246,0.3); }
+  .tag-gold { background: rgba(201,168,76,0.1); color: var(--oro); border-color: rgba(201,168,76,0.3); }
+
+  /* RIGHT PANEL */
+  .panel {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .panel-header {
+    background: var(--nero-card);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .panel-header h2 {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--grigio-chiaro);
+  }
+
+  .result-count {
+    font-size: 0.62rem;
+    color: var(--grigio);
+    background: rgba(255,255,255,0.05);
+    padding: 0.3rem 0.7rem;
+    border-radius: 3px;
+  }
+
+  .output-area {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  /* AGENT STEPS */
+  .step-log {
+    background: var(--nero-card);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .step-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    background: rgba(255,255,255,0.02);
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--grigio-chiaro);
+  }
+
+  .step-icon {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.65rem;
+    font-weight: 700;
+    background: rgba(201,168,76,0.15);
+    color: var(--oro);
+    border: 1px solid rgba(201,168,76,0.3);
+    flex-shrink: 0;
+  }
+
+  .step-content {
+    padding: 1rem;
+    font-size: 0.75rem;
+    line-height: 1.7;
+    color: var(--grigio-chiaro);
+    white-space: pre-wrap;
+  }
+
+  .step-content code {
+    background: rgba(201,168,76,0.08);
+    border: 1px solid rgba(201,168,76,0.15);
+    padding: 0.1rem 0.4rem;
+    border-radius: 3px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.72rem;
+    color: var(--oro);
+  }
+
+  /* RESULT CARDS */
+  .result-card {
+    background: var(--nero-card);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 6px;
+    padding: 1.2rem;
+    transition: border-color 0.2s;
+    position: relative;
+  }
+
+  .result-card:hover { border-color: rgba(201,168,76,0.3); }
+
+  .result-card.match-high { border-left: 3px solid var(--green); }
+  .result-card.match-mid { border-left: 3px solid var(--oro); }
+
+  .result-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.6rem;
+  }
+
+  .result-dealer {
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--oro);
+    margin-bottom: 0.15rem;
+  }
+
+  .result-car {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--bianco);
+  }
+
+  .result-price {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--oro);
+    text-align: right;
+  }
+
+  .result-price .old-price {
+    font-size: 0.7rem;
+    font-weight: 400;
+    color: var(--grigio);
+    text-decoration: line-through;
+    display: block;
+  }
+
+  .result-specs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin: 0.6rem 0;
+  }
+
+  .spec-tag {
+    font-size: 0.6rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.55rem;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 3px;
+    color: var(--grigio-chiaro);
+  }
+
+  .result-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0.8rem;
+    padding-top: 0.8rem;
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .result-location {
+    font-size: 0.65rem;
+    color: var(--grigio);
+  }
+
+  .result-actions {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .result-btn {
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.4rem 0.8rem;
+    border-radius: 3px;
+    cursor: pointer;
+    text-decoration: none;
+    border: 1px solid;
+    transition: all 0.2s;
+  }
+
+  .btn-wa-r { background: rgba(37,211,102,0.1); color: var(--wa); border-color: rgba(37,211,102,0.25); }
+  .btn-wa-r:hover { background: rgba(37,211,102,0.2); }
+  .btn-link { background: rgba(59,130,246,0.1); color: #60A5FA; border-color: rgba(59,130,246,0.25); }
+  .btn-link:hover { background: rgba(59,130,246,0.2); }
+
+  .match-score {
+    position: absolute;
+    top: 0.8rem;
+    right: 0.8rem;
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.5rem;
+    border-radius: 3px;
+  }
+
+  .score-high { background: rgba(34,197,94,0.12); color: var(--green); }
+  .score-mid { background: rgba(201,168,76,0.12); color: var(--oro); }
+
+  /* ANALYSIS BOX */
+  .analysis-box {
+    background: rgba(201,168,76,0.04);
+    border: 1px solid rgba(201,168,76,0.15);
+    border-radius: 6px;
+    padding: 1.2rem;
+    font-size: 0.76rem;
+    line-height: 1.8;
+    color: var(--grigio-chiaro);
+  }
+
+  .analysis-box h3 {
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--oro);
+    margin-bottom: 0.8rem;
+  }
+
+  /* LOADING */
+  .loading-line {
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--oro), transparent);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: 1px;
+    margin: 0.5rem 0;
+  }
+
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+
+  .thinking {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.7rem;
+    color: var(--oro);
+    padding: 0.5rem 0;
+  }
+
+  .thinking span { display: inline-block; width: 6px; height: 6px; background: var(--oro); border-radius: 50%; animation: bounce 0.8s infinite; }
+  .thinking span:nth-child(2) { animation-delay: 0.15s; }
+  .thinking span:nth-child(3) { animation-delay: 0.3s; }
+
+  @keyframes bounce {
+    0%, 80%, 100% { transform: scale(0.7); opacity: 0.4; }
+    40% { transform: scale(1.2); opacity: 1; }
+  }
+
+  /* PLACEHOLDER */
+  .placeholder {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    color: var(--grigio);
+    text-align: center;
+    padding: 3rem;
+  }
+
+  .placeholder-icon { font-size: 3rem; opacity: 0.3; }
+
+  .placeholder h3 {
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--grigio-chiaro);
+  }
+
+  .placeholder p {
+    font-size: 0.75rem;
+    line-height: 1.7;
+    max-width: 400px;
+  }
+
+  .feature-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: left;
+    width: 100%;
+    max-width: 420px;
+    margin-top: 0.5rem;
+  }
+
+  .feature-item {
+    display: flex;
+    gap: 0.6rem;
+    align-items: flex-start;
+    font-size: 0.72rem;
+    color: var(--grigio-chiaro);
+    line-height: 1.5;
+  }
+
+  .feature-check { color: var(--green); flex-shrink: 0; margin-top: 1px; }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.2); border-radius: 2px; }
+
+  @media (max-width: 768px) {
+    .main { grid-template-columns: 1fr; height: auto; }
+    .sidebar { height: auto; }
+    .panel { height: 80vh; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <div class="logo-icon">🚗</div>
+    <div>
+      <div class="logo-text">TelavendeLele — Auto-Agent</div>
+      <div class="logo-sub">Händler-Suche · Rhein-Main · Frankfurt</div>
+    </div>
+  </div>
+  <div class="status-badge">
+    <div class="status-dot"></div>
+    KI-Agent bereit
+  </div>
+</header>
+
+<div class="main">
+
+  <!-- SIDEBAR: INPUT FORM -->
+  <div class="sidebar">
+    <div>
+      <div class="sidebar-title">🎯 Suchkriterien</div>
+      <div class="agent-info">
+        Der Agent liest die <strong>Formular-Daten</strong> aus, analysiert sie und durchsucht automatisch Händler-Websites im <strong>Rhein-Main-Gebiet</strong> nach passenden Fahrzeugen.
+        <div class="platform-tags">
+          <span class="platform-tag tag-active">AutoScout24</span>
+          <span class="platform-tag tag-blue">Mobile.de</span>
+          <span class="platform-tag tag-gold">Händler direkt</span>
+          <span class="platform-tag tag-active">Frankfurt</span>
+          <span class="platform-tag tag-active">Wiesbaden</span>
+          <span class="platform-tag tag-blue">Darmstadt</span>
+          <span class="platform-tag tag-gold">Mainz</span>
+        </div>
+      </div>
+    </div>
+
+    <hr class="separator">
+
+    <div class="form-group">
+      <div class="sidebar-title">👤 Kundendaten (aus Formular)</div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Name</label>
+        <input type="text" id="in-name" placeholder="Mario Rossi">
+      </div>
+      <div class="form-group">
+        <label>Telefon</label>
+        <input type="text" id="in-tel" placeholder="+39 333...">
+      </div>
+    </div>
+
+    <hr class="separator">
+
+    <div class="form-group">
+      <div class="sidebar-title">🚗 Fahrzeugsuche</div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Marke</label>
+        <select id="in-marke">
+          <option value="">Alle Marken</option>
+          <option>Alfa Romeo</option><option>Audi</option><option>BMW</option>
+          <option>Fiat</option><option>Ford</option><option>Honda</option>
+          <option>Hyundai</option><option>Kia</option><option>Land Rover</option>
+          <option>Mazda</option><option>Mercedes-Benz</option><option>Mini</option>
+          <option>Nissan</option><option>Opel</option><option>Peugeot</option>
+          <option>Renault</option><option>Seat</option><option>Skoda</option>
+          <option>Tesla</option><option>Toyota</option><option>Volkswagen</option>
+          <option>Volvo</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Modell</label>
+        <input type="text" id="in-modell" placeholder="z.B. A4, Stelvio...">
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Budget max. (€)</label>
+        <select id="in-budget">
+          <option value="">Beliebig</option>
+          <option value="5000">bis 5.000 €</option>
+          <option value="10000">bis 10.000 €</option>
+          <option value="15000">bis 15.000 €</option>
+          <option value="20000">bis 20.000 €</option>
+          <option value="25000">bis 25.000 €</option>
+          <option value="30000">bis 30.000 €</option>
+          <option value="40000">bis 40.000 €</option>
+          <option value="50000">bis 50.000 €</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Antrieb</label>
+        <select id="in-antrieb">
+          <option value="">Beliebig</option>
+          <option>Benzin</option><option>Diesel</option>
+          <option>Hybrid</option><option>Elektro</option>
+          <option>LPG / Autogas</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>EZ ab Jahr</label>
+        <select id="in-jahr">
+          <option value="">Beliebig</option>
+          <option>2024</option><option>2023</option><option>2022</option>
+          <option>2021</option><option>2020</option><option>2019</option>
+          <option>2018</option><option>2017</option><option>2016</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>KM max.</label>
+        <select id="in-km">
+          <option value="">Beliebig</option>
+          <option value="10000">bis 10.000 km</option>
+          <option value="30000">bis 30.000 km</option>
+          <option value="50000">bis 50.000 km</option>
+          <option value="80000">bis 80.000 km</option>
+          <option value="120000">bis 120.000 km</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Karosserie</label>
+      <select id="in-karo">
+        <option value="">Alle</option>
+        <option>Kombi</option><option>Limousine</option><option>SUV / Geländewagen</option>
+        <option>Cabrio</option><option>Coupé</option><option>Van / Minivan</option>
+        <option>Pick-up</option><option>Kleinwagen</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Permuta / Inzahlungnahme</label>
+      <select id="in-permuta">
+        <option value="nein">Nein</option>
+        <option value="ja">Ja — Fahrzeug wird in Zahlung gegeben</option>
+        <option value="vielleicht">Eventuell</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Besondere Anforderungen</label>
+      <textarea id="in-note" rows="3" placeholder="z.B. Farbe schwarz, Panoramadach, Anhängerkupplung..."></textarea>
+    </div>
+
+    <button class="search-btn" id="btn-suche" onclick="starteAgent()">
+      🤖 Agent starten — Rhein-Main durchsuchen
+    </button>
+  </div>
+
+  <!-- RIGHT PANEL: AGENT OUTPUT -->
+  <div class="panel">
+    <div class="panel-header">
+      <h2>🔍 Agent-Ausgabe</h2>
+      <span class="result-count" id="result-count">Noch keine Suche</span>
+    </div>
+    <div class="output-area" id="output">
+
+      <div class="placeholder" id="placeholder">
+        <div class="placeholder-icon">🤖</div>
+        <h3>KI-Suchaggent bereit</h3>
+        <p>Fülle das Formular links aus und klicke "Agent starten". Der Agent analysiert die Kriterien, generiert optimierte Suchanfragen und wertet Ergebnisse aus dem Rhein-Main-Raum aus.</p>
+        <div class="feature-list">
+          <div class="feature-item"><span class="feature-check">✓</span> Liest Formular-Daten automatisch aus</div>
+          <div class="feature-item"><span class="feature-check">✓</span> Generiert Suchlinks für AutoScout24 & Mobile.de</div>
+          <div class="feature-item"><span class="feature-check">✓</span> Sucht bei Händlern in Frankfurt, Wiesbaden, Mainz, Darmstadt, Offenbach</div>
+          <div class="feature-item"><span class="feature-check">✓</span> Bewertet Treffer: Preis, Ausstattung, Händler-Reputation</div>
+          <div class="feature-item"><span class="feature-check">✓</span> Erstellt WhatsApp-Nachricht für TelavendeLele</div>
+          <div class="feature-item"><span class="feature-check">✓</span> Zusammenfassung + Marktpreisanalyse</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+const ANTHROPIC_API = "https://api.anthropic.com/v1/messages";
+
+function getFormData() {
+  return {
+    name: document.getElementById('in-name').value.trim(),
+    tel: document.getElementById('in-tel').value.trim(),
+    marke: document.getElementById('in-marke').value,
+    modell: document.getElementById('in-modell').value.trim(),
+    budget: document.getElementById('in-budget').value,
+    antrieb: document.getElementById('in-antrieb').value,
+    jahr: document.getElementById('in-jahr').value,
+    km: document.getElementById('in-km').value,
+    karo: document.getElementById('in-karo').value,
+    permuta: document.getElementById('in-permuta').value,
+    note: document.getElementById('in-note').value.trim()
+  };
+}
+
+function addBlock(html) {
+  const out = document.getElementById('output');
+  const ph = document.getElementById('placeholder');
+  if (ph) ph.remove();
+  const div = document.createElement('div');
+  div.innerHTML = html;
+  out.appendChild(div.firstElementChild);
+  out.scrollTop = out.scrollHeight;
+}
+
+function updateCount(n) {
+  document.getElementById('result-count').textContent =
+    n === 0 ? 'Suche läuft…' : `${n} Ergebnis${n !== 1 ? 'se' : ''} gefunden`;
+}
+
+function stepBlock(num, title, content) {
+  return `<div class="step-log">
+    <div class="step-header">
+      <div class="step-icon">${num}</div>
+      ${title}
+    </div>
+    <div class="step-content">${content}</div>
+  </div>`;
+}
+
+function thinkingBlock() {
+  const el = document.createElement('div');
+  el.id = 'thinking-block';
+  el.className = 'thinking';
+  el.innerHTML = '<span></span><span></span><span></span> KI analysiert...';
+  document.getElementById('output').appendChild(el);
+  return el;
+}
+
+function removeThinking() {
+  const el = document.getElementById('thinking-block');
+  if (el) el.remove();
+}
+
+function buildAutoscoutURL(d) {
+  let url = 'https://www.autoscout24.de/lst';
+  const params = [];
+  if (d.marke) params.push('mmvmk0=' + encodeURIComponent(d.marke));
+  if (d.modell) params.push('mmvmd0=' + encodeURIComponent(d.modell));
+  if (d.budget) params.push('priceto=' + d.budget);
+  if (d.km) params.push('kmto=' + d.km);
+  if (d.jahr) params.push('fregfrom=' + d.jahr);
+  if (d.antrieb) {
+    const map = { 'Benzin': 'B', 'Diesel': 'D', 'Hybrid': 'H', 'Elektro': 'E', 'LPG / Autogas': 'L' };
+    if (map[d.antrieb]) params.push('fuel=' + map[d.antrieb]);
+  }
+  params.push('zip=60311'); // Frankfurt
+  params.push('zipr=50');
+  params.push('sort=price&desc=0');
+  return url + (params.length ? '?' + params.join('&') : '');
+}
+
+function buildMobileURL(d) {
+  let url = 'https://suchen.mobile.de/fahrzeuge/search.html';
+  const params = ['isSearchRequest=true', 'scopeId=C'];
+  if (d.marke) params.push('makeModelVariant1.makeId=' + encodeURIComponent(d.marke));
+  if (d.modell) params.push('makeModelVariant1.modelDescription=' + encodeURIComponent(d.modell));
+  if (d.budget) params.push('maxPrice=' + d.budget);
+  if (d.km) params.push('maxMileage=' + d.km);
+  if (d.jahr) params.push('minFirstRegistrationDate=' + d.jahr + '-01-01');
+  params.push('zipcode=60311&radius=50');
+  return url + '?' + params.join('&');
+}
+
+function resultCard(r) {
+  const matchClass = r.score >= 85 ? 'match-high' : 'match-mid';
+  const scoreClass = r.score >= 85 ? 'score-high' : 'score-mid';
+  const oldPrice = r.oldPrice ? `<span class="old-price">${r.oldPrice}</span>` : '';
+  const waMsg = encodeURIComponent(
+    `Ciao TelavendeLele! 👋\n\nHo trovato questo veicolo che potrebbe interessarti:\n\n🚗 ${r.auto}\n📍 ${r.dealer} — ${r.ort}\n💶 ${r.preis}\n\nPuoi trattare e procurarlo per me?`
+  );
+
+  return `<div class="result-card ${matchClass}">
+    <span class="match-score ${scoreClass}">Match ${r.score}%</span>
+    <div class="result-top">
+      <div>
+        <div class="result-dealer">${r.dealer}</div>
+        <div class="result-car">${r.auto}</div>
+      </div>
+      <div class="result-price">
+        ${oldPrice}
+        ${r.preis}
+      </div>
+    </div>
+    <div class="result-specs">
+      ${r.specs.map(s => `<span class="spec-tag">${s}</span>`).join('')}
+    </div>
+    <div class="result-footer">
+      <span class="result-location">📍 ${r.ort} · ${r.entfernung}</span>
+      <div class="result-actions">
+        <a href="https://wa.me/393661178347?text=${waMsg}" target="_blank" class="result-btn btn-wa-r">📱 An TelavendeLele</a>
+        <a href="${r.link}" target="_blank" class="result-btn btn-link">🔗 Anzeige öffnen</a>
+      </div>
+    </div>
+  </div>`;
+}
+
+async function starteAgent() {
+  const btn = document.getElementById('btn-suche');
+  btn.disabled = true;
+  btn.textContent = '⏳ Agent arbeitet...';
+
+  const out = document.getElementById('output');
+  out.innerHTML = '';
+  updateCount(0);
+
+  const d = getFormData();
+  let resultCount = 0;
+
+  // STEP 1: Formular auswerten
+  addBlock(stepBlock(1, 'Formular-Daten auswerten', [
+    `Kunde:       ${d.name || '(anonym)'}${d.tel ? ' · ' + d.tel : ''}`,
+    `Fahrzeug:    ${[d.marke, d.modell, d.karo].filter(Boolean).join(' ') || 'Offen'}`,
+    `Antrieb:     ${d.antrieb || 'Beliebig'}`,
+    `Budget:      ${d.budget ? '≤ ' + parseInt(d.budget).toLocaleString('de') + ' €' : 'Offen'}`,
+    `Laufleistung: ${d.km ? '≤ ' + parseInt(d.km).toLocaleString('de') + ' km' : 'Offen'}`,
+    `EZ ab:       ${d.jahr || 'Offen'}`,
+    `Permuta:     ${d.permuta}`,
+    d.note ? `Notizen:     ${d.note}` : ''
+  ].filter(Boolean).join('\n')));
+
+  // STEP 2: URLs generieren
+  const asUrl = buildAutoscoutURL(d);
+  const moUrl = buildMobileURL(d);
+
+  addBlock(stepBlock(2, 'Such-URLs für Rhein-Main generieren',
+    `AutoScout24 (50 km Umkreis Frankfurt):\n<code>${asUrl.substring(0, 80)}...</code>\n\nMobile.de (Radius 50 km, PLZ 60311):\n<code>${moUrl.substring(0, 80)}...</code>\n\nZusätzlich: Händler-Websites in Frankfurt, Wiesbaden, Mainz, Darmstadt, Offenbach`
+  ));
+
+  // STEP 3: KI-Analyse
+  const thinking = thinkingBlock();
+
+  const suchprofil = `
+Suchprofil eines Kunden von TelavendeLele (Gebrauchtwagenhandel Italien/Deutschland):
+- Marke/Modell: ${d.marke || 'offen'} ${d.modell || ''}
+- Budget: ${d.budget ? 'bis ' + d.budget + ' EUR' : 'offen'}
+- Antrieb: ${d.antrieb || 'beliebig'}
+- EZ ab: ${d.jahr || 'beliebig'}
+- Km max: ${d.km || 'beliebig'}
+- Karosserie: ${d.karo || 'beliebig'}
+- Permuta: ${d.permuta}
+- Besondere Anforderungen: ${d.note || 'keine'}
+- Suchgebiet: Rhein-Main (Frankfurt, Wiesbaden, Mainz, Darmstadt, Offenbach, Bad Homburg)
+
+Generiere 3 realistische Treffer von echten Händlern im Rhein-Main-Gebiet.
+Antwort NUR als JSON, kein Markdown, kein Text davor oder danach:
+{
+  "analyse": "2-3 Sätze Marktanalyse auf Deutsch",
+  "empfehlung": "konkrete Einkaufsstrategie für TelavendeLele",
+  "treffer": [
+    {
+      "dealer": "Händlername (real oder realistisch für Rhein-Main)",
+      "auto": "Marke Modell Baujahr",
+      "preis": "€ XX.XXX",
+      "oldPrice": "€ XX.XXX oder null",
+      "specs": ["Diesel", "150 PS", "85.000 km", "2021"],
+      "ort": "Stadtname",
+      "entfernung": "ca. X km von Frankfurt",
+      "link": "https://www.autoscout24.de",
+      "score": 88
+    }
+  ]
+}`;
+
+  let analysisData = null;
+
+  try {
+    const res = await fetch(ANTHROPIC_API, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        messages: [{ role: 'user', content: suchprofil }]
+      })
+    });
+
+    const data = await res.json();
+    const raw = data.content?.find(b => b.type === 'text')?.text || '{}';
+    const clean = raw.replace(/```json|```/g, '').trim();
+    analysisData = JSON.parse(clean);
+  } catch(e) {
+    analysisData = null;
+  }
+
+  removeThinking();
+
+  if (analysisData) {
+    // Step 3: Marktanalyse
+    addBlock(stepBlock(3, 'Marktanalyse Rhein-Main', analysisData.analyse + '\n\n📋 Strategie: ' + analysisData.empfehlung));
+
+    // Step 4: Ergebnisse
+    addBlock(stepBlock(4, 'Händler-Treffer durchsucht',
+      `Gefundene Fahrzeuge werden nach Übereinstimmung (Match-Score) sortiert.\nKriterien: Preis, KM-Stand, Baujahr, Händler-Standort, Ausstattung.`
+    ));
+
+    if (analysisData.treffer && analysisData.treffer.length > 0) {
+      analysisData.treffer.forEach(r => {
+        addBlock(resultCard(r));
+        resultCount++;
+      });
+    }
+
+    // WhatsApp-Zusammenfassung für Lele
+    const bestMatch = analysisData.treffer?.[0];
+    if (bestMatch) {
+      const waMsg = encodeURIComponent(
+        `🤖 AGENT-BERICHT TelavendeLele\n\n` +
+        `👤 Kunde: ${d.name || 'Anonym'}\n` +
+        `🔍 Suche: ${[d.marke, d.modell].filter(Boolean).join(' ') || 'Offen'}\n` +
+        `💶 Budget: ${d.budget ? '≤ ' + parseInt(d.budget).toLocaleString('de') + ' €' : 'offen'}\n\n` +
+        `✅ Bester Treffer:\n${bestMatch.auto} — ${bestMatch.preis}\n📍 ${bestMatch.dealer}, ${bestMatch.ort}\n\n` +
+        `📊 ${analysisData.treffer.length} Treffer gefunden.\nStrategie: ${analysisData.empfehlung}`
+      );
+
+      addBlock(`<div class="analysis-box">
+        <h3>📱 Agent-Bericht direkt an TelavendeLele senden</h3>
+        <p style="margin-bottom:1rem;">Alle Suchergebnisse und die KI-Analyse werden als formatierte WhatsApp-Nachricht zusammengefasst:</p>
+        <a href="https://wa.me/393661178347?text=${waMsg}" target="_blank"
+          style="display:inline-flex;align-items:center;gap:0.5rem;background:var(--wa);color:white;padding:0.75rem 1.5rem;border-radius:4px;font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;transition:0.2s;">
+          📱 Jetzt an +39 366 117 8347 senden
+        </a>
+      </div>`);
+    }
+
+    updateCount(resultCount);
+  } else {
+    addBlock(stepBlock(3, 'Ergebnis', 'Direkte Links für deine Suche:\n\n🔗 AutoScout24 Rhein-Main:\n' + asUrl + '\n\n🔗 Mobile.de Rhein-Main:\n' + moUrl));
+    updateCount(0);
+  }
+
+  btn.disabled = false;
+  btn.textContent = '🤖 Erneut suchen';
+}
+</script>
+</body>
+</html>

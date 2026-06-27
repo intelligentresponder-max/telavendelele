@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Il canale video di TelavendeLele — veicoli presentati direttamente dai venditori. Auto, moto e barche sul Lago di Como.">
+<title>Il Canale — TelavendeLele | Lago di Como</title>
+<style>
+  :root{
+    --oro:#B8963E;
+    --oro-chiaro:#d4af5a;
+    --nero:#0D0D0D;
+    --nero-2:#1A1A1A;
+    --grigio:#9a9a9a;
+    --bianco:#F5EDD8;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap');
+  body{
+    background:var(--nero);
+    color:var(--bianco);
+    font-family:'Montserrat',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;line-height:1.2}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(12,12,12,.92);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid rgba(201,162,75,.18);
+  }
+  .nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .logo{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--oro);letter-spacing:.5px}
+  .logo span{color:var(--bianco)}
+  .nav-links{display:flex;gap:20px;font-size:.85rem;color:var(--grigio)}
+  .nav-links a:hover{color:var(--oro)}
+
+  .hero{
+    text-align:center;
+    padding:64px 0 44px;
+    background:radial-gradient(circle at 50% 0%,rgba(201,162,75,.10),transparent 60%);
+  }
+  .hero .kicker{color:var(--oro);letter-spacing:3px;text-transform:uppercase;font-size:.72rem;margin-bottom:16px}
+  .hero h1{font-size:clamp(2.2rem,6vw,3.4rem);margin-bottom:16px}
+  .hero h1 em{color:var(--oro);font-style:italic}
+  .hero p{color:var(--grigio);max-width:560px;margin:0 auto;font-size:1.02rem}
+  .hero .cta-sell{
+    display:inline-block;margin-top:26px;
+    background:linear-gradient(135deg,var(--oro),var(--oro-chiaro));
+    color:#0D0D0D;font-weight:600;
+    padding:14px 32px;border-radius:50px;font-size:.95rem;
+    box-shadow:0 8px 30px rgba(201,162,75,.25);
+    transition:transform .2s;
+  }
+  .hero .cta-sell:hover{transform:translateY(-2px)}
+
+  /* GALLERIA VIDEO */
+  .galleria{padding:24px 0 56px}
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+    gap:26px;
+  }
+  .video-card{
+    background:var(--nero-2);
+    border:1px solid rgba(201,162,75,.15);
+    border-radius:16px;
+    overflow:hidden;
+    transition:border-color .25s,transform .25s;
+  }
+  .video-card:hover{border-color:rgba(201,162,75,.45);transform:translateY(-4px)}
+  .video-frame{position:relative;width:100%;aspect-ratio:9/16;background:#000}
+  .video-frame iframe{width:100%;height:100%;border:0}
+  /* Placeholder quando non c'è ancora un video reale */
+  .placeholder{
+    width:100%;height:100%;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    background:linear-gradient(160deg,#1A1A1A,#0D0D0D);
+    color:var(--grigio);text-align:center;padding:20px;
+  }
+  .placeholder .play{
+    width:64px;height:64px;border-radius:50%;
+    border:2px solid var(--oro);color:var(--oro);
+    display:flex;align-items:center;justify-content:center;
+    font-size:1.6rem;margin-bottom:14px;
+  }
+  .placeholder small{font-size:.78rem;letter-spacing:1px;text-transform:uppercase;color:var(--oro)}
+  .video-info{padding:18px 20px}
+  .video-info .tag{
+    display:inline-block;color:var(--oro);font-size:.7rem;letter-spacing:1.5px;
+    text-transform:uppercase;margin-bottom:8px;
+  }
+  .video-info h3{font-size:1.4rem;color:var(--bianco);margin-bottom:4px}
+  .video-info .spec{color:var(--grigio);font-size:.88rem;margin-bottom:14px}
+  .video-info .prezzo{color:var(--oro-chiaro);font-size:1.25rem;font-family:'Cormorant Garamond',serif;font-weight:600;margin-bottom:14px}
+  .btn-info{
+    display:inline-block;width:100%;text-align:center;
+    border:1px solid var(--oro);color:var(--oro);
+    padding:10px;border-radius:50px;font-size:.85rem;font-weight:500;
+    transition:background .2s,color .2s;
+  }
+  .btn-info:hover{background:var(--oro);color:#0D0D0D}
+
+  footer{
+    text-align:center;padding:48px 0 36px;margin-top:32px;
+    border-top:1px solid rgba(201,162,75,.15);
+    color:var(--grigio);font-size:.82rem;
+  }
+  footer .logo{display:block;margin-bottom:14px;font-size:1.4rem}
+  footer a{color:var(--oro)}
+  .footer-links{margin:14px 0;display:flex;gap:18px;justify-content:center;flex-wrap:wrap}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="index.html" class="logo">Telavende<span>Lele</span></a>
+    <div class="nav-links">
+      <a href="index.html">Salone</a>
+      <a href="index.html#vetrina">Vetrina</a>
+      <a href="vendi.html">Vendi →</a>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="kicker">Il Canale Video</div>
+    <h1>I veicoli, <em>raccontati</em><br>da chi li vende.</h1>
+    <p>Ogni auto presentata con un video reale: pregi, difetti e dettagli. Trasparenza totale, direttamente dal Lago di Como.</p>
+    <a class="cta-sell" href="vendi.html">📹 Vuoi vendere? Invia il tuo video</a>
+  </div>
+</section>
+
+<section class="galleria">
+  <div class="wrap">
+    <div class="grid">
+
+      <!-- ============================================================= -->
+      <!--  COME AGGIUNGERE UN VIDEO (per Lele):                          -->
+      <!--  1. Copia un intero blocco <article class="video-card">...    -->
+      <!--  2. Per un video YouTube: sostituisci il <div class="placeholder">
+              con: <iframe src="https://www.youtube.com/embed/CODICE"     -->
+      <!--     allowfullscreen></iframe>                                   -->
+      <!--     (CODICE = la parte dopo "watch?v=" nel link YouTube)        -->
+      <!--  3. Cambia titolo, specifiche, prezzo e il link WhatsApp.      -->
+      <!-- ============================================================= -->
+
+      <!-- ESEMPIO 1 (placeholder, in attesa del primo video) -->
+      <article class="video-card">
+        <div class="video-frame">
+          <div class="placeholder">
+            <div class="play">▶</div>
+            <small>Video in arrivo</small>
+            <p style="margin-top:8px;font-size:.82rem">Il primo video sarà presto qui</p>
+          </div>
+        </div>
+        <div class="video-info">
+          <span class="tag">Esempio · Auto</span>
+          <h3>Alfa Romeo Stelvio</h3>
+          <div class="spec">2.2 Diesel 210 CV Q4 AWD · 2019</div>
+          <div class="prezzo">€ 19.000</div>
+          <a class="btn-info" href="https://wa.me/393661178347?text=Ciao%20Lele!%20Ho%20visto%20il%20video%20dell'Alfa%20Stelvio%20sul%20canale.">Chiedi su WhatsApp</a>
+        </div>
+      </article>
+
+      <!-- ESEMPIO 2 (placeholder) -->
+      <article class="video-card">
+        <div class="video-frame">
+          <div class="placeholder">
+            <div class="play">▶</div>
+            <small>Video in arrivo</small>
+            <p style="margin-top:8px;font-size:.82rem">Il primo video sarà presto qui</p>
+          </div>
+        </div>
+        <div class="video-info">
+          <span class="tag">Esempio · Auto</span>
+          <h3>Mini Cooper S Countryman</h3>
+          <div class="spec">192 CV ALL4 AWD · 2018</div>
+          <div class="prezzo">€ 21.500</div>
+          <a class="btn-info" href="https://wa.me/393661178347?text=Ciao%20Lele!%20Ho%20visto%20il%20video%20della%20Mini%20Countryman%20sul%20canale.">Chiedi su WhatsApp</a>
+        </div>
+      </article>
+
+      <!-- ESEMPIO 3 (placeholder) -->
+      <article class="video-card">
+        <div class="video-frame">
+          <div class="placeholder">
+            <div class="play">▶</div>
+            <small>Video in arrivo</small>
+            <p style="margin-top:8px;font-size:.82rem">Il primo video sarà presto qui</p>
+          </div>
+        </div>
+        <div class="video-info">
+          <span class="tag">Esempio · Pick-up</span>
+          <h3>Isuzu BB+ Pick-up</h3>
+          <div class="spec">Pick-up 4x4 · Offerta</div>
+          <div class="prezzo">€ 33.000</div>
+          <a class="btn-info" href="https://wa.me/393661178347?text=Ciao%20Lele!%20Ho%20visto%20il%20video%20dell'Isuzu%20BB%2B%20sul%20canale.">Chiedi su WhatsApp</a>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <a href="index.html" class="logo">Telavende<span style="color:var(--bianco)">Lele</span></a>
+    <div>Gabriele Agliati — Lago di Como</div>
+    <div class="footer-links">
+      <a href="https://wa.me/393661178347">WhatsApp</a>
+      <a href="https://www.instagram.com/telavendelelenonsoloauto">Instagram</a>
+      <a href="https://www.facebook.com/Telavendelelelenonsoloauto">Facebook</a>
+    </div>
+    <div>© 2026 TelavendeLele · <a href="https://www.telavendelele.it">www.telavendelele.it</a></div>
+  </div>
+</footer>
+
+</body>
+</html>

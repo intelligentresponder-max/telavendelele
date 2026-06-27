@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Nasir Automobile — Partner ufficiale TelavendeLele nella regione Francoforte Rhein-Main. Veicoli verificati, controllo in loco, consegna al Lago di Como.">
+<meta name="keywords" content="Nasir Automobile, autohändler Frankfurt, TelavendeLele partner, auto Rhein-Main, veicoli Germania">
+<meta name="robots" content="index, follow">
+<title>Nasir Automobile — Partner TelavendeLele | Frankfurt Rhein-Main</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --oro:#B8963E;
+    --oro-chiaro:#d4af5a;
+    --nero:#0D0D0D;
+    --nero-2:#1A1A1A;
+    --grigio:#888;
+    --crema:#F5EDD8;
+    --wa:#25D366;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--nero);color:var(--crema);font-family:'Montserrat',sans-serif;font-weight:300;line-height:1.65;overflow-x:hidden}
+  h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:600;line-height:1.2}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+
+  header{position:sticky;top:0;z-index:50;background:rgba(13,13,13,.94);backdrop-filter:blur(12px);border-bottom:1px solid rgba(184,150,62,.2)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:64px;flex-wrap:wrap;gap:10px}
+  .logo{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--oro)}
+  .logo span{color:var(--crema)}
+  .nav-links{display:flex;gap:18px;font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;color:var(--grigio)}
+  .nav-links a:hover{color:var(--oro)}
+
+  .hero{text-align:center;padding:72px 0 50px;background:radial-gradient(circle at 50% 0%,rgba(184,150,62,.10),transparent 60%)}
+  .hero .badge{display:inline-block;border:1px solid rgba(184,150,62,.4);color:var(--oro);font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;padding:6px 16px;border-radius:50px;margin-bottom:22px}
+  .hero h1{font-size:clamp(2.4rem,6vw,3.6rem);margin-bottom:16px}
+  .hero h1 em{color:var(--oro);font-style:italic}
+  .hero p{color:var(--grigio);max-width:580px;margin:0 auto;font-size:1.04rem}
+  .hero .partner-of{margin-top:26px;font-size:.8rem;letter-spacing:.15em;text-transform:uppercase;color:var(--grigio)}
+  .hero .partner-of a{color:var(--oro)}
+
+  .sezione{padding:50px 0}
+  .sez-head{text-align:center;margin-bottom:40px}
+  .sez-head .kicker{color:var(--oro);letter-spacing:.25em;text-transform:uppercase;font-size:.7rem;margin-bottom:10px}
+  .sez-head h2{font-size:clamp(1.9rem,5vw,2.7rem)}
+
+  /* Vantaggi */
+  .grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px}
+  .feat{background:var(--nero-2);border:1px solid rgba(184,150,62,.15);border-radius:14px;padding:28px 24px;transition:border-color .25s,transform .25s}
+  .feat:hover{border-color:rgba(184,150,62,.45);transform:translateY(-3px)}
+  .feat .ico{font-size:1.8rem;margin-bottom:12px}
+  .feat h3{color:var(--oro-chiaro);font-size:1.35rem;margin-bottom:8px}
+  .feat p{color:var(--grigio);font-size:.92rem}
+
+  /* Veicoli placeholder */
+  .grid-car{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:24px}
+  .car{background:var(--nero-2);border:1px solid rgba(184,150,62,.15);border-radius:16px;overflow:hidden;transition:border-color .25s,transform .25s}
+  .car:hover{border-color:rgba(184,150,62,.45);transform:translateY(-4px)}
+  .car-img{aspect-ratio:16/10;background:linear-gradient(160deg,#222,#0D0D0D);display:flex;align-items:center;justify-content:center;color:var(--grigio);font-size:2.4rem}
+  .car-body{padding:18px 20px}
+  .car-body .tag{color:var(--oro);font-size:.66rem;letter-spacing:.15em;text-transform:uppercase}
+  .car-body h3{font-size:1.3rem;color:var(--crema);margin:6px 0 2px}
+  .car-body .spec{color:var(--grigio);font-size:.85rem;margin-bottom:12px}
+  .car-body .prezzo{color:var(--oro-chiaro);font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:600;margin-bottom:12px}
+  .btn-info{display:block;text-align:center;border:1px solid var(--oro);color:var(--oro);padding:9px;border-radius:50px;font-size:.82rem;transition:background .2s,color .2s}
+  .btn-info:hover{background:var(--oro);color:var(--nero)}
+
+  /* Contatto */
+  .contatto{background:var(--nero-2);border:1px solid rgba(184,150,62,.15);border-radius:16px;padding:36px 30px;text-align:center;max-width:640px;margin:0 auto}
+  .contatto h3{color:var(--oro-chiaro);font-size:1.8rem;margin-bottom:18px}
+  .contatto .row{display:flex;flex-direction:column;gap:10px;margin-bottom:22px;color:var(--grigio);font-size:.95rem}
+  .contatto .row b{color:var(--crema)}
+  .btn-wa{display:inline-flex;align-items:center;gap:8px;background:var(--wa);color:#fff;font-weight:500;padding:14px 32px;border-radius:50px;font-size:.95rem;transition:transform .2s}
+  .btn-wa:hover{transform:translateY(-2px)}
+
+  footer{text-align:center;padding:48px 0 36px;margin-top:40px;border-top:1px solid rgba(184,150,62,.15);color:var(--grigio);font-size:.82rem}
+  footer .logo{display:block;margin-bottom:12px;font-size:1.4rem}
+  footer a{color:var(--oro)}
+
+  .note{max-width:680px;margin:30px auto 0;padding:16px 20px;border-left:2px solid var(--oro);background:rgba(184,150,62,.06);color:var(--grigio);font-size:.85rem;border-radius:0 8px 8px 0}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <div class="logo">Nasir <span>Automobile</span></div>
+    <div class="nav-links">
+      <a href="#vantaggi">Perché noi</a>
+      <a href="#veicoli">Veicoli</a>
+      <a href="#contatto">Contatto</a>
+      <a href="index.html" style="color:var(--oro)">← TelavendeLele</a>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="badge">Partner ufficiale · Francoforte Rhein-Main</div>
+    <h1>Nasir <em>Automobile</em></h1>
+    <p>Il tuo rappresentante di fiducia in Germania. Veicoli verificati, controllo in loco e consegna diretta al Lago di Como — in collaborazione con TelavendeLele.</p>
+    <div class="partner-of">In partnership con <a href="index.html">TelavendeLele — Non solo Auto</a></div>
+  </div>
+</section>
+
+<section class="sezione" id="vantaggi">
+  <div class="wrap">
+    <div class="sez-head">
+      <div class="kicker">Il valore aggiunto</div>
+      <h2>Perché Nasir Automobile</h2>
+    </div>
+    <div class="grid3">
+      <div class="feat">
+        <div class="ico">🔍</div>
+        <h3>Controllo in loco</h3>
+        <p>Ogni veicolo viene ispezionato di persona nella regione Rhein-Main prima della vendita. Niente sorprese.</p>
+      </div>
+      <div class="feat">
+        <div class="ico">📹</div>
+        <h3>Video reale</h3>
+        <p>Ogni auto con un video di 60 secondi: pregi, difetti e dati tecnici. Trasparenza totale.</p>
+      </div>
+      <div class="feat">
+        <div class="ico">🚚</div>
+        <h3>Consegna al Como</h3>
+        <p>Dopo l'acquisto e la visione del video: bonifico immediato e trasferimento del veicolo al Lago di Como.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sezione" id="veicoli" style="background:var(--nero-2)">
+  <div class="wrap">
+    <div class="sez-head">
+      <div class="kicker">Disponibili ora</div>
+      <h2>I veicoli di Nasir</h2>
+    </div>
+    <div class="grid-car">
+      <!-- =================================================== -->
+      <!--  COME AGGIUNGERE UN VEICOLO (per Nasir):            -->
+      <!--  Copia un blocco <article class="car">...</article> -->
+      <!--  e cambia: emoji/foto, tag, nome, spec, prezzo,     -->
+      <!--  e il link WhatsApp finale.                         -->
+      <!-- =================================================== -->
+      <article class="car">
+        <div class="car-img">🚗</div>
+        <div class="car-body">
+          <span class="tag">Esempio · Berlina</span>
+          <h3>Veicolo dimostrativo</h3>
+          <div class="spec">Marca · Modello · Anno · km</div>
+          <div class="prezzo">€ —</div>
+          <a class="btn-info" href="https://wa.me/393661178347?text=Ciao!%20Sono%20interessato%20a%20un%20veicolo%20di%20Nasir%20Automobile.">Chiedi su WhatsApp</a>
+        </div>
+      </article>
+      <article class="car">
+        <div class="car-img">🚙</div>
+        <div class="car-body">
+          <span class="tag">Esempio · SUV</span>
+          <h3>Veicolo dimostrativo</h3>
+          <div class="spec">Marca · Modello · Anno · km</div>
+          <div class="prezzo">€ —</div>
+          <a class="btn-info" href="https://wa.me/393661178347?text=Ciao!%20Sono%20interessato%20a%20un%20veicolo%20di%20Nasir%20Automobile.">Chiedi su WhatsApp</a>
+        </div>
+      </article>
+      <article class="car">
+        <div class="car-img">🚐</div>
+        <div class="car-body">
+          <span class="tag">Esempio · Van</span>
+          <h3>Veicolo dimostrativo</h3>
+          <div class="spec">Marca · Modello · Anno · km</div>
+          <div class="prezzo">€ —</div>
+          <a class="btn-info" href="https://wa.me/393661178347?text=Ciao!%20Sono%20interessato%20a%20un%20veicolo%20di%20Nasir%20Automobile.">Chiedi su WhatsApp</a>
+        </div>
+      </article>
+    </div>
+    <div class="note">
+      <b style="color:var(--oro)">Nota interna:</b> Questa è una pagina dimostrativa. I veicoli reali, i recapiti e il logo di Nasir Automobile verranno inseriti dopo l'incontro. I dati di contatto qui sotto sono provvisori.
+    </div>
+  </div>
+</section>
+
+<section class="sezione" id="contatto">
+  <div class="wrap">
+    <div class="contatto">
+      <h3>Contatta Nasir Automobile</h3>
+      <div class="row">
+        <div><b>Sede:</b> Regione Francoforte Rhein-Main, Germania</div>
+        <div><b>Referente:</b> Nasir <span style="color:var(--grigio)">[da completare]</span></div>
+        <div><b>Specializzazione:</b> <span style="color:var(--grigio)">[marche / fascia di prezzo]</span></div>
+      </div>
+      <a class="btn-wa" href="https://wa.me/393661178347?text=Ciao!%20Vorrei%20informazioni%20su%20Nasir%20Automobile.">
+        Scrivi su WhatsApp
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <a href="index.html" class="logo">Telavende<span style="color:var(--crema)">Lele</span></a>
+    <div>Nasir Automobile — Partner ufficiale · Francoforte Rhein-Main</div>
+    <div style="margin-top:10px">© 2026 TelavendeLele · <a href="https://www.telavendelele.it">www.telavendelele.it</a></div>
+  </div>
+</footer>
+
+</body>
+</html>

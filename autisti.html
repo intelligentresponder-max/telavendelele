@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Diventa autista di trasferimento per TelavendeLele — ritira l'auto in Germania e portala al Lago di Como. Registrati: bastano patente e voglia di guidare.">
+<meta name="keywords" content="autista trasferimento, ritiro auto Germania, patente italiana, TelavendeLele, trasporto auto Como, guidatore">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.telavendelele.it/autisti.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Diventa autista di trasferimento — TelavendeLele">
+<meta property="og:description" content="Hai la patente? Ritira l'auto in Germania e portala al Lago di Como. Registrati in 2 minuti.">
+<meta property="og:locale" content="it_IT">
+<title>Diventa autista di trasferimento — TelavendeLele | Lago di Como</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --oro:#B8963E;
+    --oro-chiaro:#d4af5a;
+    --nero:#0D0D0D;
+    --nero-2:#1A1A1A;
+    --nero-3:#252525;
+    --grigio:#888;
+    --crema:#F5EDD8;
+    --wa:#25D366;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--nero);color:var(--crema);font-family:'Montserrat',sans-serif;font-weight:300;line-height:1.65;-webkit-font-smoothing:antialiased}
+  h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:600;line-height:1.2}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:680px;margin:0 auto;padding:0 22px}
+
+  header{position:sticky;top:0;z-index:50;background:rgba(13,13,13,.94);backdrop-filter:blur(12px);border-bottom:1px solid rgba(184,150,62,.2)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:60px;max-width:680px;margin:0 auto;padding:0 22px}
+  .logo{font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--oro)}
+  .logo span{color:var(--crema)}
+  .nav-back{font-size:.75rem;letter-spacing:.1em;color:var(--grigio)}
+  .nav-back:hover{color:var(--oro)}
+
+  .hero{text-align:center;padding:60px 0 36px;background:radial-gradient(circle at 50% 0%,rgba(184,150,62,.10),transparent 60%)}
+  .hero .kicker{color:var(--oro);letter-spacing:3px;text-transform:uppercase;font-size:.7rem;margin-bottom:16px}
+  .hero h1{font-size:clamp(2rem,6vw,3rem);margin-bottom:16px}
+  .hero h1 em{color:var(--oro);font-style:italic}
+  .hero p{color:var(--grigio);max-width:520px;margin:0 auto;font-size:1rem}
+
+  /* Vantaggi */
+  .perche{padding:30px 0}
+  .perche-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:16px}
+  .vc{background:var(--nero-2);border:1px solid rgba(184,150,62,.15);border-radius:12px;padding:20px 18px;text-align:center}
+  .vc .ico{font-size:1.6rem;margin-bottom:8px}
+  .vc h3{color:var(--oro-chiaro);font-size:1.1rem;margin-bottom:4px}
+  .vc p{color:var(--grigio);font-size:.82rem}
+
+  /* Form */
+  .form-sec{padding:20px 0 60px}
+  .form-card{background:var(--nero-2);border:1px solid rgba(184,150,62,.2);border-radius:18px;padding:32px 26px}
+  .form-card h2{font-size:1.7rem;margin-bottom:6px;text-align:center}
+  .form-card .sub{color:var(--grigio);font-size:.88rem;text-align:center;margin-bottom:26px}
+
+  .field{margin-bottom:18px}
+  .field label{display:block;font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;color:var(--oro);margin-bottom:7px}
+  .field input,.field select,.field textarea{width:100%;background:var(--nero-3);border:1px solid rgba(184,150,62,.2);border-radius:10px;padding:13px 15px;color:var(--crema);font-family:'Montserrat',sans-serif;font-size:.95rem;transition:border-color .2s,box-shadow .2s}
+  .field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--oro);box-shadow:0 0 0 3px rgba(184,150,62,.12)}
+  .field input::placeholder,.field textarea::placeholder{color:#555}
+  .field select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23B8963E' d='M6 9L1 4h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 15px center}
+  .field textarea{resize:vertical;min-height:80px}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+
+  .check-row{display:flex;align-items:flex-start;gap:10px;margin-bottom:18px}
+  .check-row input{width:18px;height:18px;margin-top:2px;flex-shrink:0;accent-color:var(--oro)}
+  .check-row label{font-size:.85rem;color:var(--grigio);text-transform:none;letter-spacing:0;line-height:1.4}
+
+  .btn-wa{display:block;width:100%;text-align:center;background:var(--wa);color:#fff;font-weight:600;letter-spacing:.3px;padding:16px;border:none;border-radius:50px;font-size:1rem;cursor:pointer;transition:transform .2s,box-shadow .2s;font-family:'Montserrat',sans-serif}
+  .btn-wa:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(37,211,102,.3)}
+  .btn-wa:disabled{background:var(--nero-3);color:#666;cursor:not-allowed;transform:none;box-shadow:none}
+
+  .privacy-note{text-align:center;color:var(--grigio);font-size:.74rem;margin-top:14px}
+  .feedback{text-align:center;color:var(--wa);font-size:.85rem;margin-top:14px;min-height:20px}
+
+  footer{text-align:center;padding:40px 0 36px;border-top:1px solid rgba(184,150,62,.15);color:var(--grigio);font-size:.8rem}
+  footer .logo{display:block;margin-bottom:12px;font-size:1.3rem}
+  footer a{color:var(--oro)}
+
+  @media(max-width:480px){.row2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <a href="index.html" class="logo">Telavende<span>Lele</span></a>
+    <a href="index.html" class="nav-back">← Torna al salone</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="kicker">Diventa autista di trasferimento</div>
+    <h1>Guida la tua<br>prossima <em>occasione</em>.</h1>
+    <p>Hai la patente e voglia di guidare? Ritira l'auto dal nostro partner in Germania e portala al Lago di Como. Ti registri una volta — ti contattiamo quando c'è un trasferimento adatto a te.</p>
+  </div>
+</section>
+
+<section class="perche">
+  <div class="wrap">
+    <div class="perche-grid">
+      <div class="vc">
+        <div class="ico">🪪</div>
+        <h3>Basta la patente</h3>
+        <p>Patente B valida e un documento d'identità.</p>
+      </div>
+      <div class="vc">
+        <div class="ico">🚗</div>
+        <h3>Ritiro in Germania</h3>
+        <p>Prendi l'auto dal partner nella zona di Francoforte.</p>
+      </div>
+      <div class="vc">
+        <div class="ico">🏔️</div>
+        <h3>Consegna al Como</h3>
+        <p>Porti il veicolo fino al Lago di Como.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="form-sec">
+  <div class="wrap">
+    <div class="form-card">
+      <h2>Registrati come autista</h2>
+      <p class="sub">Compila i campi — al clic finale si apre WhatsApp con i tuoi dati già pronti per Lele.</p>
+
+      <div class="field">
+        <label>Nome e cognome</label>
+        <input type="text" id="nome" placeholder="Mario Rossi">
+      </div>
+
+      <div class="row2">
+        <div class="field">
+          <label>Telefono / WhatsApp</label>
+          <input type="tel" id="tel" placeholder="+39 ...">
+        </div>
+        <div class="field">
+          <label>Città / Zona</label>
+          <input type="text" id="citta" placeholder="Como, Lecco...">
+        </div>
+      </div>
+
+      <div class="row2">
+        <div class="field">
+          <label>Patente dal (anno)</label>
+          <input type="number" id="patente" inputmode="numeric" placeholder="2010" min="1960" max="2026">
+        </div>
+        <div class="field">
+          <label>Disponibilità</label>
+          <select id="dispo">
+            <option value="">Seleziona...</option>
+            <option>Nei weekend</option>
+            <option>In settimana</option>
+            <option>Flessibile / su accordo</option>
+            <option>Solo periodi specifici</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Cosa puoi offrire</label>
+        <select id="servizio">
+          <option value="">Seleziona...</option>
+          <option>Ritiro e trasferimento completo (Germania → Como)</option>
+          <option>Solo guida / trasferimento</option>
+          <option>Ritiro in loco in Germania</option>
+          <option>Accompagnatore / secondo autista</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Esperienza con lunghe percorrenze <span style="color:var(--grigio);text-transform:none;letter-spacing:0">(facoltativo)</span></label>
+        <textarea id="note" placeholder="Es. guido spesso in autostrada, conosco la tratta Germania-Italia, ho già fatto trasferimenti..."></textarea>
+      </div>
+
+      <div class="check-row">
+        <input type="checkbox" id="consenso">
+        <label for="consenso">Confermo di avere una patente valida e acconsento a essere contattato da TelavendeLele su WhatsApp per i trasferimenti. Nessun dato viene salvato su questo sito.</label>
+      </div>
+
+      <button class="btn-wa" id="invia" disabled>Invia la candidatura su WhatsApp</button>
+      <p class="feedback" id="feedback"></p>
+      <p class="privacy-note">I tuoi dati vengono inviati solo tramite WhatsApp a Lele. Conforme GDPR — nessun salvataggio sul sito.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <a href="index.html" class="logo">Telavende<span style="color:var(--crema)">Lele</span></a>
+    <div>Gabriele Agliati — Lago di Como</div>
+    <div style="margin-top:10px">© 2026 TelavendeLele · <a href="https://www.telavendelele.it">www.telavendelele.it</a></div>
+  </div>
+</footer>
+
+<script>
+  const consenso = document.getElementById('consenso');
+  const invia = document.getElementById('invia');
+  const feedback = document.getElementById('feedback');
+
+  consenso.addEventListener('change', ()=>{
+    invia.disabled = !consenso.checked;
+  });
+
+  function val(id){ return (document.getElementById(id).value || '').trim(); }
+
+  invia.addEventListener('click', ()=>{
+    const nome = val('nome');
+    const tel = val('tel');
+    if(!nome || !tel){
+      feedback.style.color = '#C0573F';
+      feedback.textContent = 'Inserisci almeno nome e telefono.';
+      return;
+    }
+    const testo =
+      'Ciao Lele! Vorrei candidarmi come autista di trasferimento 🚗\n\n' +
+      'Nome: ' + nome + '\n' +
+      'Telefono: ' + tel + '\n' +
+      'Città: ' + (val('citta') || '-') + '\n' +
+      'Patente dal: ' + (val('patente') || '-') + '\n' +
+      'Disponibilità: ' + (val('dispo') || '-') + '\n' +
+      'Servizio: ' + (val('servizio') || '-') + '\n' +
+      'Note: ' + (val('note') || '-');
+    const url = 'https://wa.me/393661178347?text=' + encodeURIComponent(testo);
+    feedback.style.color = '#25D366';
+    feedback.textContent = 'Apertura WhatsApp...';
+    window.open(url, '_blank');
+  });
+</script>
+
+</body>
+</html>

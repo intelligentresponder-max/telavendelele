@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="ASGlobal — André Schwarz, partner digitale e di acquisizione di TelavendeLele. Contatto diretto con i venditori, raccolta video, piattaforma e ricerca veicoli.">
+<meta name="keywords" content="ASGlobal, André Schwarz, TelavendeLele partner, digitalizzazione, acquisizione veicoli, Frankfurt">
+<meta name="robots" content="index, follow">
+<title>ASGlobal — Partner Digitale TelavendeLele | André Schwarz</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --oro:#B8963E;
+    --oro-chiaro:#d4af5a;
+    --nero:#0D0D0D;
+    --nero-2:#1A1A1A;
+    --grigio:#888;
+    --crema:#F5EDD8;
+    --wa:#25D366;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--nero);color:var(--crema);font-family:'Montserrat',sans-serif;font-weight:300;line-height:1.65;overflow-x:hidden}
+  h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:600;line-height:1.2}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+
+  header{position:sticky;top:0;z-index:50;background:rgba(13,13,13,.94);backdrop-filter:blur(12px);border-bottom:1px solid rgba(184,150,62,.2)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:64px;flex-wrap:wrap;gap:10px}
+  .logo{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--oro)}
+  .logo span{color:var(--crema)}
+  .nav-links{display:flex;gap:18px;font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;color:var(--grigio)}
+  .nav-links a:hover{color:var(--oro)}
+
+  .hero{text-align:center;padding:72px 0 50px;background:radial-gradient(circle at 50% 0%,rgba(184,150,62,.10),transparent 60%)}
+  .hero .badge{display:inline-block;border:1px solid rgba(184,150,62,.4);color:var(--oro);font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;padding:6px 16px;border-radius:50px;margin-bottom:22px}
+  .hero h1{font-size:clamp(2.4rem,6vw,3.6rem);margin-bottom:16px}
+  .hero h1 em{color:var(--oro);font-style:italic}
+  .hero p{color:var(--grigio);max-width:600px;margin:0 auto;font-size:1.04rem}
+  .hero .partner-of{margin-top:26px;font-size:.8rem;letter-spacing:.15em;text-transform:uppercase;color:var(--grigio)}
+  .hero .partner-of a{color:var(--oro)}
+
+  .sezione{padding:50px 0}
+  .sez-head{text-align:center;margin-bottom:40px}
+  .sez-head .kicker{color:var(--oro);letter-spacing:.25em;text-transform:uppercase;font-size:.7rem;margin-bottom:10px}
+  .sez-head h2{font-size:clamp(1.9rem,5vw,2.7rem)}
+
+  .grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px}
+  .feat{background:var(--nero-2);border:1px solid rgba(184,150,62,.15);border-radius:14px;padding:28px 24px;transition:border-color .25s,transform .25s}
+  .feat:hover{border-color:rgba(184,150,62,.45);transform:translateY(-3px)}
+  .feat .ico{font-size:1.8rem;margin-bottom:12px}
+  .feat h3{color:var(--oro-chiaro);font-size:1.35rem;margin-bottom:8px}
+  .feat p{color:var(--grigio);font-size:.92rem}
+
+  /* Servizi list */
+  .servizi{max-width:760px;margin:0 auto}
+  .servizio{display:flex;gap:18px;align-items:flex-start;background:var(--nero-2);border:1px solid rgba(184,150,62,.15);border-radius:14px;padding:22px 24px;margin-bottom:16px;transition:border-color .25s}
+  .servizio:hover{border-color:rgba(184,150,62,.4)}
+  .servizio .ico{flex-shrink:0;font-size:1.6rem;width:44px;height:44px;display:flex;align-items:center;justify-content:center;border:1px solid rgba(184,150,62,.3);border-radius:50%}
+  .servizio h3{color:var(--oro-chiaro);font-size:1.25rem;margin-bottom:4px}
+  .servizio p{color:var(--grigio);font-size:.92rem}
+
+  /* Flow */
+  .flow{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;max-width:900px;margin:0 auto}
+  .flow-step{background:var(--nero-2);border:1px solid rgba(184,150,62,.2);border-radius:12px;padding:22px 16px;text-align:center}
+  .flow-step .n{width:40px;height:40px;border:1px solid var(--oro);border-radius:50%;color:var(--oro);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-family:'Cormorant Garamond',serif;font-size:1.3rem}
+  .flow-step b{display:block;color:var(--crema);font-weight:500;margin-bottom:4px;font-size:.95rem}
+  .flow-step span{color:var(--grigio);font-size:.82rem}
+
+  .contatto{background:var(--nero-2);border:1px solid rgba(184,150,62,.15);border-radius:16px;padding:36px 30px;text-align:center;max-width:640px;margin:0 auto}
+  .contatto h3{color:var(--oro-chiaro);font-size:1.8rem;margin-bottom:18px}
+  .contatto .row{display:flex;flex-direction:column;gap:10px;margin-bottom:22px;color:var(--grigio);font-size:.95rem}
+  .contatto .row b{color:var(--crema)}
+  .btn-wa{display:inline-flex;align-items:center;gap:8px;background:var(--wa);color:#fff;font-weight:500;padding:14px 32px;border-radius:50px;font-size:.95rem;transition:transform .2s}
+  .btn-wa:hover{transform:translateY(-2px)}
+
+  footer{text-align:center;padding:48px 0 36px;margin-top:40px;border-top:1px solid rgba(184,150,62,.15);color:var(--grigio);font-size:.82rem}
+  footer .logo{display:block;margin-bottom:12px;font-size:1.4rem}
+  footer a{color:var(--oro)}
+
+  .note{max-width:680px;margin:30px auto 0;padding:16px 20px;border-left:2px solid var(--oro);background:rgba(184,150,62,.06);color:var(--grigio);font-size:.85rem;border-radius:0 8px 8px 0}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <div class="logo">AS<span>Global</span></div>
+    <div class="nav-links">
+      <a href="#ruolo">Il ruolo</a>
+      <a href="#servizi">Servizi</a>
+      <a href="#processo">Processo</a>
+      <a href="#contatto">Contatto</a>
+      <a href="index.html" style="color:var(--oro)">← TelavendeLele</a>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="badge">Partner digitale &amp; acquisizione · Francoforte</div>
+    <h1>AS<em>Global</em></h1>
+    <p>Il motore digitale di TelavendeLele. André Schwarz collega la domanda italiana con l'offerta tedesca — costruisce la piattaforma e contatta direttamente i venditori per portare nuovi veicoli e video.</p>
+    <div class="partner-of">In partnership con <a href="index.html">TelavendeLele</a> &amp; <a href="partner.html">Nasir Automobile</a></div>
+  </div>
+</section>
+
+<section class="sezione" id="ruolo">
+  <div class="wrap">
+    <div class="sez-head">
+      <div class="kicker">Chi è ASGlobal</div>
+      <h2>L'architetto della rete</h2>
+    </div>
+    <div class="grid3">
+      <div class="feat">
+        <div class="ico">🌐</div>
+        <h3>La piattaforma</h3>
+        <p>Sito web, vetrina, canale video, agente di ricerca e funnel di vendita — tutto costruito e gestito da ASGlobal.</p>
+      </div>
+      <div class="feat">
+        <div class="ico">📞</div>
+        <h3>Acquisizione attiva</h3>
+        <p>André contatta personalmente i venditori, spiega il processo e raccoglie i video dei veicoli da presentare.</p>
+      </div>
+      <div class="feat">
+        <div class="ico">🔗</div>
+        <h3>Il collegamento</h3>
+        <p>ASGlobal è il punto d'incontro tra Lele in Italia, Nasir a Francoforte e i clienti del Lago di Como.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sezione" id="servizi" style="background:var(--nero-2)">
+  <div class="wrap">
+    <div class="sez-head">
+      <div class="kicker">Cosa offre ASGlobal</div>
+      <h2>Servizi</h2>
+    </div>
+    <div class="servizi">
+      <div class="servizio">
+        <div class="ico">💻</div>
+        <div>
+          <h3>Digitalizzazione completa</h3>
+          <p>Costruzione e manutenzione del sito, SEO multilingue (IT/DE), pagine di vendita e canale video — pronto a scalare verso Francia e oltre.</p>
+        </div>
+      </div>
+      <div class="servizio">
+        <div class="ico">🎥</div>
+        <div>
+          <h3>Raccolta video venditori</h3>
+          <p>André contatta i proprietari, li guida nel girare il video da 60 secondi e raccoglie il materiale per la presentazione.</p>
+        </div>
+      </div>
+      <div class="servizio">
+        <div class="ico">🤖</div>
+        <div>
+          <h3>Agente di ricerca veicoli</h3>
+          <p>Sistema che incrocia le richieste dei clienti con i veicoli disponibili e notifica automaticamente i partner.</p>
+        </div>
+      </div>
+      <div class="servizio">
+        <div class="ico">📲</div>
+        <div>
+          <h3>QR &amp; marketing locale</h3>
+          <p>Poster QR per il Lago di Como, integrazione WhatsApp e materiali di presentazione per i partner.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sezione" id="processo">
+  <div class="wrap">
+    <div class="sez-head">
+      <div class="kicker">Come lavora ASGlobal</div>
+      <h2>Il processo</h2>
+    </div>
+    <div class="flow">
+      <div class="flow-step"><div class="n">1</div><b>Contatto</b><span>André raggiunge i venditori potenziali</span></div>
+      <div class="flow-step"><div class="n">2</div><b>Video</b><span>Guida il venditore nel girare il video</span></div>
+      <div class="flow-step"><div class="n">3</div><b>Piattaforma</b><span>Pubblica il veicolo sul canale</span></div>
+      <div class="flow-step"><div class="n">4</div><b>Match</b><span>L'agente collega cliente e veicolo</span></div>
+      <div class="flow-step"><div class="n">5</div><b>Chiusura</b><span>Bonifico, consegna, margine condiviso</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="sezione" id="contatto">
+  <div class="wrap">
+    <div class="contatto">
+      <h3>Contatta ASGlobal</h3>
+      <div class="row">
+        <div><b>Referente:</b> André Schwarz</div>
+        <div><b>Sede:</b> Francoforte sul Meno, Germania</div>
+        <div><b>Ruolo:</b> Partner digitale &amp; acquisizione</div>
+      </div>
+      <a class="btn-wa" href="https://wa.me/393661178347?text=Ciao!%20Vorrei%20informazioni%20su%20ASGlobal%20e%20TelavendeLele.">
+        Scrivi su WhatsApp
+      </a>
+    </div>
+    <div class="note">
+      <b style="color:var(--oro)">Nota:</b> ASGlobal è il marchio di André in fase di costituzione. I recapiti diretti (telefono, email, logo) verranno aggiornati a breve.
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <a href="index.html" class="logo">Telavende<span style="color:var(--crema)">Lele</span></a>
+    <div>ASGlobal — André Schwarz · Francoforte sul Meno</div>
+    <div style="margin-top:10px">© 2026 TelavendeLele · <a href="https://www.telavendelele.it">www.telavendelele.it</a></div>
+  </div>
+</footer>
+
+</body>
+</html>

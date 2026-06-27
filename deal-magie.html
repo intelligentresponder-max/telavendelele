@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Deal-Magie 777 — der Margen-Rechner für TelavendeLele. Berechne Einkaufspreis, Überführung und Gewinnspanne live, inkl. Dreiteilung Nasir/Lele/ASGlobal.">
+<meta name="robots" content="noindex">
+<title>Deal-Magie 777 — Margen-Rechner | TelavendeLele</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Montserrat:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --oro:#B8963E;
+    --oro-chiaro:#E3C878;
+    --oro-glow:#FFD970;
+    --nero:#0A0A0A;
+    --nero-2:#151515;
+    --nero-3:#1E1E1E;
+    --grigio:#8a8a8a;
+    --crema:#F5EDD8;
+    --verde:#3FB55C;
+    --rosso:#C0573F;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--nero);
+    color:var(--crema);
+    font-family:'Montserrat',sans-serif;
+    font-weight:300;
+    line-height:1.6;
+    min-height:100vh;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:600;line-height:1.15}
+  a{color:inherit;text-decoration:none}
+  .mono{font-family:'Space Mono',monospace}
+
+  /* Ambient stars background */
+  .stars{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.5}
+  .star{position:absolute;background:var(--oro-glow);border-radius:50%;animation:twinkle 4s infinite ease-in-out}
+  @keyframes twinkle{0%,100%{opacity:.15;transform:scale(.8)}50%{opacity:.8;transform:scale(1.2)}}
+
+  header{position:relative;z-index:5;border-bottom:1px solid rgba(184,150,62,.18);background:rgba(10,10,10,.8);backdrop-filter:blur(10px)}
+  .nav{max-width:760px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:60px;padding:0 22px}
+  .logo{font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--oro)}
+  .logo span{color:var(--crema)}
+  .nav-back{font-size:.75rem;letter-spacing:.1em;color:var(--grigio)}
+  .nav-back:hover{color:var(--oro)}
+
+  .wrap{position:relative;z-index:5;max-width:760px;margin:0 auto;padding:0 22px}
+
+  /* Hero */
+  .intro{text-align:center;padding:54px 0 30px}
+  .seven{font-family:'Cormorant Garamond',serif;font-size:3.4rem;letter-spacing:.05em;background:linear-gradient(135deg,var(--oro),var(--oro-glow),var(--oro));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:6px;filter:drop-shadow(0 2px 14px rgba(184,150,62,.3))}
+  .intro h1{font-size:2.1rem;margin-bottom:10px}
+  .intro h1 em{color:var(--oro);font-style:italic}
+  .intro p{color:var(--grigio);font-size:.95rem;max-width:440px;margin:0 auto}
+
+  /* Calculator card */
+  .calc{background:linear-gradient(160deg,var(--nero-2),var(--nero));border:1px solid rgba(184,150,62,.25);border-radius:20px;padding:32px 28px;margin:24px 0 40px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+
+  .field{margin-bottom:22px}
+  .field label{display:block;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--oro);margin-bottom:8px}
+  .field .hint{color:var(--grigio);font-size:.72rem;text-transform:none;letter-spacing:0;margin-left:6px}
+  .input-eur{position:relative}
+  .input-eur::before{content:"€";position:absolute;left:16px;top:50%;transform:translateY(-50%);color:var(--oro);font-family:'Space Mono',monospace;font-size:1.1rem}
+  .field input{width:100%;background:var(--nero-3);border:1px solid rgba(184,150,62,.2);border-radius:12px;padding:14px 16px 14px 38px;color:var(--crema);font-family:'Space Mono',monospace;font-size:1.15rem;transition:border-color .2s,box-shadow .2s}
+  .field input:focus{outline:none;border-color:var(--oro);box-shadow:0 0 0 3px rgba(184,150,62,.12)}
+  .field input::placeholder{color:#555}
+
+  /* Margin slider */
+  .slider-row{display:flex;align-items:center;gap:16px}
+  .slider-row input[type=range]{flex:1;-webkit-appearance:none;appearance:none;height:6px;border-radius:6px;background:linear-gradient(90deg,var(--oro) 0%,var(--oro) 50%,var(--nero-3) 50%);outline:none}
+  .slider-row input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:radial-gradient(circle at 35% 35%,var(--oro-glow),var(--oro));cursor:pointer;box-shadow:0 0 12px rgba(184,150,62,.5)}
+  .slider-row input[type=range]::-moz-range-thumb{width:22px;height:22px;border:none;border-radius:50%;background:var(--oro);cursor:pointer}
+  .slider-val{font-family:'Space Mono',monospace;font-size:1.3rem;color:var(--oro-chiaro);min-width:62px;text-align:right}
+
+  /* Results */
+  .results{margin-top:8px}
+  .res-row{display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.06)}
+  .res-row .lbl{color:var(--grigio);font-size:.9rem}
+  .res-row .val{font-family:'Space Mono',monospace;font-size:1.1rem;color:var(--crema)}
+  .res-row.big{padding:20px 0}
+  .res-row.big .lbl{color:var(--crema);font-size:1rem;font-weight:500}
+  .res-row.big .val{font-size:1.6rem;color:var(--oro-chiaro);font-weight:700}
+
+  /* Profit split */
+  .split{margin-top:24px}
+  .split-title{text-align:center;font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:var(--oro);margin-bottom:16px}
+  .split-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  .split-card{background:var(--nero-3);border:1px solid rgba(184,150,62,.2);border-radius:14px;padding:18px 10px;text-align:center;transition:transform .25s,border-color .25s}
+  .split-card:hover{transform:translateY(-3px);border-color:rgba(184,150,62,.5)}
+  .split-card .who{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--grigio);margin-bottom:6px}
+  .split-card .amt{font-family:'Space Mono',monospace;font-size:1.15rem;color:var(--oro-chiaro);font-weight:700}
+
+  /* Verdict */
+  .verdict{margin-top:26px;text-align:center;padding:22px;border-radius:16px;font-size:1.05rem;transition:all .4s;min-height:72px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+  .verdict.neutral{background:var(--nero-3);color:var(--grigio)}
+  .verdict.good{background:linear-gradient(135deg,rgba(63,181,92,.12),rgba(184,150,62,.1));border:1px solid rgba(63,181,92,.3);color:var(--crema)}
+  .verdict.weak{background:rgba(192,87,63,.08);border:1px solid rgba(192,87,63,.3);color:var(--crema)}
+  .verdict .vtitle{font-family:'Cormorant Garamond',serif;font-size:1.5rem;margin-bottom:4px}
+  .verdict.good .vtitle{color:var(--oro-glow)}
+
+  /* 777 Magic overlay */
+  .magic{position:fixed;inset:0;z-index:50;pointer-events:none;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .3s}
+  .magic.show{opacity:1}
+  .magic-777{font-family:'Cormorant Garamond',serif;font-size:8rem;font-weight:700;background:linear-gradient(135deg,var(--oro),var(--oro-glow),#fff,var(--oro));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:.1em;transform:scale(.3);opacity:0}
+  .magic.show .magic-777{animation:pop777 1.6s cubic-bezier(.2,.8,.2,1) forwards}
+  @keyframes pop777{0%{transform:scale(.3) rotate(-8deg);opacity:0}40%{transform:scale(1.15) rotate(3deg);opacity:1}60%{transform:scale(1) rotate(0)}85%{opacity:1}100%{transform:scale(1.05);opacity:0}}
+  .spark{position:absolute;width:8px;height:8px;border-radius:50%;background:var(--oro-glow);opacity:0}
+  .magic.show .spark{animation:fly 1.4s ease-out forwards}
+  @keyframes fly{0%{opacity:1;transform:translate(0,0) scale(1)}100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(0)}}
+
+  footer{position:relative;z-index:5;text-align:center;padding:30px 0 40px;color:var(--grigio);font-size:.78rem;border-top:1px solid rgba(184,150,62,.12)}
+  footer a{color:var(--oro)}
+
+  @media(max-width:480px){
+    .seven{font-size:2.6rem}
+    .intro h1{font-size:1.7rem}
+    .calc{padding:26px 20px}
+    .magic-777{font-size:5rem}
+    .split-card .amt{font-size:1rem}
+  }
+  @media(prefers-reduced-motion:reduce){
+    .star,.magic.show .magic-777,.magic.show .spark{animation:none}
+    .magic.show .magic-777{opacity:1;transform:scale(1)}
+  }
+</style>
+</head>
+<body>
+
+<div class="stars" id="stars"></div>
+
+<header>
+  <nav class="nav">
+    <a href="index.html" class="logo">Telavende<span>Lele</span></a>
+    <a href="index.html" class="nav-back">← Zurück</a>
+  </nav>
+</header>
+
+<main class="wrap">
+  <section class="intro">
+    <div class="seven">777</div>
+    <h1>Deal-<em>Magie</em></h1>
+    <p>Rechne in Sekunden, ob sich ein Fahrzeug für den Comer See lohnt — und was für jeden im Team übrig bleibt.</p>
+  </section>
+
+  <section class="calc">
+    <div class="field">
+      <label>Einkaufspreis in Deutschland <span class="hint">was Nasir zahlt</span></label>
+      <div class="input-eur">
+        <input type="number" id="einkauf" inputmode="decimal" placeholder="z. B. 15000" min="0">
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Überführung zum Comer See <span class="hint">Transport, Sprit, Aufwand</span></label>
+      <div class="input-eur">
+        <input type="number" id="ueberfuehrung" inputmode="decimal" placeholder="z. B. 400" min="0">
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Ziel-Gewinnspanne</label>
+      <div class="slider-row">
+        <input type="range" id="marge" min="5" max="50" value="20" step="1">
+        <div class="slider-val mono"><span id="margeVal">20</span>%</div>
+      </div>
+    </div>
+
+    <div class="results" id="results">
+      <div class="res-row">
+        <span class="lbl">Gesamtkosten (Einkauf + Überführung)</span>
+        <span class="val" id="kosten">€ 0</span>
+      </div>
+      <div class="res-row big">
+        <span class="lbl">Nötiger Verkaufspreis am Comer See</span>
+        <span class="val" id="verkauf">€ 0</span>
+      </div>
+      <div class="res-row">
+        <span class="lbl">Gewinn gesamt</span>
+        <span class="val" id="gewinn" style="color:var(--verde)">€ 0</span>
+      </div>
+    </div>
+
+    <div class="split">
+      <div class="split-title">Gewinn-Dreiteilung</div>
+      <div class="split-grid">
+        <div class="split-card">
+          <div class="who">Nasir</div>
+          <div class="amt" id="sNasir">€ 0</div>
+        </div>
+        <div class="split-card">
+          <div class="who">Lele</div>
+          <div class="amt" id="sLele">€ 0</div>
+        </div>
+        <div class="split-card">
+          <div class="who">ASGlobal</div>
+          <div class="amt" id="sAS">€ 0</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="verdict neutral" id="verdict">
+      <div>Gib einen Einkaufspreis ein, um die Magie zu starten.</div>
+    </div>
+  </section>
+</main>
+
+<div class="magic" id="magic">
+  <div class="magic-777">777</div>
+</div>
+
+<footer>
+  <div class="wrap">
+    Deal-Magie 777 · internes Werkzeug für <a href="index.html">TelavendeLele</a><br>
+    Alle Werte werden nur in deinem Browser berechnet — nichts wird gespeichert.
+  </div>
+</footer>
+
+<script>
+  // Ambient stars
+  (function(){
+    const c = document.getElementById('stars');
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const n = reduce ? 0 : 40;
+    for(let i=0;i<n;i++){
+      const s = document.createElement('div');
+      s.className='star';
+      const size = Math.random()*2+1;
+      s.style.width=s.style.height=size+'px';
+      s.style.left=Math.random()*100+'%';
+      s.style.top=Math.random()*100+'%';
+      s.style.animationDelay=Math.random()*4+'s';
+      c.appendChild(s);
+    }
+  })();
+
+  const einkauf = document.getElementById('einkauf');
+  const ueberf  = document.getElementById('ueberfuehrung');
+  const marge   = document.getElementById('marge');
+  const margeVal= document.getElementById('margeVal');
+  const verdictEl = document.getElementById('verdict');
+  const magic = document.getElementById('magic');
+
+  const fmt = n => '€ ' + (Math.round(n)).toLocaleString('de-DE');
+
+  let magicArmed = false;   // verhindert Dauerfeuer der Animation
+  let magicCooldown = false;
+
+  function calc(){
+    const e = parseFloat(einkauf.value) || 0;
+    const u = parseFloat(ueberf.value) || 0;
+    const m = parseFloat(marge.value) || 0;
+
+    // Slider-Füllung
+    const pct = ((m-5)/(50-5))*100;
+    marge.style.background = `linear-gradient(90deg, var(--oro) 0%, var(--oro) ${pct}%, var(--nero-3) ${pct}%)`;
+    margeVal.textContent = m;
+
+    const kosten = e + u;
+    const verkauf = kosten * (1 + m/100);
+    const gewinn = verkauf - kosten;
+    const drittel = gewinn/3;
+
+    document.getElementById('kosten').textContent = fmt(kosten);
+    document.getElementById('verkauf').textContent = fmt(verkauf);
+    document.getElementById('gewinn').textContent = fmt(gewinn);
+    document.getElementById('sNasir').textContent = fmt(drittel);
+    document.getElementById('sLele').textContent  = fmt(drittel);
+    document.getElementById('sAS').textContent    = fmt(drittel);
+
+    // Verdict
+    if(e <= 0){
+      verdictEl.className = 'verdict neutral';
+      verdictEl.innerHTML = '<div>Gib einen Einkaufspreis ein, um die Magie zu starten.</div>';
+      magicArmed = false;
+      return;
+    }
+    if(m >= 20){
+      verdictEl.className = 'verdict good';
+      verdictEl.innerHTML = '<div class="vtitle">✨ Goldener Deal</div><div>Bei '+m+'% Marge bleiben '+fmt(drittel)+' pro Partner. Das lohnt sich.</div>';
+      // Magie nur ausloesen, wenn frisch die 20% erreicht/ueberschritten werden
+      if(!magicArmed && !magicCooldown){
+        triggerMagic();
+      }
+      magicArmed = true;
+    } else {
+      verdictEl.className = 'verdict weak';
+      verdictEl.innerHTML = '<div class="vtitle">Noch unter Ziel</div><div>Bei '+m+'% Marge sind es nur '+fmt(drittel)+' pro Partner. Preis oder Marge prüfen.</div>';
+      magicArmed = false;
+    }
+  }
+
+  function triggerMagic(){
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // Funken erzeugen
+    magic.querySelectorAll('.spark').forEach(s=>s.remove());
+    if(!reduce){
+      for(let i=0;i<24;i++){
+        const sp = document.createElement('div');
+        sp.className='spark';
+        const ang = (Math.PI*2)*(i/24);
+        const dist = 160 + Math.random()*120;
+        sp.style.setProperty('--dx', Math.cos(ang)*dist+'px');
+        sp.style.setProperty('--dy', Math.sin(ang)*dist+'px');
+        sp.style.left='50%'; sp.style.top='50%';
+        sp.style.animationDelay=(Math.random()*.2)+'s';
+        magic.appendChild(sp);
+      }
+    }
+    magic.classList.add('show');
+    magicCooldown = true;
+    setTimeout(()=>{ magic.classList.remove('show'); }, 1600);
+    setTimeout(()=>{ magicCooldown = false; }, 2000);
+  }
+
+  einkauf.addEventListener('input', calc);
+  ueberf.addEventListener('input', calc);
+  marge.addEventListener('input', calc);
+  calc();
+</script>
+
+</body>
+</html>
